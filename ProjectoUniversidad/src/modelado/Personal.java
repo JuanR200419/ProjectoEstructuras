@@ -4,13 +4,14 @@
  */
 package modelado;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 
 /**
  *
  * @author Juan Manuel
  */
-public class Personal  extends Usuario{
+public class Personal  extends Usuario implements Serializable{
     
    private String nombre;
    private String id;

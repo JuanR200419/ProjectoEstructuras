@@ -4,19 +4,20 @@
  */
 package modelado;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 
 /**
  *
  * @author Juan Manuel
  */
-public class Mantenimiento {
+public class Mantenimiento implements Serializable {
      public static final String DISPONIBLE = "Disponible ";
     public static final String OCUPADO = "Ocupado";
     private String estado;
     LocalDate fechaMantenimiento;
 
-    public Mantenimiento() {
+    public Mantenimiento()  {
         this.estado = DISPONIBLE;
         this.fechaMantenimiento = null;
     }

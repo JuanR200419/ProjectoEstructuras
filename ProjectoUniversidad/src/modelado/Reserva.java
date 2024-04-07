@@ -4,13 +4,14 @@
  */
 package modelado;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 
 /**
  *
  * @author Juan Manuel
  */
-public class Reserva {
+public class Reserva implements Serializable {
     Estudiante estudiante;
     LocalDate fecha;
     LocalDate horaInicio;

@@ -4,6 +4,7 @@
  */
 package modelado;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import util.IList;
@@ -13,7 +14,7 @@ import util.Lista;
  *
  * @author Juan Manuel
  */
-public class Docente extends Personal {
+public class Docente extends Personal implements Serializable {
     ArrayList <Curso>listaCursos ;
 
     public Docente(String nombre, String id, LocalDate fechaNacimiento, String nommbreUsuario, String contrasena) {

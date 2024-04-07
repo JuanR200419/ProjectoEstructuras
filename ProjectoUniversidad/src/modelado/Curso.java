@@ -4,6 +4,7 @@
  */
 package modelado;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
@@ -11,14 +12,14 @@ import java.util.ArrayList;
  *
  * @author Juan Manuel
  */
-public class Curso {
+public class Curso implements Serializable {
     String nombre;
     Docente docente;
     ArrayList<Estudiante>listaEstudiantes;
+    String periodo;
     LocalDate horario;
     String materia;
     String codigoDeCurso;
-
     public Curso(String nombre, Docente docente, LocalDate horario, String materia, String codigoDeCurso) {
         this.nombre = nombre;
         this.docente = docente;
@@ -74,7 +75,5 @@ public class Curso {
 
     public void setMateria(String materia) {
         this.materia = materia;
-    }
-    
-    
+    }    
 }

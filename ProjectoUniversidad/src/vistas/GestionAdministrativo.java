@@ -4,17 +4,34 @@
  */
 package vistas;
 
+import com.toedter.calendar.JDateChooser;
+import com.toedter.calendar.JTextFieldDateEditor;
+import controladores.ControladorGestionAdministrativo;
+import java.awt.event.KeyAdapter;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.Date;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import modelado.AdminLaboratorio;
+import modelado.Administrativo;
+import modelado.Docente;
+import modelado.Personal;
+
 /**
  *
  * @author Juan Manuel
  */
 public class GestionAdministrativo extends javax.swing.JFrame {
 
-    /**
-     * Creates new form GestionAdministrativo
-     */
+    ControladorGestionAdministrativo control;
+
     public GestionAdministrativo() {
         initComponents();
+        this.control = new ControladorGestionAdministrativo();
+        actualizarTablaAdmin();
+        actualizarTablaDocente();
+        desactivarTextodate();
     }
 
     /**
@@ -42,6 +59,8 @@ public class GestionAdministrativo extends javax.swing.JFrame {
         btnBuscarAdmin = new javax.swing.JButton();
         btnBorrarAdmin = new javax.swing.JButton();
         btnActualizarAdmin = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tbladminLab = new javax.swing.JTable();
         Docente = new javax.swing.JPanel();
         dateDocente = new com.toedter.calendar.JDateChooser();
         txtIdentificacionDocente = new javax.swing.JTextField();
@@ -57,6 +76,8 @@ public class GestionAdministrativo extends javax.swing.JFrame {
         txtUsuarioDocente = new javax.swing.JTextField();
         txtContraDocente = new javax.swing.JPasswordField();
         txtNombreDocente = new javax.swing.JTextField();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tblDocente = new javax.swing.JTable();
         Estudiante = new javax.swing.JPanel();
         dateEstudiante = new com.toedter.calendar.JDateChooser();
         txtIdentificacionEstudiante = new javax.swing.JTextField();
@@ -72,6 +93,8 @@ public class GestionAdministrativo extends javax.swing.JFrame {
         txtUsuarioEstudiante = new javax.swing.JTextField();
         txtContraEstudiante = new javax.swing.JPasswordField();
         txtNombreEstudiante = new javax.swing.JTextField();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        tbladminLab2 = new javax.swing.JTable();
         Cursos = new javax.swing.JPanel();
         jLabel21 = new javax.swing.JLabel();
         jLabel22 = new javax.swing.JLabel();
@@ -109,23 +132,109 @@ public class GestionAdministrativo extends javax.swing.JFrame {
             }
         });
 
+        AdminLab.setForeground(new java.awt.Color(0, 0, 0));
+
+        jLabel1.setFont(new java.awt.Font("Agency FB", 1, 14)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(0, 0, 0));
         jLabel1.setText("NOMBRE  DE  USUARIO:");
 
+        jLabel2.setFont(new java.awt.Font("Agency FB", 1, 14)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(0, 0, 0));
         jLabel2.setText("CONTRASEÑA TEMPORAL:");
 
+        jLabel3.setFont(new java.awt.Font("Agency FB", 1, 14)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(0, 0, 0));
         jLabel3.setText("NOMBRE :");
 
+        jLabel4.setFont(new java.awt.Font("Agency FB", 1, 14)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(0, 0, 0));
         jLabel4.setText("IDENTIFICACION");
 
-        jLabel5.setText("Fecha D e Nacimiento");
+        jLabel5.setFont(new java.awt.Font("Agency FB", 1, 14)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel5.setText("Fecha De Nacimiento");
 
+        txtUsuarioAdminLab.setFont(new java.awt.Font("Agency FB", 0, 14)); // NOI18N
+        txtUsuarioAdminLab.setForeground(new java.awt.Color(0, 0, 0));
+
+        txtContraAdminLab.setFont(new java.awt.Font("Agency FB", 0, 14)); // NOI18N
+        txtContraAdminLab.setForeground(new java.awt.Color(0, 0, 0));
+
+        txtNombreAdminLab.setFont(new java.awt.Font("Agency FB", 0, 14)); // NOI18N
+        txtNombreAdminLab.setForeground(new java.awt.Color(0, 0, 0));
+
+        txtIdentificacionAdminLab.setFont(new java.awt.Font("Agency FB", 0, 14)); // NOI18N
+        txtIdentificacionAdminLab.setForeground(new java.awt.Color(0, 0, 0));
+
+        btnInsertarAdmin.setFont(new java.awt.Font("Agency FB", 1, 14)); // NOI18N
+        btnInsertarAdmin.setForeground(new java.awt.Color(0, 0, 0));
         btnInsertarAdmin.setText("INSERTAR");
+        btnInsertarAdmin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnInsertarAdminActionPerformed(evt);
+            }
+        });
 
+        btnBuscarAdmin.setFont(new java.awt.Font("Agency FB", 1, 14)); // NOI18N
+        btnBuscarAdmin.setForeground(new java.awt.Color(0, 0, 0));
         btnBuscarAdmin.setText("BUSCAR");
+        btnBuscarAdmin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarAdminActionPerformed(evt);
+            }
+        });
 
+        btnBorrarAdmin.setFont(new java.awt.Font("Agency FB", 1, 14)); // NOI18N
+        btnBorrarAdmin.setForeground(new java.awt.Color(0, 0, 0));
         btnBorrarAdmin.setText("BORRAR");
+        btnBorrarAdmin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBorrarAdminActionPerformed(evt);
+            }
+        });
 
+        btnActualizarAdmin.setFont(new java.awt.Font("Agency FB", 1, 14)); // NOI18N
+        btnActualizarAdmin.setForeground(new java.awt.Color(0, 0, 0));
         btnActualizarAdmin.setText("ACTUALIZAR");
+        btnActualizarAdmin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnActualizarAdminActionPerformed(evt);
+            }
+        });
+
+        tbladminLab.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Nombre", "identificacion", "Nombre de Usuario", "Contraseña"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane1.setViewportView(tbladminLab);
+        if (tbladminLab.getColumnModel().getColumnCount() > 0) {
+            tbladminLab.getColumnModel().getColumn(0).setResizable(false);
+            tbladminLab.getColumnModel().getColumn(1).setResizable(false);
+            tbladminLab.getColumnModel().getColumn(2).setResizable(false);
+            tbladminLab.getColumnModel().getColumn(3).setResizable(false);
+        }
 
         javax.swing.GroupLayout AdminLabLayout = new javax.swing.GroupLayout(AdminLab);
         AdminLab.setLayout(AdminLabLayout);
@@ -163,61 +272,148 @@ public class GestionAdministrativo extends javax.swing.JFrame {
                             .addGroup(AdminLabLayout.createSequentialGroup()
                                 .addGap(15, 15, 15)
                                 .addComponent(btnBorrarAdmin)))))
-                .addContainerGap(372, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         AdminLabLayout.setVerticalGroup(
             AdminLabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(AdminLabLayout.createSequentialGroup()
-                .addGap(52, 52, 52)
-                .addGroup(AdminLabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(txtUsuarioAdminLab, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(24, 24, 24)
-                .addGroup(AdminLabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(txtContraAdminLab, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(27, 27, 27)
-                .addGroup(AdminLabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(txtNombreAdminLab, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(25, 25, 25)
-                .addGroup(AdminLabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(txtIdentificacionAdminLab, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(41, 41, 41)
                 .addGroup(AdminLabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel5)
-                    .addComponent(dateAdminLab, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(49, 49, 49)
-                .addGroup(AdminLabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnInsertarAdmin)
-                    .addComponent(btnBorrarAdmin))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(AdminLabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnActualizarAdmin)
-                    .addComponent(btnBuscarAdmin))
-                .addContainerGap(138, Short.MAX_VALUE))
+                    .addGroup(AdminLabLayout.createSequentialGroup()
+                        .addGap(52, 52, 52)
+                        .addGroup(AdminLabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel1)
+                            .addComponent(txtUsuarioAdminLab, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(24, 24, 24)
+                        .addGroup(AdminLabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel2)
+                            .addComponent(txtContraAdminLab, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(27, 27, 27)
+                        .addGroup(AdminLabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel3)
+                            .addComponent(txtNombreAdminLab, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(25, 25, 25)
+                        .addGroup(AdminLabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel4)
+                            .addComponent(txtIdentificacionAdminLab, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(41, 41, 41)
+                        .addGroup(AdminLabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel5)
+                            .addComponent(dateAdminLab, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(54, 54, 54)
+                        .addGroup(AdminLabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnInsertarAdmin)
+                            .addComponent(btnBorrarAdmin))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(AdminLabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnActualizarAdmin)
+                            .addComponent(btnBuscarAdmin)))
+                    .addGroup(AdminLabLayout.createSequentialGroup()
+                        .addGap(25, 25, 25)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(72, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Administrador De Laboratorio", AdminLab);
 
+        txtIdentificacionDocente.setFont(new java.awt.Font("Agency FB", 0, 14)); // NOI18N
+
+        jLabel6.setFont(new java.awt.Font("Agency FB", 1, 14)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(0, 0, 0));
         jLabel6.setText("NOMBRE  DE  USUARIO:");
 
+        btnInsertarDocente.setFont(new java.awt.Font("Agency FB", 1, 14)); // NOI18N
+        btnInsertarDocente.setForeground(new java.awt.Color(0, 0, 0));
         btnInsertarDocente.setText("INSERTAR");
+        btnInsertarDocente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnInsertarDocenteActionPerformed(evt);
+            }
+        });
 
+        jLabel7.setFont(new java.awt.Font("Agency FB", 1, 14)); // NOI18N
+        jLabel7.setForeground(new java.awt.Color(0, 0, 0));
         jLabel7.setText("CONTRASEÑA TEMPORAL:");
 
+        btnBuscarDocente.setFont(new java.awt.Font("Agency FB", 1, 14)); // NOI18N
+        btnBuscarDocente.setForeground(new java.awt.Color(0, 0, 0));
         btnBuscarDocente.setText("BUSCAR");
+        btnBuscarDocente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarDocenteActionPerformed(evt);
+            }
+        });
 
+        jLabel8.setFont(new java.awt.Font("Agency FB", 1, 14)); // NOI18N
+        jLabel8.setForeground(new java.awt.Color(0, 0, 0));
         jLabel8.setText("NOMBRE :");
 
+        btnBorrarDocente.setFont(new java.awt.Font("Agency FB", 1, 14)); // NOI18N
+        btnBorrarDocente.setForeground(new java.awt.Color(0, 0, 0));
         btnBorrarDocente.setText("BORRAR");
+        btnBorrarDocente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBorrarDocenteActionPerformed(evt);
+            }
+        });
 
+        jLabel9.setFont(new java.awt.Font("Agency FB", 1, 14)); // NOI18N
+        jLabel9.setForeground(new java.awt.Color(0, 0, 0));
         jLabel9.setText("IDENTIFICACION");
 
+        btnActualizarDocente.setFont(new java.awt.Font("Agency FB", 1, 14)); // NOI18N
+        btnActualizarDocente.setForeground(new java.awt.Color(0, 0, 0));
         btnActualizarDocente.setText("ACTUALIZAR");
+        btnActualizarDocente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnActualizarDocenteActionPerformed(evt);
+            }
+        });
 
-        jLabel10.setText("Fecha D e Nacimiento");
+        jLabel10.setFont(new java.awt.Font("Agency FB", 1, 14)); // NOI18N
+        jLabel10.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel10.setText("Fecha De Nacimiento");
+
+        txtUsuarioDocente.setFont(new java.awt.Font("Agency FB", 0, 14)); // NOI18N
+
+        txtContraDocente.setFont(new java.awt.Font("Agency FB", 0, 14)); // NOI18N
+
+        txtNombreDocente.setFont(new java.awt.Font("Agency FB", 0, 14)); // NOI18N
+
+        tblDocente.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Nombre", "identificacion", "Nombre de Usuario", "Contraseña"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane2.setViewportView(tblDocente);
+        if (tblDocente.getColumnModel().getColumnCount() > 0) {
+            tblDocente.getColumnModel().getColumn(0).setResizable(false);
+            tblDocente.getColumnModel().getColumn(1).setResizable(false);
+            tblDocente.getColumnModel().getColumn(2).setResizable(false);
+            tblDocente.getColumnModel().getColumn(3).setResizable(false);
+        }
 
         javax.swing.GroupLayout DocenteLayout = new javax.swing.GroupLayout(Docente);
         Docente.setLayout(DocenteLayout);
@@ -255,40 +451,47 @@ public class GestionAdministrativo extends javax.swing.JFrame {
                             .addGroup(DocenteLayout.createSequentialGroup()
                                 .addGap(15, 15, 15)
                                 .addComponent(btnBorrarDocente)))))
-                .addContainerGap(372, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         DocenteLayout.setVerticalGroup(
             DocenteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(DocenteLayout.createSequentialGroup()
-                .addGap(52, 52, 52)
-                .addGroup(DocenteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel6)
-                    .addComponent(txtUsuarioDocente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(24, 24, 24)
-                .addGroup(DocenteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel7)
-                    .addComponent(txtContraDocente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(27, 27, 27)
-                .addGroup(DocenteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel8)
-                    .addComponent(txtNombreDocente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(25, 25, 25)
-                .addGroup(DocenteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel9)
-                    .addComponent(txtIdentificacionDocente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(41, 41, 41)
                 .addGroup(DocenteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel10)
-                    .addComponent(dateDocente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(49, 49, 49)
-                .addGroup(DocenteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnInsertarDocente)
-                    .addComponent(btnBorrarDocente))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(DocenteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnActualizarDocente)
-                    .addComponent(btnBuscarDocente))
-                .addContainerGap(138, Short.MAX_VALUE))
+                    .addGroup(DocenteLayout.createSequentialGroup()
+                        .addGap(52, 52, 52)
+                        .addGroup(DocenteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel6)
+                            .addComponent(txtUsuarioDocente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(24, 24, 24)
+                        .addGroup(DocenteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel7)
+                            .addComponent(txtContraDocente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(27, 27, 27)
+                        .addGroup(DocenteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel8)
+                            .addComponent(txtNombreDocente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(25, 25, 25)
+                        .addGroup(DocenteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel9)
+                            .addComponent(txtIdentificacionDocente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(41, 41, 41)
+                        .addGroup(DocenteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel10)
+                            .addComponent(dateDocente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(49, 49, 49)
+                        .addGroup(DocenteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnInsertarDocente)
+                            .addComponent(btnBorrarDocente))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(DocenteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnActualizarDocente)
+                            .addComponent(btnBuscarDocente)))
+                    .addGroup(DocenteLayout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(79, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Docentes", Docente);
@@ -310,6 +513,40 @@ public class GestionAdministrativo extends javax.swing.JFrame {
         btnActualizarEstudiante.setText("ACTUALIZAR");
 
         jLabel15.setText("Fecha D e Nacimiento");
+
+        tbladminLab2.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Nombre", "identificacion", "Nombre de Usuario", "Contraseña"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane3.setViewportView(tbladminLab2);
+        if (tbladminLab2.getColumnModel().getColumnCount() > 0) {
+            tbladminLab2.getColumnModel().getColumn(0).setResizable(false);
+            tbladminLab2.getColumnModel().getColumn(1).setResizable(false);
+            tbladminLab2.getColumnModel().getColumn(2).setResizable(false);
+            tbladminLab2.getColumnModel().getColumn(3).setResizable(false);
+        }
 
         javax.swing.GroupLayout EstudianteLayout = new javax.swing.GroupLayout(Estudiante);
         Estudiante.setLayout(EstudianteLayout);
@@ -347,40 +584,47 @@ public class GestionAdministrativo extends javax.swing.JFrame {
                             .addGroup(EstudianteLayout.createSequentialGroup()
                                 .addGap(15, 15, 15)
                                 .addComponent(btnBorrarEstudiante)))))
-                .addContainerGap(372, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         EstudianteLayout.setVerticalGroup(
             EstudianteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(EstudianteLayout.createSequentialGroup()
-                .addGap(52, 52, 52)
-                .addGroup(EstudianteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel11)
-                    .addComponent(txtUsuarioEstudiante, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(24, 24, 24)
-                .addGroup(EstudianteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel12)
-                    .addComponent(txtContraEstudiante, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(27, 27, 27)
-                .addGroup(EstudianteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel13)
-                    .addComponent(txtNombreEstudiante, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(25, 25, 25)
-                .addGroup(EstudianteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel14)
-                    .addComponent(txtIdentificacionEstudiante, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(41, 41, 41)
                 .addGroup(EstudianteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel15)
-                    .addComponent(dateEstudiante, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(49, 49, 49)
-                .addGroup(EstudianteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnInsertarEstudiante)
-                    .addComponent(btnBorrarEstudiante))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(EstudianteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnActualizarEstudiante)
-                    .addComponent(btnBuscarEstudiante))
-                .addContainerGap(138, Short.MAX_VALUE))
+                    .addGroup(EstudianteLayout.createSequentialGroup()
+                        .addGap(52, 52, 52)
+                        .addGroup(EstudianteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel11)
+                            .addComponent(txtUsuarioEstudiante, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(24, 24, 24)
+                        .addGroup(EstudianteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel12)
+                            .addComponent(txtContraEstudiante, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(27, 27, 27)
+                        .addGroup(EstudianteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel13)
+                            .addComponent(txtNombreEstudiante, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(25, 25, 25)
+                        .addGroup(EstudianteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel14)
+                            .addComponent(txtIdentificacionEstudiante, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(41, 41, 41)
+                        .addGroup(EstudianteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel15)
+                            .addComponent(dateEstudiante, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(49, 49, 49)
+                        .addGroup(EstudianteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnInsertarEstudiante)
+                            .addComponent(btnBorrarEstudiante))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(EstudianteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnActualizarEstudiante)
+                            .addComponent(btnBuscarEstudiante)))
+                    .addGroup(EstudianteLayout.createSequentialGroup()
+                        .addGap(23, 23, 23)
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(74, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Estudiantes", Estudiante);
@@ -452,7 +696,7 @@ public class GestionAdministrativo extends javax.swing.JFrame {
                             .addGroup(CursosLayout.createSequentialGroup()
                                 .addGap(15, 15, 15)
                                 .addComponent(btnBorrarCurso)))))
-                .addGap(0, 310, Short.MAX_VALUE))
+                .addGap(0, 414, Short.MAX_VALUE))
         );
         CursosLayout.setVerticalGroup(
             CursosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -499,9 +743,7 @@ public class GestionAdministrativo extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 746, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(jTabbedPane1)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -512,7 +754,18 @@ public class GestionAdministrativo extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-    
+
+    private void desactivarTextodate() {
+        JTextFieldDateEditor editor = (JTextFieldDateEditor) dateAdminLab.getDateEditor();
+        editor.setEditable(false);
+        JTextFieldDateEditor editor2 = (JTextFieldDateEditor) dateDiaCurso.getDateEditor();
+        editor2.setEditable(false);
+        JTextFieldDateEditor editor3 = (JTextFieldDateEditor) dateDocente.getDateEditor();
+        editor3.setEditable(false);
+        JTextFieldDateEditor editor4 = (JTextFieldDateEditor) dateEstudiante.getDateEditor();
+        editor4.setEditable(false);
+    }
+
     private void incializarComboBoxHoraInicio() {
         cbHoraIni.removeAllItems();
         for (int i = 0; i <= 23; i++) {
@@ -544,23 +797,160 @@ public class GestionAdministrativo extends javax.swing.JFrame {
             cbMinutoFinal.addItem(a);
         }
     }
-    
-    
-    
+
+    private void actualizarTablaAdmin() {
+        DefaultTableModel modeloTabla = (DefaultTableModel) tbladminLab.getModel();
+        modeloTabla.setRowCount(0);
+        AdminLaboratorio admin;
+        for (int i = 0; i < control.getListaPersonas().size(); i++) {
+            if (control.getListaPersonas().get(i) instanceof AdminLaboratorio) {
+                admin = (AdminLaboratorio) control.getListaPersonas().get(i);
+                String[] rowData = {
+                    admin.getNombre(),
+                    admin.getId(),
+                    admin.getNommbreUsuario(),
+                    admin.getContrasena()
+                };
+                modeloTabla.addRow(rowData);
+            }
+
+        }
+        tbladminLab.setModel(modeloTabla);
+        tbladminLab.revalidate();
+    }
+        private void actualizarTablaDocente() {
+        DefaultTableModel modeloTabla = (DefaultTableModel) tblDocente.getModel();
+        modeloTabla.setRowCount(0);
+        Docente docente;
+        for (int i = 0; i < control.getListaPersonas().size(); i++) {
+            if (control.getListaPersonas().get(i) instanceof Docente) {
+                docente = (Docente) control.getListaPersonas().get(i);
+                String[] rowData = {
+                    docente.getNombre(),
+                    docente.getId(),
+                    docente.getNommbreUsuario(),
+                    docente.getContrasena()
+                };
+                modeloTabla.addRow(rowData);
+            }
+
+        }
+        tblDocente.setModel(modeloTabla);
+        tblDocente.revalidate();
+    }
+
     private void jTabbedPane1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTabbedPane1KeyTyped
-   
+
     }//GEN-LAST:event_jTabbedPane1KeyTyped
 
     private void jTabbedPane1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabbedPane1MouseClicked
-   
+
     }//GEN-LAST:event_jTabbedPane1MouseClicked
 
     private void jTabbedPane1StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jTabbedPane1StateChanged
-              this.incializarComboBoxHoraInicio();
-    this.incializarComboBoxMinutoInicio();
-    this.incializarComboBoxHoraFinal();
-    this.incializarComboBoxMinutoFinal();
+        this.incializarComboBoxHoraInicio();
+        this.incializarComboBoxMinutoInicio();
+        this.incializarComboBoxHoraFinal();
+        this.incializarComboBoxMinutoFinal();
     }//GEN-LAST:event_jTabbedPane1StateChanged
+
+    private void btnInsertarAdminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsertarAdminActionPerformed
+
+        String nombre = txtNombreAdminLab.getText();
+        String id = txtIdentificacionAdminLab.getText();
+        Date fecha = dateAdminLab.getDate();
+        LocalDate fechaNacimiento = fecha.toInstant().atZone(java.time.ZoneId.systemDefault()).toLocalDate();
+        String nombreUsuario = txtUsuarioAdminLab.getText();
+        String contrasena = String.valueOf(txtContraAdminLab.getPassword());
+        System.out.println(fechaNacimiento);
+        AdminLaboratorio admin = new AdminLaboratorio(nombre, id, fechaNacimiento, nombreUsuario, contrasena);
+        control.agregarAdmin(admin);
+        actualizarTablaAdmin();
+
+    }//GEN-LAST:event_btnInsertarAdminActionPerformed
+
+    private void btnBorrarAdminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBorrarAdminActionPerformed
+        if (txtIdentificacionAdminLab.equals("")) {
+            JOptionPane.showMessageDialog(null, "LLene el campo del id para poder borrar el usuario");
+        }
+        String id = txtIdentificacionAdminLab.getText();
+        control.eliminarAdmin(id);
+        actualizarTablaAdmin();
+    }//GEN-LAST:event_btnBorrarAdminActionPerformed
+
+    private void btnBuscarAdminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarAdminActionPerformed
+        if (txtIdentificacionAdminLab.equals("")) {
+            JOptionPane.showMessageDialog(null, "LLene el campo del id para poder buscar el Administrador de Laboratorio");
+        }
+        String id = txtIdentificacionAdminLab.getText();
+        Personal persona = control.buscarPersonal(id);
+        Date fecha = java.sql.Date.valueOf(persona.getFechaNacimiento());
+        dateAdminLab.setDate(fecha);
+        txtNombreAdminLab.setText(persona.getNombre());
+        txtContraAdminLab.setText(persona.getContrasena());
+        txtUsuarioAdminLab.setText(persona.getNommbreUsuario());
+
+    }//GEN-LAST:event_btnBuscarAdminActionPerformed
+
+    private void btnInsertarDocenteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsertarDocenteActionPerformed
+        String nombreUser = txtUsuarioDocente.getText();
+        String contrasena = String.valueOf(txtContraDocente.getPassword());
+        String nombre = txtNombreDocente.getText();
+        String id = txtIdentificacionDocente.getText();
+        Date fecha = dateDocente.getDate();
+        LocalDate fechaNacimiento = fecha.toInstant().atZone(java.time.ZoneId.systemDefault()).toLocalDate();
+        Docente docente = new Docente(nombre, id, fechaNacimiento, nombreUser, contrasena);
+        control.agregarDocente(docente);
+        actualizarTablaDocente();
+    }//GEN-LAST:event_btnInsertarDocenteActionPerformed
+
+    private void btnBuscarDocenteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarDocenteActionPerformed
+        if (txtIdentificacionDocente.equals("")) {
+            JOptionPane.showMessageDialog(null, "LLene el campo del id para poder buscar el Docente");
+        }
+        String id = txtIdentificacionDocente.getText();
+        Personal persona = control.buscarPersonal(id);
+        Date fecha = java.sql.Date.valueOf(persona.getFechaNacimiento());
+        dateAdminLab.setDate(fecha);
+        txtNombreAdminLab.setText(persona.getNombre());
+        txtContraAdminLab.setText(persona.getContrasena());
+        txtUsuarioAdminLab.setText(persona.getNommbreUsuario());
+    }//GEN-LAST:event_btnBuscarDocenteActionPerformed
+
+    private void btnBorrarDocenteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBorrarDocenteActionPerformed
+        if (txtIdentificacionDocente.equals("")) {
+            JOptionPane.showMessageDialog(null, "LLene el campo del id para poder borrar el usuario");
+        }
+        String id = txtIdentificacionDocente.getText();
+        control.eliminarDocente(id);
+        actualizarTablaDocente();
+    }//GEN-LAST:event_btnBorrarDocenteActionPerformed
+
+    private void btnActualizarDocenteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarDocenteActionPerformed
+        String nombreUser = txtUsuarioDocente.getText();
+        String contrasena = String.valueOf(txtContraDocente.getPassword());
+        String nombre = txtNombreDocente.getText();
+        String id = txtIdentificacionDocente.getText();
+        Date fecha = dateDocente.getDate();
+        LocalDate fechaNacimiento = fecha.toInstant().atZone(java.time.ZoneId.systemDefault()).toLocalDate();
+        Docente docente = new Docente(nombre, id, fechaNacimiento, nombreUser, contrasena);
+        control.ActualizarDocente(docente);
+        actualizarTablaDocente();
+    }//GEN-LAST:event_btnActualizarDocenteActionPerformed
+
+    private void btnActualizarAdminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarAdminActionPerformed
+        String nombre = txtNombreAdminLab.getText();
+        String id = txtIdentificacionAdminLab.getText();
+        Date fecha = dateAdminLab.getDate();
+        LocalDate fechaNacimiento = fecha.toInstant().atZone(java.time.ZoneId.systemDefault()).toLocalDate();
+        String nombreUsuario = txtUsuarioAdminLab.getText();
+        String contrasena = String.valueOf(txtContraAdminLab.getPassword());
+        System.out.println(fechaNacimiento);
+        AdminLaboratorio admin = new AdminLaboratorio(nombre, id, fechaNacimiento, nombreUsuario, contrasena);
+        control.ActualizarAdmin(admin);
+        actualizarTablaAdmin();
+
+    }//GEN-LAST:event_btnActualizarAdminActionPerformed
 
     /**
      * @param args the command line arguments
@@ -603,22 +993,18 @@ public class GestionAdministrativo extends javax.swing.JFrame {
     private javax.swing.JPanel Docente;
     private javax.swing.JPanel Estudiante;
     private javax.swing.JButton btnActualizarAdmin;
-    private javax.swing.JButton btnActualizarAdmin1;
     private javax.swing.JButton btnActualizarCurso;
     private javax.swing.JButton btnActualizarDocente;
     private javax.swing.JButton btnActualizarEstudiante;
     private javax.swing.JButton btnBorrarAdmin;
-    private javax.swing.JButton btnBorrarAdmin1;
     private javax.swing.JButton btnBorrarCurso;
     private javax.swing.JButton btnBorrarDocente;
     private javax.swing.JButton btnBorrarEstudiante;
     private javax.swing.JButton btnBuscarAdmin;
-    private javax.swing.JButton btnBuscarAdmin1;
     private javax.swing.JButton btnBuscarCurso;
     private javax.swing.JButton btnBuscarDocente;
     private javax.swing.JButton btnBuscarEstudiante;
     private javax.swing.JButton btnInsertarAdmin;
-    private javax.swing.JButton btnInsertarAdmin1;
     private javax.swing.JButton btnInsertarCurso;
     private javax.swing.JButton btnInsertarDocente;
     private javax.swing.JButton btnInsertarEstudiante;
@@ -628,7 +1014,6 @@ public class GestionAdministrativo extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> cbMinutoFinal;
     private javax.swing.JComboBox<String> cbMinutoIni;
     private com.toedter.calendar.JDateChooser dateAdminLab;
-    private com.toedter.calendar.JDateChooser dateAdminLab1;
     private com.toedter.calendar.JDateChooser dateDiaCurso;
     private com.toedter.calendar.JDateChooser dateDocente;
     private com.toedter.calendar.JDateChooser dateEstudiante;
@@ -639,12 +1024,7 @@ public class GestionAdministrativo extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
-    private javax.swing.JLabel jLabel16;
-    private javax.swing.JLabel jLabel17;
-    private javax.swing.JLabel jLabel18;
-    private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel23;
@@ -657,24 +1037,24 @@ public class GestionAdministrativo extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JPanel jPanel5;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTabbedPane jTabbedPane2;
+    private javax.swing.JTable tblDocente;
+    private javax.swing.JTable tbladminLab;
+    private javax.swing.JTable tbladminLab2;
     private javax.swing.JPasswordField txtContraAdminLab;
-    private javax.swing.JPasswordField txtContraAdminLab1;
     private javax.swing.JPasswordField txtContraDocente;
     private javax.swing.JPasswordField txtContraEstudiante;
     private javax.swing.JTextField txtIdentificacionAdminLab;
-    private javax.swing.JTextField txtIdentificacionAdminLab1;
     private javax.swing.JTextField txtIdentificacionDocente;
     private javax.swing.JTextField txtIdentificacionEstudiante;
     private javax.swing.JTextField txtNombreAdminLab;
-    private javax.swing.JTextField txtNombreAdminLab1;
     private javax.swing.JTextField txtNombreCurso;
     private javax.swing.JTextField txtNombreDocente;
     private javax.swing.JTextField txtNombreEstudiante;
     private javax.swing.JTextField txtUsuarioAdminLab;
-    private javax.swing.JTextField txtUsuarioAdminLab1;
     private javax.swing.JTextField txtUsuarioDocente;
     private javax.swing.JTextField txtUsuarioEstudiante;
     // End of variables declaration//GEN-END:variables

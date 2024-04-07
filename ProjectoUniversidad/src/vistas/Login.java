@@ -4,17 +4,24 @@
  */
 package vistas;
 
+import controladores.ControladorIniciarSesion;
+import modelado.AdminLaboratorio;
+import modelado.Administrativo;
+import modelado.Docente;
+import modelado.Estudiante;
+import modelado.Personal;
+
 /**
  *
  * @author Juan Manuel
  */
 public class Login extends javax.swing.JFrame {
 
-    /**
-     * Creates new form Login
-     */
+    ControladorIniciarSesion control;
+
     public Login() {
         initComponents();
+        this.control = new ControladorIniciarSesion();
     }
 
     /**
@@ -120,15 +127,22 @@ public class Login extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnEntrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEntrarActionPerformed
-       String usuario = txtUsuario.getText();
-       String contra = String.valueOf(txtContrasena.getPassword()) ;
-       if(usuario.equals("admin")&& contra.equals("admin")){
-       
-       
-       }
-       
-       
-        // TODO add your handling code here:
+        String usuario = txtUsuario.getText();
+        String contra = String.valueOf(txtContrasena.getPassword());
+        Personal persona = control.login(usuario, contra);
+        if (persona instanceof Administrativo) {
+            GestionAdministrativo ven = new GestionAdministrativo();
+            ven.setVisible(true);
+            ven.setLocationRelativeTo(this);
+            this.dispose();
+        } else if (persona instanceof Estudiante) {
+
+        } else if (persona instanceof Docente) {
+
+        } else if (persona instanceof AdminLaboratorio) {
+        }
+
+
     }//GEN-LAST:event_btnEntrarActionPerformed
 
     /**

@@ -4,11 +4,13 @@
  */
 package modelado;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Juan Manuel
  */
-public class Usuario {
+public class Usuario  implements Serializable{
     private String nommbreUsuario;
     private String contrasena;
 

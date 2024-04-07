@@ -14,6 +14,7 @@ import modelado.Curso;
 import modelado.Laboratorio;
 import modelado.Personal;
 import modelado.Reserva;
+import util.Lista;
 
 /**
  *
@@ -21,9 +22,9 @@ import modelado.Reserva;
  */
 public class Serializador {
     private static Serializador INSTANCIA = new Serializador();
-    ArrayList<Curso>cursos;
-    ArrayList<Personal>personas;
-    ArrayList<Reserva>reservas;
+    Lista<Curso>cursos;
+    Lista<Personal>personas;
+    Lista<Reserva>reservas;
     Laboratorio[][] laboratorios ;
     
     private Serializador() {
@@ -37,15 +38,15 @@ public class Serializador {
         return INSTANCIA;
     }
 
-    public ArrayList<Personal> getPersonas() {
+    public Lista<Personal> getPersonas() {
         return personas;
     }
 
-    public ArrayList<Reserva> getReservas() {
+    public Lista<Reserva> getReservas() {
         return reservas;
     }
 
-    public ArrayList<Curso> getCursos() {
+    public Lista<Curso> getCursos() {
         return cursos;
     }
 
@@ -53,7 +54,7 @@ public class Serializador {
         return laboratorios;
     }
 
-    public void escribirLocal() {
+    public void escribirCurso() {
         try {
             FileOutputStream archivo = new FileOutputStream("Curso.dat");
             ObjectOutputStream escritor = new ObjectOutputStream(archivo);
@@ -63,19 +64,19 @@ public class Serializador {
         }
     }
 
-    public ArrayList<Curso> leerCursos() {
+    public Lista<Curso> leerCursos() {
         try {
             FileInputStream archivo = new FileInputStream("Cursos.dat");
             ObjectInputStream lector = new ObjectInputStream(archivo);
-            return (ArrayList<Curso>) lector.readObject();
+            return (Lista<Curso>) lector.readObject();
         } catch (IOException | ClassNotFoundException ex) {
-            return new ArrayList<>();
+            return new Lista<>();
         }
     }
     
       public void escribirPersonal() {
         try {
-            FileOutputStream archivo = new FileOutputStream("Personal.dat");
+            FileOutputStream archivo = new FileOutputStream("Personas.dat");
             ObjectOutputStream escritor = new ObjectOutputStream(archivo);
             escritor.writeObject(personas);
         } catch (IOException ex) {
@@ -83,13 +84,13 @@ public class Serializador {
         }
     }
 
-    public ArrayList<Personal> leerPersonal() {
+    public Lista<Personal> leerPersonal() {
         try {
-            FileInputStream archivo = new FileInputStream("Personal.dat");
+            FileInputStream archivo = new FileInputStream("Personas.dat");
             ObjectInputStream lector = new ObjectInputStream(archivo);
-            return (ArrayList<Personal>) lector.readObject();
+            return (Lista<Personal>) lector.readObject();
         } catch (IOException | ClassNotFoundException ex) {
-            return new ArrayList<>();
+            return new Lista<>();
         }
     }
     
@@ -103,13 +104,13 @@ public class Serializador {
         }
     }
 
-    public ArrayList<Reserva> leerReservas() {
+    public Lista<Reserva> leerReservas() {
         try {
             FileInputStream archivo = new FileInputStream("Reserva.dat");
             ObjectInputStream lector = new ObjectInputStream(archivo);
-            return (ArrayList<Reserva>) lector.readObject();
+            return (Lista<Reserva>) lector.readObject();
         } catch (IOException | ClassNotFoundException ex) {
-            return new ArrayList<>();
+            return new Lista<>();
         }
     }
     

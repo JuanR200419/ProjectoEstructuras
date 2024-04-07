@@ -4,17 +4,18 @@
  */
 package modelado;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  *
  * @author Juan Manuel
  */
-public class Laboratorio {
+public class Laboratorio implements Serializable {
     ArrayList<Reserva> listaReservas;
     ArrayList<Curso> listaCursos;
     Mantenimiento mantenimiento;
-    public static final String DISPONIBLE = "Disponible ";
+    public static final String DISPONIBLE = "Disponible";
     public static final String OCUPADO = "Ocupado";
     String estado ;
 
