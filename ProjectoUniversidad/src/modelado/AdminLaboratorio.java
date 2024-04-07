@@ -13,7 +13,7 @@ import java.util.ArrayList;
  * @author Juan Manuel
  */
 
-public class AdminLaboratorio extends Personal  implements Serializable{
+public class AdminLaboratorio extends Personas  implements Serializable{
 
     public AdminLaboratorio(String nombre, String id, LocalDate fechaNacimiento, String nommbreUsuario, String contrasena) {
         super(nombre, id, fechaNacimiento, nommbreUsuario, contrasena);

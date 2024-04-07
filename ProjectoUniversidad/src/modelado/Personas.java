@@ -11,13 +11,13 @@ import java.time.LocalDate;
  *
  * @author Juan Manuel
  */
-public class Personal  extends Usuario implements Serializable{
+public class Personas  extends Usuario implements Serializable{
     
    private String nombre;
    private String id;
    private LocalDate fechaNacimiento;
 
-    public Personal(String nombre, String id, LocalDate fechaNacimiento, String nommbreUsuario, String contrasena) {
+    public Personas(String nombre, String id, LocalDate fechaNacimiento, String nommbreUsuario, String contrasena) {
         super(nommbreUsuario, contrasena);
         this.nombre = nombre;
         this.id = id;

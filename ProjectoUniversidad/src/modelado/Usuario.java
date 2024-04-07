@@ -13,7 +13,7 @@ import java.io.Serializable;
 public class Usuario  implements Serializable{
     private String nommbreUsuario;
     private String contrasena;
-
+    
     public Usuario(String nommbreUsuario, String contrasena) {
         this.nommbreUsuario = nommbreUsuario;
         this.contrasena = contrasena;

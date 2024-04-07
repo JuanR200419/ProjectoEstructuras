@@ -4,29 +4,76 @@
  */
 package modelado;
 
+import modelado.Enums.Materia;
+import modelado.Enums.Dias;
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.List;
+import javax.swing.JOptionPane;
+import util.Lista;
 
 /**
  *
  * @author Juan Manuel
  */
 public class Curso implements Serializable {
+
     String nombre;
     Docente docente;
-    ArrayList<Estudiante>listaEstudiantes;
-    String periodo;
-    LocalDate horario;
-    String materia;
+    Lista<Estudiante> listaEstudiantes;
+    LocalDate periodo;
+    Lista<Horario> horariosEstablecidos;
+    Materia materia;
     String codigoDeCurso;
-    public Curso(String nombre, Docente docente, LocalDate horario, String materia, String codigoDeCurso) {
+
+    public Curso(String nombre, Docente docente, LocalDate periodo, Materia materia, String codigoDeCurso) {
         this.nombre = nombre;
         this.docente = docente;
-        this.listaEstudiantes = new ArrayList<>();
-        this.horario = horario;
+        this.listaEstudiantes = new Lista<>();
+        this.periodo = periodo;
+        this.horariosEstablecidos = new Lista<>();
         this.materia = materia;
         this.codigoDeCurso = codigoDeCurso;
+    }
+
+    public void registrarEstudiante(Estudiante estudiante) {
+        Estudiante estudi = buscarEstudiante(estudiante.getId());
+        if (estudi != null) {
+            System.out.println("exception de ya esta registrado este estudiante");
+
+        }
+        if (estudi == null) {
+            for (int i = 0; i < listaEstudiantes.size(); i++) {
+                listaEstudiantes.add(estudiante);
+                JOptionPane.showMessageDialog(null, "Se registro el estudiante");
+            }
+        }
+
+    }
+
+    public void quitarCursoEstudiante(String codigo) {
+        Estudiante estudi = buscarEstudiante(codigo);
+        if (estudi == null) {
+            System.out.println("exception de estudiante no esta en este curso o no existe");
+        }
+        if (estudi != null) {
+            for (int i = 0; i < listaEstudiantes.size(); i++) {
+                if (listaEstudiantes.get(i).getId().equals(codigo)) {
+                    listaEstudiantes.remove(estudi);
+                }
+            }
+        }
+    }
+
+    public Estudiante buscarEstudiante(String codigo) {
+        for (int i = 0; i < listaEstudiantes.size(); i++) {
+            if (listaEstudiantes.get(i).getId().equals(codigo)) {
+                return listaEstudiantes.get(i);
+            }
+        }
+        return null;
     }
 
     public String getCodigoDeCurso() {
@@ -53,27 +100,35 @@ public class Curso implements Serializable {
         this.docente = docente;
     }
 
-    public ArrayList<Estudiante> getListaEstudiantes() {
+    public Lista<Estudiante> getListaEstudiantes() {
         return listaEstudiantes;
     }
 
-    public void setListaEstudiantes(ArrayList<Estudiante> listaEstudiantes) {
+    public void setListaEstudiantes(Lista<Estudiante> listaEstudiantes) {
         this.listaEstudiantes = listaEstudiantes;
     }
 
-    public LocalDate getHorario() {
-        return horario;
+    public Lista<Horario> getHorariosEstablecidos() {
+        return horariosEstablecidos;
     }
 
-    public void setHorario(LocalDate horario) {
-        this.horario = horario;
+    public void setHorariosEstablecidos(Lista<Horario> horariosEstablecidos) {
+        this.horariosEstablecidos = horariosEstablecidos;
     }
 
-    public String getMateria() {
+    public LocalDate getPeriodo() {
+        return periodo;
+    }
+
+    public void setPeriodo(LocalDate periodo) {
+        this.periodo = periodo;
+    }
+
+    public Materia getMateria() {
         return materia;
     }
 
-    public void setMateria(String materia) {
+    public void setMateria(Materia materia) {
         this.materia = materia;
-    }    
+    }
 }

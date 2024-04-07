@@ -12,7 +12,7 @@ import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import modelado.Curso;
 import modelado.Laboratorio;
-import modelado.Personal;
+import modelado.Personas;
 import modelado.Reserva;
 import util.Lista;
 
@@ -23,7 +23,7 @@ import util.Lista;
 public class Serializador {
     private static Serializador INSTANCIA = new Serializador();
     Lista<Curso>cursos;
-    Lista<Personal>personas;
+    Lista<Personas>personas;
     Lista<Reserva>reservas;
     Laboratorio[][] laboratorios ;
     
@@ -38,7 +38,7 @@ public class Serializador {
         return INSTANCIA;
     }
 
-    public Lista<Personal> getPersonas() {
+    public Lista<Personas> getPersonas() {
         return personas;
     }
 
@@ -84,11 +84,11 @@ public class Serializador {
         }
     }
 
-    public Lista<Personal> leerPersonal() {
+    public Lista<Personas> leerPersonal() {
         try {
             FileInputStream archivo = new FileInputStream("Personas.dat");
             ObjectInputStream lector = new ObjectInputStream(archivo);
-            return (Lista<Personal>) lector.readObject();
+            return (Lista<Personas>) lector.readObject();
         } catch (IOException | ClassNotFoundException ex) {
             return new Lista<>();
         }

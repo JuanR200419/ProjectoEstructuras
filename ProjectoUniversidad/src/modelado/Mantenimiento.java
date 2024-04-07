@@ -16,7 +16,7 @@ public class Mantenimiento implements Serializable {
     public static final String OCUPADO = "Ocupado";
     private String estado;
     LocalDate fechaMantenimiento;
-
+    
     public Mantenimiento()  {
         this.estado = DISPONIBLE;
         this.fechaMantenimiento = null;

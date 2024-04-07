@@ -14,9 +14,8 @@ import util.Lista;
  *
  * @author Juan Manuel
  */
-public class Docente extends Personal implements Serializable {
-    ArrayList <Curso>listaCursos ;
-
+public class Docente extends Personas implements Serializable {
+    ArrayList <Curso>listaCursos;
     public Docente(String nombre, String id, LocalDate fechaNacimiento, String nommbreUsuario, String contrasena) {
         super(nombre, id, fechaNacimiento, nommbreUsuario, contrasena);
         this.listaCursos = new ArrayList();

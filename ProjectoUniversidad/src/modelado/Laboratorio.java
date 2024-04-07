@@ -6,41 +6,45 @@ package modelado;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import util.Lista;
 
 /**
  *
  * @author Juan Manuel
  */
 public class Laboratorio implements Serializable {
-    ArrayList<Reserva> listaReservas;
-    ArrayList<Curso> listaCursos;
+    Lista<Reserva> listaReservas;
+    Lista<Curso> listaCursos;
     Mantenimiento mantenimiento;
     public static final String DISPONIBLE = "Disponible";
     public static final String OCUPADO = "Ocupado";
     String estado ;
-
+    Puesto[][] puestos;
     public Laboratorio() {
     this.estado = DISPONIBLE;
-    this.listaCursos = new ArrayList<>();
-    this.listaReservas = new ArrayList<>();
+    this.listaCursos = new Lista<>();
+    this.listaReservas = new Lista<>();
     this.mantenimiento = null;
+    // esto esta mal las columnas de los cursos tienen que ser equivalentes a la cantidad de estudiantes 
+    this.puestos= new Puesto[listaCursos.get(0).getListaEstudiantes().size()][listaCursos.get(0).getListaEstudiantes().size()];
     }
 
-    public ArrayList<Reserva> getListaReservas() {
+    public Lista<Reserva> getListaReservas() {
         return listaReservas;
     }
 
-    public void setListaReservas(ArrayList<Reserva> listaReservas) {
+    public void setListaReservas(Lista<Reserva> listaReservas) {
         this.listaReservas = listaReservas;
     }
 
-    public ArrayList<Curso> getListaCursos() {
+    public Lista<Curso> getListaCursos() {
         return listaCursos;
     }
 
-    public void setListaCursos(ArrayList<Curso> listaCursos) {
+    public void setListaCursos(Lista<Curso> listaCursos) {
         this.listaCursos = listaCursos;
     }
+
 
     public Mantenimiento getMantenimiento() {
         return mantenimiento;

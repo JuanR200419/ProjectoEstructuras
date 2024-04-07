@@ -4,6 +4,7 @@
  */
 package modelado;
 
+import modelado.Enums.Programa;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -12,15 +13,17 @@ import java.util.ArrayList;
  *
  * @author Juan Manuel
  */
-public class Estudiante extends Personal implements Serializable {
+public class Estudiante extends Personas implements Serializable {
    private  ArrayList<Curso> cursosMatriculados;
    private  ArrayList<Curso> cursosAnteriores;
    private ArrayList<Double>listaNotas;
-    public Estudiante( String nombre, String id, LocalDate fechaNacimiento, String nommbreUsuario, String contrasena) {
+   private Programa programa;
+    public Estudiante( String nombre, String id, LocalDate fechaNacimiento, String nommbreUsuario, String contrasena,Programa programa) {
         super(nombre, id, fechaNacimiento, nommbreUsuario, contrasena);
         this.cursosMatriculados = new ArrayList<>();
         this.cursosAnteriores = new ArrayList<>();
         this.listaNotas = new ArrayList<>();
+        this.programa= programa;
     }
 
     public ArrayList<Curso> getCursosMatriculados() {
@@ -29,6 +32,14 @@ public class Estudiante extends Personal implements Serializable {
 
     public void setCursosMatriculados(ArrayList<Curso> cursosMatriculados) {
         this.cursosMatriculados = cursosMatriculados;
+    }
+
+    public Programa getPrograma() {
+        return programa;
+    }
+
+    public void setPrograma(Programa programa) {
+        this.programa = programa;
     }
 
     public ArrayList<Curso> getCursosAnteriores() {

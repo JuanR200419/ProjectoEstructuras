@@ -7,7 +7,7 @@ package controladores;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import modelado.Administrativo;
-import modelado.Personal;
+import modelado.Personas;
 import util.Lista;
 
 /**
@@ -17,14 +17,14 @@ import util.Lista;
 public class ControladorIniciarSesion {
 
     Administrativo admin;
-    Lista<Personal> listaPersonal;
+    Lista<Personas> listaPersonal;
 
     public ControladorIniciarSesion() {
         this.admin = Administrativo.getAdminGenerl();
         this.listaPersonal = Serializador.Serializador.getSeri().getPersonas();
     }
 
-    public Personal login(String usuario, String contrasena) {
+    public Personas login(String usuario, String contrasena) {
         if (usuario.equals("") && contrasena.equals("")) {
             System.out.println("exception de llenar campos");
         }
@@ -32,7 +32,7 @@ public class ControladorIniciarSesion {
         if (usuario.equalsIgnoreCase(admin.getNommbreUsuario()) && contrasena.equalsIgnoreCase(admin.getContrasena())) {
             return admin;
         }
-        Personal persona = buscarUsuario(usuario, contrasena);
+        Personas persona = buscarUsuario(usuario, contrasena);
         if (persona.getNommbreUsuario().equals(usuario)) {
             if (persona.getContrasena().equals(contrasena)) {
                 return persona;
@@ -46,7 +46,7 @@ public class ControladorIniciarSesion {
         return null;
     }
 
-    public Personal buscarUsuario(String usuario, String contrasena) {
+    public Personas buscarUsuario(String usuario, String contrasena) {
         for (int i = 0; i < listaPersonal.size(); i++) {
             if (listaPersonal.get(i).getNommbreUsuario().equals(usuario)) {
                 return listaPersonal.get(i);
