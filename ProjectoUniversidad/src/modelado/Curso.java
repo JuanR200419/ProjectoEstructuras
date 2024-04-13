@@ -8,7 +8,6 @@ import modelado.Enums.Materia;
 import modelado.Enums.Dias;
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -20,22 +19,70 @@ import util.Lista;
  */
 public class Curso implements Serializable {
 
-    String nombre;
     Docente docente;
     Lista<Estudiante> listaEstudiantes;
-    LocalDate periodo;
+    String periodo;
     Lista<Horario> horariosEstablecidos;
     Materia materia;
     String codigoDeCurso;
+    String jornada;
 
-    public Curso(String nombre, Docente docente, LocalDate periodo, Materia materia, String codigoDeCurso) {
-        this.nombre = nombre;
+    public Curso( Materia materia,Docente docente, String periodo,  String codigoDeCurso, String jornada) {
         this.docente = docente;
         this.listaEstudiantes = new Lista<>();
         this.periodo = periodo;
         this.horariosEstablecidos = new Lista<>();
         this.materia = materia;
         this.codigoDeCurso = codigoDeCurso;
+        this.jornada = jornada;
+
+    }
+
+    @Override
+    public String toString() {
+        return  this.materia.toString() +"-Docente: "+this.docente.getNombre()+"-Codigo: " +this.codigoDeCurso; 
+    }
+// validaciones Para el dia 
+
+    public void guardarHorario(Horario horario) {
+        Horario res = validarDiaUnic(horario.getDia());
+        if (res == null) {
+            this.horariosEstablecidos.add(horario);
+        }
+    }
+
+    public void eliminarHorario(Dias dia) {
+        Horario res = validarDiaUnic(dia);
+        if (res != null) {
+            this.horariosEstablecidos.remove(res);
+        }
+    }
+
+    public void actualizarHorario(Horario horario) {
+        Horario validar = validarDiaUnic(horario.getDia());
+        if (validar != null) {
+            validar.setDia(horario.getDia());
+            validar.setHoraEntrada(horario.getHoraEntrada());
+            validar.setHoraSalida(horario.getHoraSalida());
+
+        }
+    }
+
+    public Horario validarDiaUnic(Dias dia) {
+        for (int i = 0; i < this.horariosEstablecidos.size(); i++) {
+            if (horariosEstablecidos.get(i).getDia().equals(dia)) {
+                return horariosEstablecidos.get(i);
+            }
+        }
+        return null;
+    }
+
+    public String getJornada() {
+        return jornada;
+    }
+
+    public void setJornada(String jornada) {
+        this.jornada = jornada;
     }
 
     public void registrarEstudiante(Estudiante estudiante) {
@@ -84,13 +131,6 @@ public class Curso implements Serializable {
         this.codigoDeCurso = codigoDeCurso;
     }
 
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
 
     public Docente getDocente() {
         return docente;
@@ -116,11 +156,11 @@ public class Curso implements Serializable {
         this.horariosEstablecidos = horariosEstablecidos;
     }
 
-    public LocalDate getPeriodo() {
+    public String getPeriodo() {
         return periodo;
     }
 
-    public void setPeriodo(LocalDate periodo) {
+    public void setPeriodo(String periodo) {
         this.periodo = periodo;
     }
 

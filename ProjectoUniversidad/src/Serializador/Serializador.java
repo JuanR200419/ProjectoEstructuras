@@ -12,8 +12,9 @@ import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import modelado.Curso;
 import modelado.Laboratorio;
-import modelado.Personas;
+import modelado.Persona;
 import modelado.Reserva;
+import util.IList;
 import util.Lista;
 
 /**
@@ -22,9 +23,9 @@ import util.Lista;
  */
 public class Serializador {
     private static Serializador INSTANCIA = new Serializador();
-    Lista<Curso>cursos;
-    Lista<Personas>personas;
-    Lista<Reserva>reservas;
+    IList<Curso>cursos;
+    IList<Persona>personas;
+    IList<Reserva>reservas;
     Laboratorio[][] laboratorios ;
     
     private Serializador() {
@@ -38,17 +39,19 @@ public class Serializador {
         return INSTANCIA;
     }
 
-    public Lista<Personas> getPersonas() {
+    public IList<Curso> getCursos() {
+        return cursos;
+    }
+
+    public IList<Persona> getPersonas() {
         return personas;
     }
 
-    public Lista<Reserva> getReservas() {
+    public IList<Reserva> getReservas() {
         return reservas;
     }
 
-    public Lista<Curso> getCursos() {
-        return cursos;
-    }
+ 
 
     public Laboratorio[][] getLaboratorios() {
         return laboratorios;
@@ -64,9 +67,9 @@ public class Serializador {
         }
     }
 
-    public Lista<Curso> leerCursos() {
+    public IList<Curso> leerCursos() {
         try {
-            FileInputStream archivo = new FileInputStream("Cursos.dat");
+            FileInputStream archivo = new FileInputStream("Curso.dat");
             ObjectInputStream lector = new ObjectInputStream(archivo);
             return (Lista<Curso>) lector.readObject();
         } catch (IOException | ClassNotFoundException ex) {
@@ -84,11 +87,11 @@ public class Serializador {
         }
     }
 
-    public Lista<Personas> leerPersonal() {
+    public IList<Persona> leerPersonal() {
         try {
             FileInputStream archivo = new FileInputStream("Personas.dat");
             ObjectInputStream lector = new ObjectInputStream(archivo);
-            return (Lista<Personas>) lector.readObject();
+            return (Lista<Persona>) lector.readObject();
         } catch (IOException | ClassNotFoundException ex) {
             return new Lista<>();
         }
@@ -104,7 +107,7 @@ public class Serializador {
         }
     }
 
-    public Lista<Reserva> leerReservas() {
+    public IList<Reserva> leerReservas() {
         try {
             FileInputStream archivo = new FileInputStream("Reserva.dat");
             ObjectInputStream lector = new ObjectInputStream(archivo);

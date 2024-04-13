@@ -4,10 +4,13 @@
  */
 package controladores;
 
+import excepciones.UsuarioNoEncontradoException;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import modelado.AdminGeneral;
 import modelado.Administrativo;
-import modelado.Personas;
+import modelado.Persona;
+import util.IList;
 import util.Lista;
 
 /**
@@ -16,15 +19,14 @@ import util.Lista;
  */
 public class ControladorIniciarSesion {
 
-    Administrativo admin;
-    Lista<Personas> listaPersonal;
-
+    IList<Persona> listaPersonal;
+    AdminGeneral admin;
     public ControladorIniciarSesion() {
-        this.admin = Administrativo.getAdminGenerl();
-        this.listaPersonal = Serializador.Serializador.getSeri().getPersonas();
+        this.admin= AdminGeneral.getAdmin();
+        this.listaPersonal =  Serializador.Serializador.getSeri().getPersonas();
     }
-
-    public Personas login(String usuario, String contrasena) {
+  
+    public Persona login(String usuario, String contrasena) throws UsuarioNoEncontradoException {
         if (usuario.equals("") && contrasena.equals("")) {
             System.out.println("exception de llenar campos");
         }
@@ -32,7 +34,7 @@ public class ControladorIniciarSesion {
         if (usuario.equalsIgnoreCase(admin.getNommbreUsuario()) && contrasena.equalsIgnoreCase(admin.getContrasena())) {
             return admin;
         }
-        Personas persona = buscarUsuario(usuario, contrasena);
+        Persona persona = buscarUsuario(usuario, contrasena);
         if (persona.getNommbreUsuario().equals(usuario)) {
             if (persona.getContrasena().equals(contrasena)) {
                 return persona;
@@ -46,12 +48,12 @@ public class ControladorIniciarSesion {
         return null;
     }
 
-    public Personas buscarUsuario(String usuario, String contrasena) {
+    public Persona buscarUsuario(String usuario, String contrasena) throws UsuarioNoEncontradoException{
         for (int i = 0; i < listaPersonal.size(); i++) {
-            if (listaPersonal.get(i).getNommbreUsuario().equals(usuario)) {
+            if (listaPersonal.get(i).getNommbreUsuario().equals(usuario) &&listaPersonal.get(i).getContrasena().equals(contrasena) ) {
                 return listaPersonal.get(i);
             }
         }
-        throw new NullPointerException();
+        throw new UsuarioNoEncontradoException();
     }
 }

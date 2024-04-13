@@ -8,32 +8,31 @@ import modelado.Enums.Programa;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import util.IList;
+import util.Lista;
 
 /**
  *
  * @author Juan Manuel
  */
-public class Estudiante extends Personas implements Serializable {
-   private  ArrayList<Curso> cursosMatriculados;
-   private  ArrayList<Curso> cursosAnteriores;
-   private ArrayList<Double>listaNotas;
-   private Programa programa;
-    public Estudiante( String nombre, String id, LocalDate fechaNacimiento, String nommbreUsuario, String contrasena,Programa programa) {
-        super(nombre, id, fechaNacimiento, nommbreUsuario, contrasena);
-        this.cursosMatriculados = new ArrayList<>();
-        this.cursosAnteriores = new ArrayList<>();
-        this.listaNotas = new ArrayList<>();
-        this.programa= programa;
+public class Estudiante extends Persona implements Serializable {
+
+    private IList<Curso> cursosMatriculados;
+    private IList<Curso> cursosAnteriores;
+    private IList<Double> listaNotas;
+    private Programa programa;
+
+    public Estudiante( String nombre, String id, LocalDate fechaNacimiento, String nommbreUsuario, String contrasena,Programa programa, String rol) {
+        super(nombre, id, fechaNacimiento, nommbreUsuario, contrasena, rol);
+        this.cursosMatriculados = new Lista<>();
+        this.cursosAnteriores = new Lista<>();
+        this.listaNotas = new Lista<>();
+        this.programa = programa;
     }
 
-    public ArrayList<Curso> getCursosMatriculados() {
-        return cursosMatriculados;
-    }
+    
 
-    public void setCursosMatriculados(ArrayList<Curso> cursosMatriculados) {
-        this.cursosMatriculados = cursosMatriculados;
-    }
-
+     
     public Programa getPrograma() {
         return programa;
     }
@@ -42,21 +41,29 @@ public class Estudiante extends Personas implements Serializable {
         this.programa = programa;
     }
 
-    public ArrayList<Curso> getCursosAnteriores() {
+    public IList<Curso> getCursosMatriculados() {
+        return cursosMatriculados;
+    }
+
+    public void setCursosMatriculados(IList<Curso> cursosMatriculados) {
+        this.cursosMatriculados = cursosMatriculados;
+    }
+
+    public IList<Curso> getCursosAnteriores() {
         return cursosAnteriores;
     }
 
-    public void setCursosAnteriores(ArrayList<Curso> cursosAnteriores) {
+    public void setCursosAnteriores(IList<Curso> cursosAnteriores) {
         this.cursosAnteriores = cursosAnteriores;
     }
 
-    public ArrayList<Double> getListaNotas() {
+    public IList<Double> getListaNotas() {
         return listaNotas;
     }
 
-    public void setListaNotas(ArrayList<Double> listaNotas) {
+    public void setListaNotas(IList<Double> listaNotas) {
         this.listaNotas = listaNotas;
     }
-    
-    
+
+
 }

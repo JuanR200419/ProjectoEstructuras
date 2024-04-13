@@ -12,14 +12,14 @@ import java.util.ArrayList;
  *
  * @author Juan Manuel
  */
+public class Administrativo extends Persona implements Serializable {
 
-public class AdminLaboratorio extends Persona  implements Serializable{
-
-    public AdminLaboratorio(String nombre, String id, LocalDate fechaNacimiento, String nommbreUsuario, String contrasena, String rol) {
+    public Administrativo(String nombre, String id, LocalDate fechaNacimiento, String nommbreUsuario, String contrasena, String rol) {
         super(nombre, id, fechaNacimiento, nommbreUsuario, contrasena, rol);
     }
 
-   
 
-   
+
+
+  
 }

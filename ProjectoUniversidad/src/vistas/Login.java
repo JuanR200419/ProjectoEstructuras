@@ -5,11 +5,13 @@
 package vistas;
 
 import controladores.ControladorIniciarSesion;
+import excepciones.UsuarioNoEncontradoException;
+import javax.swing.JOptionPane;
 import modelado.AdminLaboratorio;
 import modelado.Administrativo;
 import modelado.Docente;
 import modelado.Estudiante;
-import modelado.Personas;
+import modelado.Persona;
 
 /**
  *
@@ -123,20 +125,50 @@ public class Login extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /*
+         JTextFieldDateEditor editor = (JTextFieldDateEditor) dateAdminLab.getDateEditor();
+        editor.setEditable(false);
+        JTextFieldDateEditor editor2 = (JTextFieldDateEditor) dateDiaCurso.getDateEditor();
+        editor2.setEditable(false);
+        JTextFieldDateEditor editor3 = (JTextFieldDateEditor) dateDocente.getDateEditor();
+        editor3.setEditable(false);
+        JTextFieldDateEditor editor4 = (JTextFieldDateEditor) dateEstudiante.getDateEditor();
+        editor4.setEditable(false);
+    
+    */
+    
+    
     private void btnEntrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEntrarActionPerformed
         String usuario = txtUsuario.getText();
         String contra = String.valueOf(txtContrasena.getPassword());
-        Personas persona = control.login(usuario, contra);
-        if (persona instanceof Administrativo) {
-            GestionAdministrativo ven = new GestionAdministrativo();
-            ven.setVisible(true);
-            ven.setLocationRelativeTo(this);
-            this.dispose();
-        } else if (persona instanceof Estudiante) {
+        try {
+            Persona persona = control.login(usuario, contra);
+            System.out.println(persona.getRol());
+            switch (persona.getRol()) {
+                case "adminGeneral" -> {
+                    RegistroAdministrativo administra = new RegistroAdministrativo();
+                    administra.setVisible(true);
+                    administra.setLocationRelativeTo(this);
+                    this.dispose();
+                }
+                case "administrativo" -> {
+                    GestionAdministrativo ven = new GestionAdministrativo();
+                    ven.setVisible(true);
+                    ven.setLocationRelativeTo(this);
+                    this.dispose();
+                }
+                case "Estudiante" -> {
+                }
+                case "Docente" -> {
+                }
+                case "AdminLab" -> {
+                }
+                default -> {
+                }
+            }
 
-        } else if (persona instanceof Docente) {
-
-        } else if (persona instanceof AdminLaboratorio) {
+        } catch (UsuarioNoEncontradoException e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
         }
 
 

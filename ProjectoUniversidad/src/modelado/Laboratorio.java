@@ -13,20 +13,22 @@ import util.Lista;
  * @author Juan Manuel
  */
 public class Laboratorio implements Serializable {
+
     Lista<Reserva> listaReservas;
     Lista<Curso> listaCursos;
     Mantenimiento mantenimiento;
     public static final String DISPONIBLE = "Disponible";
     public static final String OCUPADO = "Ocupado";
-    String estado ;
+    String estado;
     Puesto[][] puestos;
+
     public Laboratorio() {
-    this.estado = DISPONIBLE;
-    this.listaCursos = new Lista<>();
-    this.listaReservas = new Lista<>();
-    this.mantenimiento = null;
-    // esto esta mal las columnas de los cursos tienen que ser equivalentes a la cantidad de estudiantes 
-    this.puestos= new Puesto[listaCursos.get(0).getListaEstudiantes().size()][listaCursos.get(0).getListaEstudiantes().size()];
+        this.estado = DISPONIBLE;
+        this.listaCursos = new Lista<>();
+        this.listaReservas = new Lista<>();
+        this.mantenimiento = null;
+        this.puestos = new Puesto[listaCursos.get(0).getListaEstudiantes().size()][listaCursos.get(0).getListaEstudiantes().size()];
+
     }
 
     public Lista<Reserva> getListaReservas() {
@@ -45,7 +47,6 @@ public class Laboratorio implements Serializable {
         this.listaCursos = listaCursos;
     }
 
-
     public Mantenimiento getMantenimiento() {
         return mantenimiento;
     }
@@ -61,9 +62,5 @@ public class Laboratorio implements Serializable {
     public void setEstado(String estado) {
         this.estado = estado;
     }
-    
-    
-    
-    
-    
+
 }
