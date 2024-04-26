@@ -4,6 +4,11 @@
  */
 package vistas;
 
+import java.awt.Color;
+import java.beans.PropertyVetoException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import vistas.InternalFramesGestionAdministraTivo.AsignacionEstudiante;
 import vistas.InternalFramesGestionAdministraTivo.GestionEstudiante;
 import vistas.InternalFramesGestionAdministraTivo.GestionDocente;
 import vistas.InternalFramesGestionAdministraTivo.GestionCursos;
@@ -22,7 +27,7 @@ public class GestionAdministrativo extends javax.swing.JFrame {
     public GestionAdministrativo() {
         initComponents();
         this.setLocationRelativeTo(this);
-        
+    
 
     }
 
@@ -43,6 +48,9 @@ public class GestionAdministrativo extends javax.swing.JFrame {
         jMenuBar3 = new javax.swing.JMenuBar();
         jMenu6 = new javax.swing.JMenu();
         jMenu7 = new javax.swing.JMenu();
+        jMenuBar4 = new javax.swing.JMenuBar();
+        jMenu8 = new javax.swing.JMenu();
+        jMenu9 = new javax.swing.JMenu();
         jPanel1 = new javax.swing.JPanel();
         escritorio = new javax.swing.JDesktopPane();
         jMenuBar2 = new javax.swing.JMenuBar();
@@ -74,6 +82,12 @@ public class GestionAdministrativo extends javax.swing.JFrame {
         jMenu7.setText("Edit");
         jMenuBar3.add(jMenu7);
 
+        jMenu8.setText("File");
+        jMenuBar4.add(jMenu8);
+
+        jMenu9.setText("Edit");
+        jMenuBar4.add(jMenu9);
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         javax.swing.GroupLayout escritorioLayout = new javax.swing.GroupLayout(escritorio);
@@ -84,7 +98,7 @@ public class GestionAdministrativo extends javax.swing.JFrame {
         );
         escritorioLayout.setVerticalGroup(
             escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 555, Short.MAX_VALUE)
+            .addGap(0, 621, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -98,7 +112,15 @@ public class GestionAdministrativo extends javax.swing.JFrame {
             .addComponent(escritorio)
         );
 
+        jMenuBar2.setBackground(new java.awt.Color(0, 51, 51));
+        jMenuBar2.setForeground(new java.awt.Color(71, 100, 104));
+        jMenuBar2.setFont(new java.awt.Font("Gadugi", 1, 14)); // NOI18N
+
+        jMenu4.setBackground(new java.awt.Color(0, 0, 0));
+        jMenu4.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jMenu4.setForeground(new java.awt.Color(0, 0, 0));
         jMenu4.setText("Atras");
+        jMenu4.setFont(new java.awt.Font("Gadugi", 1, 12)); // NOI18N
         jMenu4.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jMenu4MouseClicked(evt);
@@ -106,7 +128,11 @@ public class GestionAdministrativo extends javax.swing.JFrame {
         });
         jMenuBar2.add(jMenu4);
 
+        menuAdminLab.setBackground(new java.awt.Color(0, 0, 0));
+        menuAdminLab.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        menuAdminLab.setForeground(new java.awt.Color(0, 0, 0));
         menuAdminLab.setText("Administrador de Laboratorio");
+        menuAdminLab.setFont(new java.awt.Font("Gadugi", 1, 12)); // NOI18N
 
         jMenu10.setText("Gestionar Administrador Laboratorio");
         jMenu10.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -123,7 +149,11 @@ public class GestionAdministrativo extends javax.swing.JFrame {
 
         jMenuBar2.add(menuAdminLab);
 
+        menuDocente.setBackground(new java.awt.Color(0, 0, 0));
+        menuDocente.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        menuDocente.setForeground(new java.awt.Color(0, 0, 0));
         menuDocente.setText("Docente");
+        menuDocente.setFont(new java.awt.Font("Gadugi", 1, 12)); // NOI18N
 
         jMenu11.setText("Gestionar Docente");
         jMenu11.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -135,7 +165,11 @@ public class GestionAdministrativo extends javax.swing.JFrame {
 
         jMenuBar2.add(menuDocente);
 
+        menuEstudiante.setBackground(new java.awt.Color(0, 0, 0));
+        menuEstudiante.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        menuEstudiante.setForeground(new java.awt.Color(0, 0, 0));
         menuEstudiante.setText("Estudiante");
+        menuEstudiante.setFont(new java.awt.Font("Gadugi", 1, 12)); // NOI18N
 
         jMenu12.setText("Gestionar Estudiante");
         jMenu12.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -147,7 +181,11 @@ public class GestionAdministrativo extends javax.swing.JFrame {
 
         jMenuBar2.add(menuEstudiante);
 
+        menuCurso.setBackground(new java.awt.Color(0, 0, 0));
+        menuCurso.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        menuCurso.setForeground(new java.awt.Color(0, 0, 0));
         menuCurso.setText("Curso");
+        menuCurso.setFont(new java.awt.Font("Gadugi", 1, 12)); // NOI18N
 
         jMenu13.setText("Crear Curso");
         jMenu13.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -166,6 +204,11 @@ public class GestionAdministrativo extends javax.swing.JFrame {
         menuCurso.add(jMenu14);
 
         jMenu5.setText("Asignar Estudiantes");
+        jMenu5.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMenu5MouseClicked(evt);
+            }
+        });
         menuCurso.add(jMenu5);
 
         jMenuBar2.add(menuCurso);
@@ -196,6 +239,11 @@ public class GestionAdministrativo extends javax.swing.JFrame {
         escritorio.add(lab);
         lab.setVisible(true);
         lab.setResizable(false);
+        try {
+            lab.setMaximum(true);
+        } catch (PropertyVetoException ex) {
+            Logger.getLogger(GestionAdministrativo.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jMenu10MouseClicked
 
     private void jMenu11MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu11MouseClicked
@@ -203,6 +251,11 @@ public class GestionAdministrativo extends javax.swing.JFrame {
         GestionDocente doc = new GestionDocente();        
         escritorio.add(doc);
         doc.setVisible(true);
+        try {
+            doc.setMaximum(true);
+        } catch (PropertyVetoException ex) {
+            Logger.getLogger(GestionAdministrativo.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jMenu11MouseClicked
 
     private void jMenu12MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu12MouseClicked
@@ -210,6 +263,11 @@ public class GestionAdministrativo extends javax.swing.JFrame {
         GestionEstudiante estudi = new GestionEstudiante();
         escritorio.add(estudi);
         estudi.setVisible(true);
+        try {
+            estudi.setMaximum(true);
+        } catch (PropertyVetoException ex) {
+            Logger.getLogger(GestionAdministrativo.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jMenu12MouseClicked
 
     private void jMenu13MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu13MouseClicked
@@ -217,7 +275,11 @@ public class GestionAdministrativo extends javax.swing.JFrame {
        GestionCursos curo = new GestionCursos();
        escritorio.add(curo);
        curo.setVisible(true);
-       
+        try {
+            curo.setMaximum(true);
+        } catch (PropertyVetoException ex) {
+            Logger.getLogger(GestionAdministrativo.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jMenu13MouseClicked
 
     private void jMenu4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu4MouseClicked
@@ -232,7 +294,24 @@ public class GestionAdministrativo extends javax.swing.JFrame {
         GestionarHorarios ges = new GestionarHorarios();
         escritorio.add(ges);
         ges.setVisible(true);
+        try {
+            ges.setMaximum(true);
+        } catch (PropertyVetoException ex) {
+            Logger.getLogger(GestionAdministrativo.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jMenu14MouseClicked
+
+    private void jMenu5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu5MouseClicked
+       escritorio.removeAll();
+        AsignacionEstudiante estu = new AsignacionEstudiante();
+       escritorio.add(estu);
+        estu.setVisible(true);
+        try {
+            estu.setMaximum(true);
+        } catch (PropertyVetoException ex) {
+            Logger.getLogger(GestionAdministrativo.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jMenu5MouseClicked
 
     /**
      * @param args the command line arguments
@@ -286,9 +365,12 @@ public class GestionAdministrativo extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu5;
     private javax.swing.JMenu jMenu6;
     private javax.swing.JMenu jMenu7;
+    private javax.swing.JMenu jMenu8;
+    private javax.swing.JMenu jMenu9;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuBar jMenuBar2;
     private javax.swing.JMenuBar jMenuBar3;
+    private javax.swing.JMenuBar jMenuBar4;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JMenu menuAdminLab;

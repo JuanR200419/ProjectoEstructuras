@@ -22,7 +22,7 @@ public class Estudiante extends Persona implements Serializable {
     private IList<Double> listaNotas;
     private Programa programa;
 
-    public Estudiante( String nombre, String id, LocalDate fechaNacimiento, String nommbreUsuario, String contrasena,Programa programa, String rol) {
+    public Estudiante( Programa programa, String nombre, String id, LocalDate fechaNacimiento, String nommbreUsuario, Contrasena contrasena, String rol) {
         super(nombre, id, fechaNacimiento, nommbreUsuario, contrasena, rol);
         this.cursosMatriculados = new Lista<>();
         this.cursosAnteriores = new Lista<>();
@@ -30,9 +30,11 @@ public class Estudiante extends Persona implements Serializable {
         this.programa = programa;
     }
 
-    
+    @Override
+    public String toString() {
+        return "Nombre: " + this.getNombre() + " Codigo " + this.getId(); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/OverriddenMethodBody
+    }
 
-     
     public Programa getPrograma() {
         return programa;
     }
@@ -64,6 +66,5 @@ public class Estudiante extends Persona implements Serializable {
     public void setListaNotas(IList<Double> listaNotas) {
         this.listaNotas = listaNotas;
     }
-
 
 }

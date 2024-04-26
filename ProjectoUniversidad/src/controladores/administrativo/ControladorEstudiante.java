@@ -2,9 +2,10 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package controladores;
+package controladores.administrativo;
 
 import javax.swing.JOptionPane;
+import modelado.Curso;
 import modelado.Estudiante;
 import modelado.Persona;
 import util.IList;
@@ -15,11 +16,11 @@ import util.IList;
  */
 public class ControladorEstudiante {
      IList<Persona> listaPersonas;
-
     public ControladorEstudiante() {
           this.listaPersonas = Serializador.Serializador.getSeri().getPersonas();
     }
-         public Persona buscarPersonal(String id) {
+     
+      public Persona buscarPersonal(String id) {
         for (int i = 0; i < listaPersonas.size(); i++) {
             if (listaPersonas.get(i).getId().equals(id)) {
                 return listaPersonas.get(i);
@@ -63,7 +64,7 @@ public class ControladorEstudiante {
         } else {
             System.out.println("No se  actualizo puede actualizar si no existe");
         }
-
     }
-         
+    
+    
 }

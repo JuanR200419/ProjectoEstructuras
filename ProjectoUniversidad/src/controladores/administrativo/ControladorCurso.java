@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package controladores;
+package controladores.administrativo;
 
 import modelado.Curso;
 import modelado.Estudiante;
@@ -14,23 +14,24 @@ import util.IList;
  * @author Juan Manuel
  */
 public class ControladorCurso {
-     IList<Persona> listaPersonas;
+
+    IList<Persona> listaPersonas;
     IList<Curso> listaCursos;
 
     public ControladorCurso() {
         this.listaCursos = Serializador.Serializador.getSeri().getCursos();
-          this.listaPersonas = Serializador.Serializador.getSeri().getPersonas();
+        this.listaPersonas = Serializador.Serializador.getSeri().getPersonas();
     }
 
-                  public IList<Persona> getListaPersonas() {
+    public IList<Persona> getListaPersonas() {
         return listaPersonas;
     }
 
     public IList<Curso> getListaCursos() {
         return listaCursos;
     }
-    
-        public Curso buscarCurso(String codigoCurso) {
+
+    public Curso buscarCurso(String codigoCurso) {
         for (int i = 0; i < listaCursos.size(); i++) {
             if (listaCursos.get(i).getCodigoDeCurso().equals(codigoCurso)) {
                 return listaCursos.get(i);
@@ -38,7 +39,7 @@ public class ControladorCurso {
         }
         return null;
     }
-    
+
     public void agregarCurso(Curso curso) {
         Curso aux = buscarCurso(curso.getCodigoDeCurso());
         if (aux == null) {
@@ -72,15 +73,6 @@ public class ControladorCurso {
         }
     }
 
-    public void inscribirCursoEstudiante(String codigoCurso, Estudiante estudi) {
-        Curso cursoIncripcion = buscarCurso(codigoCurso);
-        if (cursoIncripcion == null) {
-            System.out.println("Exception de no se encuentra el curso a incribir");
-        }
-        if (cursoIncripcion != null) {
-            cursoIncripcion.registrarEstudiante(estudi);
-        }
 
-    }
 
 }

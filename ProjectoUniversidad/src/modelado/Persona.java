@@ -17,12 +17,14 @@ public class Persona  extends Usuario implements Serializable{
    private String id;
    private LocalDate fechaNacimiento;
 
-    public Persona(String nombre, String id, LocalDate fechaNacimiento, String nommbreUsuario, String contrasena, String rol) {
+    public Persona(String nombre, String id, LocalDate fechaNacimiento, String nommbreUsuario, Contrasena contrasena, String rol) {
         super(nommbreUsuario, contrasena, rol);
         this.nombre = nombre;
         this.id = id;
         this.fechaNacimiento = fechaNacimiento;
     }
+
+
 
    
     

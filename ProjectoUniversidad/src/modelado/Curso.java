@@ -4,10 +4,13 @@
  */
 package modelado;
 
+import excepciones.horaNoValidaException;
+import excepciones.unicoDiaException;
 import modelado.Enums.Materia;
 import modelado.Enums.Dias;
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -27,7 +30,7 @@ public class Curso implements Serializable {
     String codigoDeCurso;
     String jornada;
 
-    public Curso( Materia materia,Docente docente, String periodo,  String codigoDeCurso, String jornada) {
+    public Curso(Materia materia, Docente docente, String periodo, String codigoDeCurso, String jornada) {
         this.docente = docente;
         this.listaEstudiantes = new Lista<>();
         this.periodo = periodo;
@@ -40,17 +43,28 @@ public class Curso implements Serializable {
 
     @Override
     public String toString() {
-        return  this.materia.toString() +"-Docente: "+this.docente.getNombre()+"-Codigo: " +this.codigoDeCurso; 
+        return this.materia.toString() + "-Docente: " + this.docente.getNombre() + "-Codigo: " + this.codigoDeCurso;
     }
 // validaciones Para el dia 
 
-    public void guardarHorario(Horario horario) {
-        Horario res = validarDiaUnic(horario.getDia());
-        if (res == null) {
-            this.horariosEstablecidos.add(horario);
+    public void guardarHorario(Horario horario) throws horaNoValidaException, unicoDiaException {
+        boolean horaValidada = validarHoraCorrecta(horario.getHoraEntrada(), horario.getHoraSalida());
+        if (horaValidada) {
+            Horario res = validarDiaUnic(horario.getDia());
+            if (res == null) {
+                this.horariosEstablecidos.add(horario);
+            } else {
+                throw new unicoDiaException();
+            }
+        } else {
+            throw new horaNoValidaException();
         }
     }
 
+ 
+     
+    
+    
     public void eliminarHorario(Dias dia) {
         Horario res = validarDiaUnic(dia);
         if (res != null) {
@@ -77,6 +91,13 @@ public class Curso implements Serializable {
         return null;
     }
 
+    public boolean validarHoraCorrecta(LocalTime horaEntrada, LocalTime horaSalida) {
+        if (horaEntrada.isBefore(horaSalida)) {
+            return true;
+        }
+        return false;
+    }
+
     public String getJornada() {
         return jornada;
     }
@@ -85,19 +106,23 @@ public class Curso implements Serializable {
         this.jornada = jornada;
     }
 
-    public void registrarEstudiante(Estudiante estudiante) {
-        Estudiante estudi = buscarEstudiante(estudiante.getId());
-        if (estudi != null) {
-            System.out.println("exception de ya esta registrado este estudiante");
-
-        }
-        if (estudi == null) {
-            for (int i = 0; i < listaEstudiantes.size(); i++) {
-                listaEstudiantes.add(estudiante);
-                JOptionPane.showMessageDialog(null, "Se registro el estudiante");
+    public Estudiante buscarEstudiante(String codigo) {
+        for (int i = 0; i < listaEstudiantes.size(); i++) {
+            if (listaEstudiantes.get(i).getId().equals(codigo)) {
+                return listaEstudiantes.get(i);
             }
         }
+        return null;
+    }
 
+    public void asignarEstudiante(Estudiante estudiante) {
+        Estudiante estudi = buscarEstudiante(estudiante.getId());
+        if (estudi == null) {
+            listaEstudiantes.add(estudiante);
+            JOptionPane.showMessageDialog(null, "Se registro el estudiante");
+        } else {
+            System.out.println("exception de ya esta registrado este estudiante");
+        }
     }
 
     public void quitarCursoEstudiante(String codigo) {
@@ -114,15 +139,6 @@ public class Curso implements Serializable {
         }
     }
 
-    public Estudiante buscarEstudiante(String codigo) {
-        for (int i = 0; i < listaEstudiantes.size(); i++) {
-            if (listaEstudiantes.get(i).getId().equals(codigo)) {
-                return listaEstudiantes.get(i);
-            }
-        }
-        return null;
-    }
-
     public String getCodigoDeCurso() {
         return codigoDeCurso;
     }
@@ -130,7 +146,6 @@ public class Curso implements Serializable {
     public void setCodigoDeCurso(String codigoDeCurso) {
         this.codigoDeCurso = codigoDeCurso;
     }
-
 
     public Docente getDocente() {
         return docente;

@@ -15,9 +15,11 @@ import java.util.ArrayList;
 
 public class AdminLaboratorio extends Persona  implements Serializable{
 
-    public AdminLaboratorio(String nombre, String id, LocalDate fechaNacimiento, String nommbreUsuario, String contrasena, String rol) {
+    public AdminLaboratorio(String nombre, String id, LocalDate fechaNacimiento, String nommbreUsuario, Contrasena contrasena, String rol) {
         super(nombre, id, fechaNacimiento, nommbreUsuario, contrasena, rol);
     }
+
+    
 
    
 

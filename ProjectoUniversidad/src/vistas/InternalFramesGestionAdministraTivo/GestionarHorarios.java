@@ -4,10 +4,14 @@
  */
 package vistas.InternalFramesGestionAdministraTivo;
 
-import controladores.ControladorCurso;
-import controladores.ControladorHorarios;
+import controladores.administrativo.ControladorCurso;
+import controladores.administrativo.ControladorHorarios;
+import excepciones.horaNoValidaException;
+import excepciones.unicoDiaException;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import modelado.Curso;
@@ -27,10 +31,10 @@ public class GestionarHorarios extends javax.swing.JInternalFrame {
     ControladorHorarios controlHorarios;
     ControladorCurso controlCurso;
     Curso curso;
-    
+
     public GestionarHorarios() {
         initComponents();
-        this.controlCurso= new ControladorCurso();
+        this.controlCurso = new ControladorCurso();
         llenarCombo();
     }
 
@@ -38,7 +42,6 @@ public class GestionarHorarios extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         cbHoraIni = new javax.swing.JComboBox<>();
         jLabel26 = new javax.swing.JLabel();
@@ -56,37 +59,54 @@ public class GestionarHorarios extends javax.swing.JInternalFrame {
         btnBuscar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblHorarios = new javax.swing.JTable();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel1.setText("GESTION DE HORARIOS");
-
+        jPanel1.setBackground(new java.awt.Color(0, 39, 44));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        cbHoraIni.setBackground(new java.awt.Color(71, 100, 104));
+        cbHoraIni.setFont(new java.awt.Font("Gadugi", 1, 14)); // NOI18N
+        cbHoraIni.setForeground(new java.awt.Color(255, 255, 255));
         cbHoraIni.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jPanel1.add(cbHoraIni, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 110, -1, -1));
+        jPanel1.add(cbHoraIni, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 170, -1, -1));
 
-        jLabel26.setFont(new java.awt.Font("Agency FB", 1, 14)); // NOI18N
-        jLabel26.setText("HORARIO DE INICIO DE CLASE ");
-        jPanel1.add(jLabel26, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 110, -1, -1));
+        jLabel26.setFont(new java.awt.Font("Gadugi", 1, 14)); // NOI18N
+        jLabel26.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel26.setText("HORARIO DE INICIO DE CLASE: ");
+        jPanel1.add(jLabel26, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 170, -1, -1));
 
+        cbMinutoIni.setBackground(new java.awt.Color(71, 100, 104));
+        cbMinutoIni.setFont(new java.awt.Font("Gadugi", 1, 14)); // NOI18N
+        cbMinutoIni.setForeground(new java.awt.Color(255, 255, 255));
         cbMinutoIni.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jPanel1.add(cbMinutoIni, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 110, -1, -1));
+        jPanel1.add(cbMinutoIni, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 170, -1, -1));
 
+        cbMinutoFinal.setBackground(new java.awt.Color(71, 100, 104));
+        cbMinutoFinal.setFont(new java.awt.Font("Gadugi", 1, 14)); // NOI18N
+        cbMinutoFinal.setForeground(new java.awt.Color(255, 255, 255));
         cbMinutoFinal.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jPanel1.add(cbMinutoFinal, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 150, -1, -1));
+        jPanel1.add(cbMinutoFinal, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 210, -1, -1));
 
+        cbHoraFinal.setBackground(new java.awt.Color(71, 100, 104));
+        cbHoraFinal.setFont(new java.awt.Font("Gadugi", 1, 14)); // NOI18N
+        cbHoraFinal.setForeground(new java.awt.Color(255, 255, 255));
         cbHoraFinal.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jPanel1.add(cbHoraFinal, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 150, -1, -1));
+        jPanel1.add(cbHoraFinal, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 210, -1, -1));
 
-        jLabel27.setFont(new java.awt.Font("Agency FB", 1, 14)); // NOI18N
-        jLabel27.setText("HORARIO DE FINAL DE CLASE ");
-        jPanel1.add(jLabel27, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 150, -1, -1));
+        jLabel27.setFont(new java.awt.Font("Gadugi", 1, 14)); // NOI18N
+        jLabel27.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel27.setText("HORARIO DE FINAL DE CLASE :");
+        jPanel1.add(jLabel27, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 210, -1, -1));
 
-        jLabel3.setFont(new java.awt.Font("Agency FB", 1, 18)); // NOI18N
-        jLabel3.setText("Cursos");
-        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 40, 60, -1));
+        jLabel3.setFont(new java.awt.Font("Gadugi", 1, 14)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel3.setText("CURSOS:");
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 80, 60, -1));
 
+        cbCursos.setBackground(new java.awt.Color(71, 100, 104));
+        cbCursos.setFont(new java.awt.Font("Gadugi", 1, 14)); // NOI18N
+        cbCursos.setForeground(new java.awt.Color(255, 255, 255));
         cbCursos.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 cbCursosItemStateChanged(evt);
@@ -97,54 +117,62 @@ public class GestionarHorarios extends javax.swing.JInternalFrame {
                 cbCursosActionPerformed(evt);
             }
         });
-        jPanel1.add(cbCursos, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 40, 290, -1));
+        jPanel1.add(cbCursos, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 80, 290, -1));
 
+        cbDias.setBackground(new java.awt.Color(71, 100, 104));
+        cbDias.setFont(new java.awt.Font("Gadugi", 1, 14)); // NOI18N
+        cbDias.setForeground(new java.awt.Color(255, 255, 255));
         cbDias.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cbDiasActionPerformed(evt);
             }
         });
-        jPanel1.add(cbDias, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 70, -1, -1));
+        jPanel1.add(cbDias, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 120, -1, -1));
 
-        jLabel28.setFont(new java.awt.Font("Agency FB", 1, 14)); // NOI18N
-        jLabel28.setText("DIA DEL CURSO");
-        jPanel1.add(jLabel28, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 70, -1, -1));
+        jLabel28.setFont(new java.awt.Font("Gadugi", 1, 14)); // NOI18N
+        jLabel28.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel28.setText("DIA DEL CURSO:");
+        jPanel1.add(jLabel28, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 120, -1, -1));
 
-        btnAgregar.setFont(new java.awt.Font("Agency FB", 1, 14)); // NOI18N
+        btnAgregar.setBackground(new java.awt.Color(71, 100, 104));
+        btnAgregar.setFont(new java.awt.Font("Gadugi", 1, 14)); // NOI18N
         btnAgregar.setText("Agregar");
         btnAgregar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAgregarActionPerformed(evt);
             }
         });
-        jPanel1.add(btnAgregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(117, 216, -1, -1));
+        jPanel1.add(btnAgregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 250, -1, -1));
 
-        btnBorrar.setFont(new java.awt.Font("Agency FB", 1, 14)); // NOI18N
+        btnBorrar.setBackground(new java.awt.Color(71, 100, 104));
+        btnBorrar.setFont(new java.awt.Font("Gadugi", 1, 14)); // NOI18N
         btnBorrar.setText("Borrar");
         btnBorrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnBorrarActionPerformed(evt);
             }
         });
-        jPanel1.add(btnBorrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(218, 216, -1, -1));
+        jPanel1.add(btnBorrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 250, -1, -1));
 
-        btnActualizar.setFont(new java.awt.Font("Agency FB", 1, 14)); // NOI18N
+        btnActualizar.setBackground(new java.awt.Color(71, 100, 104));
+        btnActualizar.setFont(new java.awt.Font("Gadugi", 1, 14)); // NOI18N
         btnActualizar.setText("Actualizar");
         btnActualizar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnActualizarActionPerformed(evt);
             }
         });
-        jPanel1.add(btnActualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(117, 257, -1, -1));
+        jPanel1.add(btnActualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 250, -1, -1));
 
-        btnBuscar.setFont(new java.awt.Font("Agency FB", 1, 14)); // NOI18N
+        btnBuscar.setBackground(new java.awt.Color(71, 100, 104));
+        btnBuscar.setFont(new java.awt.Font("Gadugi", 1, 14)); // NOI18N
         btnBuscar.setText("Buscar");
         btnBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnBuscarActionPerformed(evt);
             }
         });
-        jPanel1.add(btnBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(218, 257, -1, -1));
+        jPanel1.add(btnBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 250, -1, -1));
 
         tblHorarios.setFont(new java.awt.Font("Agency FB", 1, 14)); // NOI18N
         tblHorarios.setModel(new javax.swing.table.DefaultTableModel(
@@ -168,30 +196,25 @@ public class GestionarHorarios extends javax.swing.JInternalFrame {
         });
         jScrollPane1.setViewportView(tblHorarios);
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 0, -1, -1));
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 300, 760, 260));
+
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setText("GESTION DE HORARIOS");
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 10, -1, -1));
+
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/calendario.png"))); // NOI18N
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 100, 150, 110));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(323, 323, 323)
-                        .addComponent(jLabel1))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(31, 31, 31)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(7, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 1000, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(30, 30, 30)
-                .addComponent(jLabel1)
-                .addGap(18, 18, 18)
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -257,14 +280,12 @@ public class GestionarHorarios extends javax.swing.JInternalFrame {
         int minutoSalida = Integer.parseInt(cbMinutoFinal.getSelectedItem().toString());
         LocalTime salida = LocalTime.of(horaSalida, minutoSalida);
         Horario horario = new Horario(dia, entrada, salida);
-        controlHorarios.guardarHorario(horario);
-//        boolean resp = validarNoUsarElPrimero();
-//        if (resp) {
+        try {
             controlHorarios.guardarHorario(horario);
-            actualizarTablaAdmin(this.curso);
-//        } else {
-//            JOptionPane.showMessageDialog(null, "No puedes Seleccionar Cursos como un curso");
-//        }
+        } catch (horaNoValidaException | unicoDiaException ex) {
+           JOptionPane.showMessageDialog(null, ex.getMessage());
+        }
+        actualizarTablaAdmin(this.curso);
 
 
     }//GEN-LAST:event_btnAgregarActionPerformed
@@ -281,29 +302,12 @@ public class GestionarHorarios extends javax.swing.JInternalFrame {
 
     private void btnBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBorrarActionPerformed
 
-            Dias dia = (Dias) cbDias.getSelectedItem();
-            Horario horario = controlHorarios.validarDiaUnic(dia);
-//            boolean resp = validarNoUsarElPrimero();
-//            if (resp) {
-                controlHorarios.guardarHorario(horario);
-                actualizarTablaAdmin(curso);
-//            } else {
-//                JOptionPane.showMessageDialog(null, "No puedes Seleccionar Cursos como un curso");
-//            }
+        Dias dia = (Dias) cbDias.getSelectedItem();
+        controlHorarios.eliminarHorario(dia);
+        actualizarTablaAdmin(curso);
 
 
     }//GEN-LAST:event_btnBorrarActionPerformed
-//    private boolean validarNoUsarElPrimero() {
-//        try {
-//            if (cbCursos.getSelectedIndex() == 0) {
-//                return false;
-//            } else {
-//                return true;
-//            }
-//        } catch (NullPointerException e) {
-//            return false;
-//        }
-//    }
 
     private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
         //METODOS PARA EL HORARIO NO CONFIRMADOS
@@ -318,31 +322,25 @@ public class GestionarHorarios extends javax.swing.JInternalFrame {
         LocalTime salida = LocalTime.of(horaSalida, minutoSalida);
         Horario horario = new Horario(dia, entrada, salida);
         controlHorarios.actualizarHorario(horario);
-//        boolean resp = validarNoUsarElPrimero();
-//        if (resp) {
-            controlHorarios.guardarHorario(horario);
-            actualizarTablaAdmin(curso);
-//        } else {
-//            JOptionPane.showMessageDialog(null, "No puedes Seleccionar Cursos como un curso");
-//        }
+        actualizarTablaAdmin(curso);
 
 
     }//GEN-LAST:event_btnActualizarActionPerformed
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
-       Dias dia =(Dias) cbDias.getSelectedItem();
+        Dias dia = (Dias) cbDias.getSelectedItem();
         Horario hora = controlHorarios.validarDiaUnic(dia);
-        if(hora!=null){
-        int horaIni = hora.getHoraEntrada().getHour();
-        int minutoIni = hora.getHoraEntrada().getMinute();
-        int horaFinal = hora.getHoraSalida().getHour();
-        int minutoFinal = hora.getHoraSalida().getMinute();
-        cbHoraIni.setSelectedItem(String.valueOf(horaIni));
-        cbMinutoIni.setSelectedItem(String.valueOf(minutoIni));
-        cbHoraFinal.setSelectedItem(String.valueOf(horaFinal));
-        cbMinutoFinal.setSelectedItem(String.valueOf(minutoFinal));
-        }else{
-        JOptionPane.showMessageDialog(null, "No esta registra ese horario en este curso");
+        if (hora != null) {
+            int horaIni = hora.getHoraEntrada().getHour();
+            int minutoIni = hora.getHoraEntrada().getMinute();
+            int horaFinal = hora.getHoraSalida().getHour();
+            int minutoFinal = hora.getHoraSalida().getMinute();
+            cbHoraIni.setSelectedItem(String.valueOf(horaIni));
+            cbMinutoIni.setSelectedItem(String.valueOf(minutoIni));
+            cbHoraFinal.setSelectedItem(String.valueOf(horaFinal));
+            cbMinutoFinal.setSelectedItem(String.valueOf(minutoFinal));
+        } else {
+            JOptionPane.showMessageDialog(null, "No esta registra ese horario en este curso");
         }
     }//GEN-LAST:event_btnBuscarActionPerformed
 
@@ -359,6 +357,7 @@ public class GestionarHorarios extends javax.swing.JInternalFrame {
     private javax.swing.JComboBox<String> cbMinutoFinal;
     private javax.swing.JComboBox<String> cbMinutoIni;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel26;
     private javax.swing.JLabel jLabel27;
     private javax.swing.JLabel jLabel28;

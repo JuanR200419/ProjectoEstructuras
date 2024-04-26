@@ -27,7 +27,7 @@ public class Laboratorio implements Serializable {
         this.listaCursos = new Lista<>();
         this.listaReservas = new Lista<>();
         this.mantenimiento = null;
-        this.puestos = new Puesto[listaCursos.get(0).getListaEstudiantes().size()][listaCursos.get(0).getListaEstudiantes().size()];
+        this.puestos = new Puesto[4][4];
 
     }
 

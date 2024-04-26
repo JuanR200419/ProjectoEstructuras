@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package controladores;
+package controladores.administrativo;
 
 import excepciones.UsuarioNoEncontradoException;
 import java.time.LocalDate;
@@ -31,12 +31,12 @@ public class ControladorIniciarSesion {
             System.out.println("exception de llenar campos");
         }
 
-        if (usuario.equalsIgnoreCase(admin.getNommbreUsuario()) && contrasena.equalsIgnoreCase(admin.getContrasena())) {
+        if (usuario.equalsIgnoreCase(admin.getNommbreUsuario()) && contrasena.equalsIgnoreCase(admin.getContrasena().getIdenContrasena())) {
             return admin;
         }
         Persona persona = buscarUsuario(usuario, contrasena);
         if (persona.getNommbreUsuario().equals(usuario)) {
-            if (persona.getContrasena().equals(contrasena)) {
+            if (persona.getContrasena().getIdenContrasena().equals(contrasena)) {
                 return persona;
             } else {
                 System.out.println("contraseña invalida");
@@ -50,7 +50,7 @@ public class ControladorIniciarSesion {
 
     public Persona buscarUsuario(String usuario, String contrasena) throws UsuarioNoEncontradoException{
         for (int i = 0; i < listaPersonal.size(); i++) {
-            if (listaPersonal.get(i).getNommbreUsuario().equals(usuario) &&listaPersonal.get(i).getContrasena().equals(contrasena) ) {
+            if (listaPersonal.get(i).getNommbreUsuario().equals(usuario) &&listaPersonal.get(i).getContrasena().getIdenContrasena().equals(contrasena) ) {
                 return listaPersonal.get(i);
             }
         }

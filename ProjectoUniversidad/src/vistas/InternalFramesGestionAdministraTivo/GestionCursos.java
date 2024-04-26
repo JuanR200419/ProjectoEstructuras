@@ -4,8 +4,8 @@
  */
 package vistas.InternalFramesGestionAdministraTivo;
 
-import controladores.ControladorAdminLab;
-import controladores.ControladorCurso;
+import controladores.administrativo.ControladorAdminLab;
+import controladores.administrativo.ControladorCurso;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import modelado.Curso;
@@ -57,40 +57,76 @@ public class GestionCursos extends javax.swing.JInternalFrame {
         jLabel30 = new javax.swing.JLabel();
         cbMaterias = new javax.swing.JComboBox();
         cbPeriodo = new javax.swing.JComboBox<>();
+        jLabel1 = new javax.swing.JLabel();
 
+        setForeground(new java.awt.Color(255, 255, 255));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel22.setText("DOCENTE ASIGNADO");
+        Cursos.setBackground(new java.awt.Color(0, 39, 44));
+        Cursos.setForeground(new java.awt.Color(255, 255, 255));
+        Cursos.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        jLabel22.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel22.setFont(new java.awt.Font("Gadugi", 1, 14)); // NOI18N
+        jLabel22.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel22.setText("DOCENTE ASIGNADO:");
+        Cursos.add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 100, -1, -1));
+
+        cbDocente.setBackground(new java.awt.Color(71, 100, 104));
+        cbDocente.setFont(new java.awt.Font("Gadugi", 1, 14)); // NOI18N
+        cbDocente.setForeground(new java.awt.Color(255, 255, 255));
+        Cursos.add(cbDocente, new org.netbeans.lib.awtextra.AbsoluteConstraints(279, 93, 270, -1));
+
+        btnBorrarCurso.setBackground(new java.awt.Color(71, 100, 104));
+        btnBorrarCurso.setFont(new java.awt.Font("Gadugi", 1, 14)); // NOI18N
         btnBorrarCurso.setText("BORRAR");
         btnBorrarCurso.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnBorrarCursoActionPerformed(evt);
             }
         });
+        Cursos.add(btnBorrarCurso, new org.netbeans.lib.awtextra.AbsoluteConstraints(222, 307, -1, -1));
 
+        btnInsertarCurso.setBackground(new java.awt.Color(71, 100, 104));
+        btnInsertarCurso.setFont(new java.awt.Font("Gadugi", 1, 14)); // NOI18N
         btnInsertarCurso.setText("INSERTAR");
         btnInsertarCurso.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnInsertarCursoActionPerformed(evt);
             }
         });
+        Cursos.add(btnInsertarCurso, new org.netbeans.lib.awtextra.AbsoluteConstraints(113, 307, -1, -1));
 
+        btnBuscarCurso.setBackground(new java.awt.Color(71, 100, 104));
+        btnBuscarCurso.setFont(new java.awt.Font("Gadugi", 1, 14)); // NOI18N
         btnBuscarCurso.setText("BUSCAR");
         btnBuscarCurso.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnBuscarCursoActionPerformed(evt);
             }
         });
+        Cursos.add(btnBuscarCurso, new org.netbeans.lib.awtextra.AbsoluteConstraints(113, 358, -1, -1));
 
+        btnActualizarCurso.setBackground(new java.awt.Color(71, 100, 104));
+        btnActualizarCurso.setFont(new java.awt.Font("Gadugi", 1, 14)); // NOI18N
         btnActualizarCurso.setText("ACTUALIZAR");
         btnActualizarCurso.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnActualizarCursoActionPerformed(evt);
             }
         });
+        Cursos.add(btnActualizarCurso, new org.netbeans.lib.awtextra.AbsoluteConstraints(222, 358, -1, -1));
 
-        jLabel17.setText("Codigo Curso");
+        jLabel17.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel17.setFont(new java.awt.Font("Gadugi", 1, 14)); // NOI18N
+        jLabel17.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel17.setText("CODIGO DE CURSO:");
+        Cursos.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 130, 140, -1));
+
+        txtCodigoCurso.setBackground(new java.awt.Color(71, 100, 104));
+        txtCodigoCurso.setFont(new java.awt.Font("Gadugi", 1, 14)); // NOI18N
+        txtCodigoCurso.setForeground(new java.awt.Color(255, 255, 255));
+        Cursos.add(txtCodigoCurso, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 130, 270, -1));
 
         tbCursos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -120,105 +156,53 @@ public class GestionCursos extends javax.swing.JInternalFrame {
         });
         jScrollPane4.setViewportView(tbCursos);
 
-        jLabel27.setText("PERIODO DEL AÑO ");
+        Cursos.add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 430, 710, 126));
 
+        jLabel27.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel27.setFont(new java.awt.Font("Gadugi", 1, 14)); // NOI18N
+        jLabel27.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel27.setText("PERIODO DEL AÑO:");
+        Cursos.add(jLabel27, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 170, 150, -1));
+
+        jLabel28.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel28.setFont(new java.awt.Font("Gadugi", 1, 14)); // NOI18N
+        jLabel28.setForeground(new java.awt.Color(255, 255, 255));
         jLabel28.setText("JORNADA :");
+        Cursos.add(jLabel28, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 210, 108, -1));
 
+        cbJornada.setBackground(new java.awt.Color(71, 100, 104));
+        cbJornada.setFont(new java.awt.Font("Gadugi", 1, 14)); // NOI18N
+        cbJornada.setForeground(new java.awt.Color(255, 255, 255));
         cbJornada.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Dia", "Noche" }));
+        Cursos.add(cbJornada, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 210, -1, -1));
 
-        jLabel29.setFont(new java.awt.Font("Agency FB", 1, 18)); // NOI18N
-        jLabel29.setText("REGISTRO DE CURSO");
+        jLabel29.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel29.setFont(new java.awt.Font("Gadugi", 1, 24)); // NOI18N
+        jLabel29.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel29.setText("REGISTRO DE CURSOS");
+        Cursos.add(jLabel29, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 10, 260, -1));
 
-        jLabel30.setText("MATERIA");
+        jLabel30.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel30.setFont(new java.awt.Font("Gadugi", 1, 14)); // NOI18N
+        jLabel30.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel30.setText("MATERIA:");
+        Cursos.add(jLabel30, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 60, 76, -1));
 
+        cbMaterias.setBackground(new java.awt.Color(71, 100, 104));
+        cbMaterias.setFont(new java.awt.Font("Gadugi", 1, 14)); // NOI18N
+        cbMaterias.setForeground(new java.awt.Color(255, 255, 255));
+        Cursos.add(cbMaterias, new org.netbeans.lib.awtextra.AbsoluteConstraints(279, 59, 270, -1));
+
+        cbPeriodo.setBackground(new java.awt.Color(71, 100, 104));
+        cbPeriodo.setFont(new java.awt.Font("Gadugi", 1, 14)); // NOI18N
+        cbPeriodo.setForeground(new java.awt.Color(255, 255, 255));
         cbPeriodo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "2024-1", "2024-2" }));
+        Cursos.add(cbPeriodo, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 170, -1, -1));
 
-        javax.swing.GroupLayout CursosLayout = new javax.swing.GroupLayout(Cursos);
-        Cursos.setLayout(CursosLayout);
-        CursosLayout.setHorizontalGroup(
-            CursosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(CursosLayout.createSequentialGroup()
-                .addGroup(CursosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(CursosLayout.createSequentialGroup()
-                        .addGap(81, 81, 81)
-                        .addGroup(CursosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(CursosLayout.createSequentialGroup()
-                                .addGroup(CursosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel27, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel28, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(65, 65, 65)
-                                .addGroup(CursosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(cbJornada, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(cbPeriodo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(CursosLayout.createSequentialGroup()
-                                .addGroup(CursosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(CursosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                        .addComponent(jLabel22)
-                                        .addComponent(jLabel17, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                    .addComponent(jLabel30, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(82, 82, 82)
-                                .addGroup(CursosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(cbMaterias, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(cbDocente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtCodigoCurso, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                    .addGroup(CursosLayout.createSequentialGroup()
-                        .addGap(183, 183, 183)
-                        .addComponent(jLabel29, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(CursosLayout.createSequentialGroup()
-                        .addGap(113, 113, 113)
-                        .addGroup(CursosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnInsertarCurso)
-                            .addComponent(btnBuscarCurso))
-                        .addGap(25, 25, 25)
-                        .addGroup(CursosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnActualizarCurso)
-                            .addComponent(btnBorrarCurso))))
-                .addGap(73, 73, 73)
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 490, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        CursosLayout.setVerticalGroup(
-            CursosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(CursosLayout.createSequentialGroup()
-                .addGroup(CursosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(CursosLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(CursosLayout.createSequentialGroup()
-                        .addGap(22, 22, 22)
-                        .addComponent(jLabel29)
-                        .addGap(15, 15, 15)
-                        .addGroup(CursosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel30)
-                            .addComponent(cbMaterias, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(CursosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel22)
-                            .addComponent(cbDocente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(CursosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel17)
-                            .addComponent(txtCodigoCurso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(CursosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel27)
-                            .addComponent(cbPeriodo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(21, 21, 21)
-                        .addGroup(CursosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel28)
-                            .addComponent(cbJornada, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(81, 81, 81)
-                        .addGroup(CursosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btnInsertarCurso)
-                            .addComponent(btnBorrarCurso))
-                        .addGap(28, 28, 28)
-                        .addGroup(CursosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btnBuscarCurso)
-                            .addComponent(btnActualizarCurso))))
-                .addContainerGap(100, Short.MAX_VALUE))
-        );
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Curso.png"))); // NOI18N
+        Cursos.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 90, 160, 160));
 
-        getContentPane().add(Cursos, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+        getContentPane().add(Cursos, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1000, 570));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -243,7 +227,7 @@ public class GestionCursos extends javax.swing.JInternalFrame {
         }
         cbMaterias.removeAllItems();
         Materia[] materias = Materia.values();
-        for(int i = 1; i < materias.length-1; i++) {
+        for (int i = 1; i < materias.length - 1; i++) {
             cbMaterias.addItem(materias[i]);
         }
 
@@ -258,8 +242,13 @@ public class GestionCursos extends javax.swing.JInternalFrame {
         String jornada = cbJornada.getSelectedItem().toString();
         Materia materia = (Materia) cbMaterias.getSelectedItem();
         Curso curso = new Curso(materia, docente, periodo, codigoCurso, jornada);
-        control.agregarCurso(curso);
-        actualizarTablaAdmin();
+        try {
+            control.agregarCurso(curso);
+            actualizarTablaAdmin();
+
+        } catch (NullPointerException e) {
+            JOptionPane.showMessageDialog(null, "No hay docentes Registrados");
+        }
 
 
     }//GEN-LAST:event_btnInsertarCursoActionPerformed
@@ -317,6 +306,7 @@ public class GestionCursos extends javax.swing.JInternalFrame {
     private javax.swing.JComboBox<String> cbJornada;
     private javax.swing.JComboBox cbMaterias;
     private javax.swing.JComboBox<String> cbPeriodo;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel27;

@@ -23,6 +23,12 @@ public class Horario implements Serializable{
         this.horaSalida = horaSalida;
     }
 
+    @Override
+    public String toString() {
+        return "Dia"+this.dia.toString() +" Hora de Entrada "+this.horaEntrada.toString() +" Hora de Salida "+this.horaSalida.toString(); 
+    }
+    
+    
     public Dias getDia() {
         return dia;
     }

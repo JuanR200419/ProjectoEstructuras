@@ -22,12 +22,13 @@ import util.Lista;
  * @author Juan Manuel
  */
 public class Serializador {
+
     private static Serializador INSTANCIA = new Serializador();
-    IList<Curso>cursos;
-    IList<Persona>personas;
-    IList<Reserva>reservas;
-    Laboratorio[][] laboratorios ;
-    
+    IList<Curso> cursos;
+    IList<Persona> personas;
+    IList<Reserva> reservas;
+    Laboratorio[][] laboratorios;
+
     private Serializador() {
         this.cursos = leerCursos();
         this.personas = leerPersonal();
@@ -50,8 +51,6 @@ public class Serializador {
     public IList<Reserva> getReservas() {
         return reservas;
     }
-
- 
 
     public Laboratorio[][] getLaboratorios() {
         return laboratorios;
@@ -76,8 +75,8 @@ public class Serializador {
             return new Lista<>();
         }
     }
-    
-      public void escribirPersonal() {
+
+    public void escribirPersonal() {
         try {
             FileOutputStream archivo = new FileOutputStream("Personas.dat");
             ObjectOutputStream escritor = new ObjectOutputStream(archivo);
@@ -96,8 +95,8 @@ public class Serializador {
             return new Lista<>();
         }
     }
-    
-       public void escribirReserva() {
+
+    public void escribirReserva() {
         try {
             FileOutputStream archivo = new FileOutputStream("Reserva.dat");
             ObjectOutputStream escritor = new ObjectOutputStream(archivo);
@@ -116,10 +115,10 @@ public class Serializador {
             return new Lista<>();
         }
     }
-    
-        public void escribirLaboratorio() {
+
+    public void escribirLaboratorio() {
         try {
-            FileOutputStream archivo = new FileOutputStream("Reserva.dat");
+            FileOutputStream archivo = new FileOutputStream("Laboratorios.dat");
             ObjectOutputStream escritor = new ObjectOutputStream(archivo);
             escritor.writeObject(laboratorios);
         } catch (IOException ex) {
@@ -129,12 +128,12 @@ public class Serializador {
 
     public Laboratorio[][] leerLaboratorios() {
         try {
-            FileInputStream archivo = new FileInputStream("Reserva.dat");
+            FileInputStream archivo = new FileInputStream("Laboratorios.dat");
             ObjectInputStream lector = new ObjectInputStream(archivo);
             return (Laboratorio[][]) lector.readObject();
         } catch (IOException | ClassNotFoundException ex) {
-            return new Laboratorio[3][5];
+            return new Laboratorio[3][5]; // O el tamaño predeterminado que desees
         }
     }
-    
+
 }

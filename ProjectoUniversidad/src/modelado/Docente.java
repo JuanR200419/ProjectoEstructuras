@@ -15,22 +15,21 @@ import util.Lista;
  * @author Juan Manuel
  */
 public class Docente extends Persona implements Serializable {
-    IList<Curso>listaCursos;
 
-    public Docente(String nombre, String id, LocalDate fechaNacimiento, String nommbreUsuario, String contrasena, String rol) {
+    IList<Curso> listaCursos;
+
+    public Docente(String nombre, String id, LocalDate fechaNacimiento, String nommbreUsuario, Contrasena contrasena, String rol) {
         super(nombre, id, fechaNacimiento, nommbreUsuario, contrasena, rol);
-        this.listaCursos =  new Lista<>();
+        this.listaCursos = new Lista<>();
     }
 
     public IList<Curso> getListaCursos() {
         return listaCursos;
     }
-   
-    
-   
-      @Override
-    public String toString(){
-        return this.getNombre() +"   "+this.getId();
+
+    @Override
+    public String toString() {
+        return "Nombre: " + this.getNombre() + " Codigo: " + this.getId();
     }
-    
+
 }

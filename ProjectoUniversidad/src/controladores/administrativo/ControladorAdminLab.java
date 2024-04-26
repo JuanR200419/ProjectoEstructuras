@@ -2,8 +2,10 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package controladores;
+package controladores.administrativo;
 
+import excepciones.UsuarioExistenteException;
+import excepciones.UsuarioNoEncontradoException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
@@ -43,32 +45,29 @@ public class ControladorAdminLab {
         }
         return null;
     }
-
-
-
 //----------------------------------------------------    
-    public void agregarAdmin(AdminLaboratorio admin) {
+
+    public void agregarAdmin(AdminLaboratorio admin) throws UsuarioExistenteException {
         Persona aux = buscarPersonal(admin.getId());
         if (aux == null) {
             listaPersonas.add(admin);
             Serializador.Serializador.getSeri().escribirPersonal();
         } else {
-            System.out.println("Ya existe este admin");
+            throw new UsuarioExistenteException();
         }
     }
 
-    public void eliminarAdmin(String id) {
+    public void eliminarAdmin(String id) throws UsuarioNoEncontradoException {
         Persona aux = buscarPersonal(id);
         if (aux != null && aux instanceof AdminLaboratorio) {
             listaPersonas.remove(aux);
             Serializador.Serializador.getSeri().escribirPersonal();
         } else {
-            System.out.println("No existe este admin");
+            throw new UsuarioNoEncontradoException();
         }
-
     }
 
-    public void ActualizarAdmin(AdminLaboratorio admin) {
+    public void ActualizarAdmin(AdminLaboratorio admin) throws UsuarioNoEncontradoException {
         Persona aux = buscarPersonal(admin.getId());
         if (aux != null && aux instanceof AdminLaboratorio) {
             aux.setNombre(admin.getNombre());
@@ -76,14 +75,7 @@ public class ControladorAdminLab {
             aux.setFechaNacimiento(admin.getFechaNacimiento());
             Serializador.Serializador.getSeri().escribirPersonal();
         } else {
-            System.out.println("No se  actualizo este admin");
+            throw new UsuarioNoEncontradoException();
         }
-
     }
-
- 
-  
-// METODOS DEL CURSO 
-
-  
 }

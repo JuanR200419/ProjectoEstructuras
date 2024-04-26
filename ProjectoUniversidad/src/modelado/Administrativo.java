@@ -14,10 +14,11 @@ import java.util.ArrayList;
  */
 public class Administrativo extends Persona implements Serializable {
 
-    public Administrativo(String nombre, String id, LocalDate fechaNacimiento, String nommbreUsuario, String contrasena, String rol) {
+    public Administrativo(String nombre, String id, LocalDate fechaNacimiento, String nommbreUsuario, Contrasena contrasena, String rol) {
         super(nombre, id, fechaNacimiento, nommbreUsuario, contrasena, rol);
     }
 
+   
 
 
 

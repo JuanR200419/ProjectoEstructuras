@@ -4,13 +4,14 @@
  */
 package vistas;
 
-import controladores.ControladorRegistroAdministrativo;
+import controladores.administrativo.ControladorRegistroAdministrativo;
 import java.time.LocalDate;
 import java.util.Date;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import modelado.AdminLaboratorio;
 import modelado.Administrativo;
+import modelado.Contrasena;
 import modelado.Persona;
 
 /**
@@ -51,105 +52,138 @@ public class RegistroAdministrativo extends javax.swing.JFrame {
         btnBorrarAdmin = new javax.swing.JButton();
         btnBuscarAdmin = new javax.swing.JButton();
         btnActualizarAdmin = new javax.swing.JButton();
+        jLabel7 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblAdmin = new javax.swing.JTable();
-        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setBackground(new java.awt.Color(0, 39, 44));
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        Panel.setBackground(new java.awt.Color(0, 39, 44));
         Panel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel1.setFont(new java.awt.Font("Agency FB", 1, 14)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel1.setFont(new java.awt.Font("Gadugi", 1, 14)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("NOMBRE  DE  USUARIO:");
-        Panel.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, -1, -1));
+        Panel.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 140, -1, -1));
 
-        txtUsuarioAdmin.setFont(new java.awt.Font("Agency FB", 0, 14)); // NOI18N
-        txtUsuarioAdmin.setForeground(new java.awt.Color(0, 0, 0));
-        Panel.add(txtUsuarioAdmin, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 30, 110, -1));
+        txtUsuarioAdmin.setBackground(new java.awt.Color(71, 100, 104));
+        txtUsuarioAdmin.setFont(new java.awt.Font("Gadugi", 0, 14)); // NOI18N
+        txtUsuarioAdmin.setForeground(new java.awt.Color(255, 255, 255));
+        Panel.add(txtUsuarioAdmin, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 140, 110, -1));
 
-        txtContraAdmin.setFont(new java.awt.Font("Agency FB", 0, 14)); // NOI18N
-        txtContraAdmin.setForeground(new java.awt.Color(0, 0, 0));
-        Panel.add(txtContraAdmin, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 70, 110, -1));
+        txtContraAdmin.setBackground(new java.awt.Color(71, 100, 104));
+        txtContraAdmin.setFont(new java.awt.Font("Gadugi", 0, 14)); // NOI18N
+        txtContraAdmin.setForeground(new java.awt.Color(255, 255, 255));
+        Panel.add(txtContraAdmin, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 180, 110, -1));
 
-        jLabel2.setFont(new java.awt.Font("Agency FB", 1, 14)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel2.setText("CONTRASEÑA TEMPORAL:");
-        Panel.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, -1, -1));
+        jLabel2.setFont(new java.awt.Font("Gadugi", 1, 14)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel2.setText("CONTRASEÑA :");
+        Panel.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 180, -1, -1));
 
-        jLabel3.setFont(new java.awt.Font("Agency FB", 1, 14)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel3.setFont(new java.awt.Font("Gadugi", 1, 14)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("NOMBRE :");
-        Panel.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 110, -1, -1));
+        Panel.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 220, -1, -1));
 
-        txtNombreAdmin.setFont(new java.awt.Font("Agency FB", 0, 14)); // NOI18N
-        txtNombreAdmin.setForeground(new java.awt.Color(0, 0, 0));
-        Panel.add(txtNombreAdmin, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 110, 110, -1));
+        txtNombreAdmin.setBackground(new java.awt.Color(71, 100, 104));
+        txtNombreAdmin.setFont(new java.awt.Font("Gadugi", 0, 14)); // NOI18N
+        txtNombreAdmin.setForeground(new java.awt.Color(255, 255, 255));
+        Panel.add(txtNombreAdmin, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 220, 110, -1));
 
-        txtIdentificacionAdmin.setFont(new java.awt.Font("Agency FB", 0, 14)); // NOI18N
-        txtIdentificacionAdmin.setForeground(new java.awt.Color(0, 0, 0));
+        txtIdentificacionAdmin.setBackground(new java.awt.Color(71, 100, 104));
+        txtIdentificacionAdmin.setFont(new java.awt.Font("Gadugi", 0, 14)); // NOI18N
+        txtIdentificacionAdmin.setForeground(new java.awt.Color(255, 255, 255));
         txtIdentificacionAdmin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtIdentificacionAdminActionPerformed(evt);
             }
         });
-        Panel.add(txtIdentificacionAdmin, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 160, 110, -1));
+        Panel.add(txtIdentificacionAdmin, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 270, 110, -1));
 
-        jLabel4.setFont(new java.awt.Font("Agency FB", 1, 14)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel4.setFont(new java.awt.Font("Gadugi", 1, 14)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setText("IDENTIFICACION");
-        Panel.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 160, -1, -1));
+        Panel.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 270, -1, -1));
 
-        jLabel5.setFont(new java.awt.Font("Agency FB", 1, 14)); // NOI18N
-        jLabel5.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel5.setFont(new java.awt.Font("Gadugi", 1, 14)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
         jLabel5.setText("Fecha De Nacimiento");
-        Panel.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 210, -1, -1));
-        Panel.add(dateAdmin, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 210, 120, -1));
+        Panel.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 320, -1, -1));
 
-        btnInsertarAdmin.setFont(new java.awt.Font("Agency FB", 1, 14)); // NOI18N
-        btnInsertarAdmin.setForeground(new java.awt.Color(0, 0, 0));
+        dateAdmin.setBackground(new java.awt.Color(71, 100, 104));
+        dateAdmin.setForeground(new java.awt.Color(71, 100, 104));
+        Panel.add(dateAdmin, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 320, 120, -1));
+
+        btnInsertarAdmin.setBackground(new java.awt.Color(71, 100, 104));
+        btnInsertarAdmin.setFont(new java.awt.Font("Gadugi", 1, 14)); // NOI18N
+        btnInsertarAdmin.setForeground(new java.awt.Color(255, 255, 255));
         btnInsertarAdmin.setText("INSERTAR");
         btnInsertarAdmin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnInsertarAdminActionPerformed(evt);
             }
         });
-        Panel.add(btnInsertarAdmin, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 300, -1, -1));
+        Panel.add(btnInsertarAdmin, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 380, -1, -1));
 
-        btnBorrarAdmin.setFont(new java.awt.Font("Agency FB", 1, 14)); // NOI18N
-        btnBorrarAdmin.setForeground(new java.awt.Color(0, 0, 0));
+        btnBorrarAdmin.setBackground(new java.awt.Color(71, 100, 104));
+        btnBorrarAdmin.setFont(new java.awt.Font("Gadugi", 1, 14)); // NOI18N
+        btnBorrarAdmin.setForeground(new java.awt.Color(255, 255, 255));
         btnBorrarAdmin.setText("BORRAR");
         btnBorrarAdmin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnBorrarAdminActionPerformed(evt);
             }
         });
-        Panel.add(btnBorrarAdmin, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 250, -1, -1));
+        Panel.add(btnBorrarAdmin, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 380, -1, -1));
 
-        btnBuscarAdmin.setFont(new java.awt.Font("Agency FB", 1, 14)); // NOI18N
-        btnBuscarAdmin.setForeground(new java.awt.Color(0, 0, 0));
+        btnBuscarAdmin.setBackground(new java.awt.Color(71, 100, 104));
+        btnBuscarAdmin.setFont(new java.awt.Font("Gadugi", 1, 14)); // NOI18N
+        btnBuscarAdmin.setForeground(new java.awt.Color(255, 255, 255));
         btnBuscarAdmin.setText("BUSCAR");
         btnBuscarAdmin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnBuscarAdminActionPerformed(evt);
             }
         });
-        Panel.add(btnBuscarAdmin, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 300, -1, -1));
+        Panel.add(btnBuscarAdmin, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 380, -1, -1));
 
-        btnActualizarAdmin.setFont(new java.awt.Font("Agency FB", 1, 14)); // NOI18N
-        btnActualizarAdmin.setForeground(new java.awt.Color(0, 0, 0));
+        btnActualizarAdmin.setBackground(new java.awt.Color(71, 100, 104));
+        btnActualizarAdmin.setFont(new java.awt.Font("Gadugi", 1, 14)); // NOI18N
+        btnActualizarAdmin.setForeground(new java.awt.Color(255, 255, 255));
         btnActualizarAdmin.setText("ACTUALIZAR");
         btnActualizarAdmin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnActualizarAdminActionPerformed(evt);
             }
         });
-        Panel.add(btnActualizarAdmin, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 250, -1, -1));
+        Panel.add(btnActualizarAdmin, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 380, -1, -1));
 
-        jLabel6.setFont(new java.awt.Font("Agency FB", 1, 18)); // NOI18N
+        jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/administrativo.png"))); // NOI18N
+        Panel.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 40, 60, 90));
+
+        jLabel6.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel6.setFont(new java.awt.Font("Gadugi", 1, 18)); // NOI18N
         jLabel6.setText("REGISTRO DEL ADMINISTRATIVO");
+        Panel.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 10, 300, -1));
 
+        jButton1.setBackground(new java.awt.Color(71, 100, 104));
+        jButton1.setFont(new java.awt.Font("Gadugi", 1, 14)); // NOI18N
+        jButton1.setText("Atras");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        Panel.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
+
+        tblAdmin.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        tblAdmin.setFont(new java.awt.Font("Gadugi", 1, 14)); // NOI18N
+        tblAdmin.setForeground(new java.awt.Color(255, 255, 255));
         tblAdmin.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -176,48 +210,18 @@ public class RegistroAdministrativo extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        tblAdmin.setGridColor(new java.awt.Color(0, 0, 0));
         jScrollPane1.setViewportView(tblAdmin);
+        if (tblAdmin.getColumnModel().getColumnCount() > 0) {
+            tblAdmin.getColumnModel().getColumn(0).setResizable(false);
+            tblAdmin.getColumnModel().getColumn(1).setResizable(false);
+            tblAdmin.getColumnModel().getColumn(2).setResizable(false);
+            tblAdmin.getColumnModel().getColumn(3).setResizable(false);
+        }
 
-        jButton1.setText("Atras");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
+        Panel.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 440, 588, 100));
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane1)
-                        .addContainerGap())
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(Panel, javax.swing.GroupLayout.PREFERRED_SIZE, 344, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(127, 127, 127))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jButton1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 120, Short.MAX_VALUE)
-                        .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(172, 172, 172))))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap(14, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel6)
-                    .addComponent(jButton1))
-                .addGap(18, 18, 18)
-                .addComponent(Panel, javax.swing.GroupLayout.PREFERRED_SIZE, 337, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(12, 12, 12))
-        );
+        getContentPane().add(Panel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 600, 610));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -230,8 +234,8 @@ public class RegistroAdministrativo extends javax.swing.JFrame {
         LocalDate fechaNacimiento = fecha.toInstant().atZone(java.time.ZoneId.systemDefault()).toLocalDate();
         String nombreUsuario = txtUsuarioAdmin.getText();
         String contrasena = String.valueOf(txtContraAdmin.getPassword());
-        System.out.println(fechaNacimiento);
-        Administrativo admin = new Administrativo(nombre, id, fechaNacimiento, nombreUsuario, contrasena,"administrativo");
+        Contrasena contrasenaOfi =new Contrasena(contrasena);
+        Administrativo admin = new Administrativo(nombre, id, fechaNacimiento, nombreUsuario, contrasenaOfi,"administrativo");
         control.agregarAdmin(admin);
         actualizarTablaAdmin();
   
@@ -257,7 +261,7 @@ public class RegistroAdministrativo extends javax.swing.JFrame {
                     admin.getNombre(),
                     admin.getId(),
                     admin.getNommbreUsuario(),
-                    admin.getContrasena()
+                    admin.getContrasena().getIdenContrasena()
                 };
                 modeloTabla.addRow(rowData);
             }
@@ -277,7 +281,7 @@ public class RegistroAdministrativo extends javax.swing.JFrame {
             Date fecha = java.sql.Date.valueOf(persona.getFechaNacimiento());
             dateAdmin.setDate(fecha);
             txtNombreAdmin.setText(persona.getNombre());
-            txtContraAdmin.setText(persona.getContrasena());
+            txtContraAdmin.setText(persona.getContrasena().getIdenContrasena());
             txtUsuarioAdmin.setText(persona.getNommbreUsuario());
         } catch (NullPointerException e) {
             JOptionPane.showMessageDialog(null, "No se encuentra el admin");
@@ -292,8 +296,8 @@ public class RegistroAdministrativo extends javax.swing.JFrame {
         LocalDate fechaNacimiento = fecha.toInstant().atZone(java.time.ZoneId.systemDefault()).toLocalDate();
         String nombreUsuario = txtUsuarioAdmin.getText();
         String contrasena = String.valueOf(txtContraAdmin.getPassword());
-        System.out.println(fechaNacimiento);
-        Administrativo admin = new Administrativo(nombre, id, fechaNacimiento, nombreUsuario, contrasena,"administrativo");
+        Contrasena contrasenaOfi =new Contrasena(contrasena);
+        Administrativo admin = new Administrativo(nombre, id, fechaNacimiento, nombreUsuario, contrasenaOfi,"administrativo");
         control.ActualizarAdmin(admin);
         actualizarTablaAdmin();
     }//GEN-LAST:event_btnActualizarAdminActionPerformed
@@ -358,6 +362,7 @@ public class RegistroAdministrativo extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tblAdmin;
     private javax.swing.JPasswordField txtContraAdmin;

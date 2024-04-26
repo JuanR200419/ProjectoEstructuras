@@ -5,12 +5,13 @@
 package vistas.InternalFramesGestionAdministraTivo;
 
 import com.toedter.calendar.JTextFieldDateEditor;
-import controladores.ControladorAdminLab;
-import controladores.ControladorEstudiante;
+import controladores.administrativo.ControladorAdminLab;
+import controladores.administrativo.ControladorEstudiante;
 import java.time.LocalDate;
 import java.util.Date;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import modelado.Contrasena;
 import modelado.Enums.Programa;
 import modelado.Estudiante;
 import modelado.Persona;
@@ -21,12 +22,13 @@ import modelado.Persona;
  */
 public class GestionEstudiante extends javax.swing.JInternalFrame {
 
-      ControladorEstudiante control;
+    ControladorEstudiante control;
+
     public GestionEstudiante() {
         initComponents();
-          this.control = new ControladorEstudiante();
+        this.control = new ControladorEstudiante();
         actualizarTablaEstudiante();
-           JTextFieldDateEditor editor4 = (JTextFieldDateEditor) dateEstudiante.getDateEditor();
+        JTextFieldDateEditor editor4 = (JTextFieldDateEditor) dateEstudiante.getDateEditor();
         editor4.setEditable(false);
         llenarCombo();
     }
@@ -59,44 +61,99 @@ public class GestionEstudiante extends javax.swing.JInternalFrame {
         tblEstudiante = new javax.swing.JTable();
         jLabel16 = new javax.swing.JLabel();
         cbProgramas = new javax.swing.JComboBox();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
 
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        Estudiante.setBackground(new java.awt.Color(0, 39, 44));
+        Estudiante.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        Estudiante.add(dateEstudiante, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 290, 136, -1));
+
+        txtIdentificacionEstudiante.setBackground(new java.awt.Color(71, 100, 104));
+        txtIdentificacionEstudiante.setFont(new java.awt.Font("Gadugi", 1, 14)); // NOI18N
+        txtIdentificacionEstudiante.setForeground(new java.awt.Color(255, 255, 255));
+        Estudiante.add(txtIdentificacionEstudiante, new org.netbeans.lib.awtextra.AbsoluteConstraints(236, 203, 199, -1));
+
+        jLabel11.setFont(new java.awt.Font("Gadugi", 1, 14)); // NOI18N
+        jLabel11.setForeground(new java.awt.Color(255, 255, 255));
         jLabel11.setText("NOMBRE  DE  USUARIO:");
+        Estudiante.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(66, 64, 170, -1));
 
+        btnInsertarEstudiante.setBackground(new java.awt.Color(71, 100, 104));
+        btnInsertarEstudiante.setFont(new java.awt.Font("Gadugi", 1, 14)); // NOI18N
         btnInsertarEstudiante.setText("INSERTAR");
         btnInsertarEstudiante.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnInsertarEstudianteActionPerformed(evt);
             }
         });
+        Estudiante.add(btnInsertarEstudiante, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 330, -1, -1));
 
+        jLabel12.setFont(new java.awt.Font("Gadugi", 1, 14)); // NOI18N
+        jLabel12.setForeground(new java.awt.Color(255, 255, 255));
         jLabel12.setText("CONTRASEÑA TEMPORAL:");
+        Estudiante.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 110, 190, -1));
 
+        btnBuscarEstudiante.setBackground(new java.awt.Color(71, 100, 104));
+        btnBuscarEstudiante.setFont(new java.awt.Font("Gadugi", 1, 14)); // NOI18N
         btnBuscarEstudiante.setText("BUSCAR");
         btnBuscarEstudiante.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnBuscarEstudianteActionPerformed(evt);
             }
         });
+        Estudiante.add(btnBuscarEstudiante, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 330, -1, -1));
 
+        jLabel13.setFont(new java.awt.Font("Gadugi", 1, 14)); // NOI18N
+        jLabel13.setForeground(new java.awt.Color(255, 255, 255));
         jLabel13.setText("NOMBRE :");
+        Estudiante.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 160, 100, -1));
 
+        btnBorrarEstudiante.setBackground(new java.awt.Color(71, 100, 104));
+        btnBorrarEstudiante.setFont(new java.awt.Font("Gadugi", 1, 14)); // NOI18N
         btnBorrarEstudiante.setText("BORRAR");
         btnBorrarEstudiante.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnBorrarEstudianteActionPerformed(evt);
             }
         });
+        Estudiante.add(btnBorrarEstudiante, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 330, -1, -1));
 
-        jLabel14.setText("IDENTIFICACION");
+        jLabel14.setFont(new java.awt.Font("Gadugi", 1, 14)); // NOI18N
+        jLabel14.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel14.setText("IDENTIFICACION:");
+        Estudiante.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(66, 206, 130, -1));
 
+        btnActualizarEstudiante.setBackground(new java.awt.Color(71, 100, 104));
+        btnActualizarEstudiante.setFont(new java.awt.Font("Gadugi", 1, 14)); // NOI18N
         btnActualizarEstudiante.setText("ACTUALIZAR");
         btnActualizarEstudiante.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnActualizarEstudianteActionPerformed(evt);
             }
         });
+        Estudiante.add(btnActualizarEstudiante, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 330, -1, -1));
 
-        jLabel15.setText("Fecha De Nacimiento");
+        jLabel15.setFont(new java.awt.Font("Gadugi", 1, 14)); // NOI18N
+        jLabel15.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel15.setText("Fecha De Nacimiento:");
+        Estudiante.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 290, -1, -1));
+
+        txtUsuarioEstudiante.setBackground(new java.awt.Color(71, 100, 104));
+        txtUsuarioEstudiante.setFont(new java.awt.Font("Gadugi", 1, 14)); // NOI18N
+        txtUsuarioEstudiante.setForeground(new java.awt.Color(255, 255, 255));
+        Estudiante.add(txtUsuarioEstudiante, new org.netbeans.lib.awtextra.AbsoluteConstraints(236, 61, 199, -1));
+
+        txtContraEstudiante.setBackground(new java.awt.Color(71, 100, 104));
+        txtContraEstudiante.setFont(new java.awt.Font("Gadugi", 1, 14)); // NOI18N
+        txtContraEstudiante.setForeground(new java.awt.Color(255, 255, 255));
+        Estudiante.add(txtContraEstudiante, new org.netbeans.lib.awtextra.AbsoluteConstraints(236, 107, 199, -1));
+
+        txtNombreEstudiante.setBackground(new java.awt.Color(71, 100, 104));
+        txtNombreEstudiante.setFont(new java.awt.Font("Gadugi", 1, 14)); // NOI18N
+        txtNombreEstudiante.setForeground(new java.awt.Color(255, 255, 255));
+        Estudiante.add(txtNombreEstudiante, new org.netbeans.lib.awtextra.AbsoluteConstraints(236, 156, 199, -1));
 
         tblEstudiante.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -126,128 +183,38 @@ public class GestionEstudiante extends javax.swing.JInternalFrame {
         });
         jScrollPane3.setViewportView(tblEstudiante);
 
-        jLabel16.setText("PROGRAMA");
+        Estudiante.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 370, 680, 192));
 
-        javax.swing.GroupLayout EstudianteLayout = new javax.swing.GroupLayout(Estudiante);
-        Estudiante.setLayout(EstudianteLayout);
-        EstudianteLayout.setHorizontalGroup(
-            EstudianteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(EstudianteLayout.createSequentialGroup()
-                .addGroup(EstudianteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(EstudianteLayout.createSequentialGroup()
-                        .addGap(38, 38, 38)
-                        .addComponent(jLabel15)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(EstudianteLayout.createSequentialGroup()
-                        .addGroup(EstudianteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, EstudianteLayout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(dateEstudiante, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(133, 133, 133))
-                            .addGroup(EstudianteLayout.createSequentialGroup()
-                                .addGroup(EstudianteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(EstudianteLayout.createSequentialGroup()
-                                        .addGap(86, 86, 86)
-                                        .addGroup(EstudianteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(btnInsertarEstudiante)
-                                            .addComponent(btnBuscarEstudiante))
-                                        .addGap(25, 25, 25)
-                                        .addGroup(EstudianteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(btnActualizarEstudiante)
-                                            .addGroup(EstudianteLayout.createSequentialGroup()
-                                                .addGap(15, 15, 15)
-                                                .addComponent(btnBorrarEstudiante))))
-                                    .addGroup(EstudianteLayout.createSequentialGroup()
-                                        .addGap(66, 66, 66)
-                                        .addGroup(EstudianteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addGap(18, 18, 18)
-                                        .addGroup(EstudianteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                            .addComponent(txtUsuarioEstudiante)
-                                            .addComponent(txtContraEstudiante)
-                                            .addComponent(txtNombreEstudiante)
-                                            .addComponent(txtIdentificacionEstudiante)
-                                            .addComponent(cbProgramas, 0, 199, Short.MAX_VALUE))))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 428, Short.MAX_VALUE)))
-                .addContainerGap())
-        );
-        EstudianteLayout.setVerticalGroup(
-            EstudianteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(EstudianteLayout.createSequentialGroup()
-                .addGap(61, 61, 61)
-                .addGroup(EstudianteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(EstudianteLayout.createSequentialGroup()
-                        .addGroup(EstudianteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel11)
-                            .addComponent(txtUsuarioEstudiante, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(24, 24, 24)
-                        .addGroup(EstudianteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel12)
-                            .addComponent(txtContraEstudiante, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(27, 27, 27)
-                        .addGroup(EstudianteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel13)
-                            .addComponent(txtNombreEstudiante, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(25, 25, 25)
-                        .addGroup(EstudianteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel14)
-                            .addComponent(txtIdentificacionEstudiante, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(23, 23, 23)
-                        .addGroup(EstudianteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel16)
-                            .addComponent(cbProgramas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(21, 21, 21)
-                .addGroup(EstudianteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(dateEstudiante, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel15))
-                .addGap(18, 18, 18)
-                .addGroup(EstudianteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnInsertarEstudiante)
-                    .addComponent(btnBorrarEstudiante))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(EstudianteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnActualizarEstudiante)
-                    .addComponent(btnBuscarEstudiante))
-                .addContainerGap(138, Short.MAX_VALUE))
-        );
+        jLabel16.setFont(new java.awt.Font("Gadugi", 1, 14)); // NOI18N
+        jLabel16.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel16.setText("PROGRAMA:");
+        Estudiante.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(66, 251, 110, -1));
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1000, Short.MAX_VALUE)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(Estudiante, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 542, Short.MAX_VALUE)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(Estudiante, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
-        );
+        cbProgramas.setBackground(new java.awt.Color(71, 100, 104));
+        cbProgramas.setFont(new java.awt.Font("Gadugi", 1, 14)); // NOI18N
+        cbProgramas.setForeground(new java.awt.Color(255, 255, 255));
+        Estudiante.add(cbProgramas, new org.netbeans.lib.awtextra.AbsoluteConstraints(236, 248, 270, -1));
+
+        jLabel1.setFont(new java.awt.Font("Gadugi", 1, 24)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setText("REGISTRO DE ESTUDIANTES");
+        Estudiante.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 10, 340, 20));
+
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/alumno.png"))); // NOI18N
+        Estudiante.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 90, 130, 150));
+
+        getContentPane().add(Estudiante, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1000, 570));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-    
-    private void llenarCombo(){
-      cbProgramas.removeAllItems();
+
+    private void llenarCombo() {
+        cbProgramas.removeAllItems();
         for (Programa value : Programa.values()) {
             cbProgramas.addItem(value);
         }
     }
-    
+
     private void btnInsertarEstudianteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsertarEstudianteActionPerformed
         String nombreUser = txtUsuarioEstudiante.getText();
         String contrasena = String.valueOf(txtContraEstudiante.getPassword());
@@ -256,11 +223,12 @@ public class GestionEstudiante extends javax.swing.JInternalFrame {
         Date fecha = dateEstudiante.getDate();
         LocalDate fechaNacimiento = fecha.toInstant().atZone(java.time.ZoneId.systemDefault()).toLocalDate();
         Programa programa = (Programa) cbProgramas.getSelectedItem();
-        Estudiante estu = new Estudiante(nombre, id, fechaNacimiento, nombreUser, contrasena, programa,"Estudiante");
-        control.agregarEstudiante(estu);
+         Contrasena contrasenaOfi = new Contrasena(contrasena);
+        Estudiante estudi = new Estudiante(programa, nombre, id, fechaNacimiento, nombreUser, contrasenaOfi, "Estudiante");
+        control.agregarEstudiante(estudi);
         actualizarTablaEstudiante();
     }//GEN-LAST:event_btnInsertarEstudianteActionPerformed
-       private void actualizarTablaEstudiante() {
+    private void actualizarTablaEstudiante() {
         DefaultTableModel modeloTabla = (DefaultTableModel) tblEstudiante.getModel();
         modeloTabla.setRowCount(0);
         Estudiante estudiante;
@@ -271,7 +239,7 @@ public class GestionEstudiante extends javax.swing.JInternalFrame {
                     estudiante.getNombre(),
                     estudiante.getId(),
                     estudiante.getNommbreUsuario(),
-                    estudiante.getContrasena(),
+                    estudiante.getContrasena().getIdenContrasena(),
                     estudiante.getPrograma().toString()
                 };
                 modeloTabla.addRow(rowData);
@@ -289,7 +257,7 @@ public class GestionEstudiante extends javax.swing.JInternalFrame {
                 Date fecha = java.sql.Date.valueOf(persona.getFechaNacimiento());
                 dateEstudiante.setDate(fecha);
                 txtNombreEstudiante.setText(persona.getNombre());
-                txtContraEstudiante.setText(persona.getContrasena());
+                txtContraEstudiante.setText(persona.getContrasena().getIdenContrasena());
                 txtUsuarioEstudiante.setText(persona.getNommbreUsuario());
                 cbProgramas.setSelectedItem(((Estudiante) persona).getPrograma());
             }
@@ -315,7 +283,8 @@ public class GestionEstudiante extends javax.swing.JInternalFrame {
         Date fecha = dateEstudiante.getDate();
         LocalDate fechaNacimiento = fecha.toInstant().atZone(java.time.ZoneId.systemDefault()).toLocalDate();
         Programa program = (Programa) cbProgramas.getSelectedItem();
-        Estudiante estudi = new Estudiante(nombre, id, fechaNacimiento, nombreUser, contrasena, program,"Estudiante");
+        Contrasena contrasenaOfi = new Contrasena(contrasena);
+        Estudiante estudi = new Estudiante(program, nombre, id, fechaNacimiento, nombreUser, contrasenaOfi, "Estudiante");
         control.ActualizarEstudiante(estudi);
         actualizarTablaEstudiante();
     }//GEN-LAST:event_btnActualizarEstudianteActionPerformed
@@ -329,12 +298,14 @@ public class GestionEstudiante extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnInsertarEstudiante;
     private javax.swing.JComboBox cbProgramas;
     private com.toedter.calendar.JDateChooser dateEstudiante;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTable tblEstudiante;
     private javax.swing.JPasswordField txtContraEstudiante;

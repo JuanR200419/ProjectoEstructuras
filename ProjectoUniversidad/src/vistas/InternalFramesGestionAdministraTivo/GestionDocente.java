@@ -5,13 +5,14 @@
 package vistas.InternalFramesGestionAdministraTivo;
 
 import com.toedter.calendar.JTextFieldDateEditor;
-import controladores.ControladorAdminLab;
-import controladores.ControladorDocente;
+import controladores.administrativo.ControladorAdminLab;
+import controladores.administrativo.ControladorDocente;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.Date;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import modelado.Contrasena;
 import modelado.Docente;
 import modelado.Persona;
 
@@ -57,70 +58,108 @@ public class GestionDocente extends javax.swing.JInternalFrame {
         txtNombreDocente = new javax.swing.JTextField();
         jScrollPane2 = new javax.swing.JScrollPane();
         tblDocente = new javax.swing.JTable();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
 
-        txtIdentificacionDocente.setFont(new java.awt.Font("Agency FB", 0, 14)); // NOI18N
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel6.setFont(new java.awt.Font("Agency FB", 1, 14)); // NOI18N
-        jLabel6.setForeground(new java.awt.Color(0, 0, 0));
+        Docente.setBackground(new java.awt.Color(0, 39, 44));
+        Docente.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        Docente.add(dateDocente, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 280, 136, -1));
+
+        txtIdentificacionDocente.setBackground(new java.awt.Color(71, 100, 104));
+        txtIdentificacionDocente.setFont(new java.awt.Font("Gadugi", 1, 14)); // NOI18N
+        txtIdentificacionDocente.setForeground(new java.awt.Color(255, 255, 255));
+        Docente.add(txtIdentificacionDocente, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 220, 123, -1));
+
+        jLabel6.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel6.setFont(new java.awt.Font("Gadugi", 1, 14)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
         jLabel6.setText("NOMBRE  DE  USUARIO:");
+        Docente.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 70, 190, -1));
 
-        btnInsertarDocente.setFont(new java.awt.Font("Agency FB", 1, 14)); // NOI18N
-        btnInsertarDocente.setForeground(new java.awt.Color(0, 0, 0));
+        btnInsertarDocente.setBackground(new java.awt.Color(71, 100, 104));
+        btnInsertarDocente.setFont(new java.awt.Font("Gadugi", 1, 14)); // NOI18N
+        btnInsertarDocente.setForeground(new java.awt.Color(255, 255, 255));
         btnInsertarDocente.setText("INSERTAR");
         btnInsertarDocente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnInsertarDocenteActionPerformed(evt);
             }
         });
+        Docente.add(btnInsertarDocente, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 320, -1, -1));
 
-        jLabel7.setFont(new java.awt.Font("Agency FB", 1, 14)); // NOI18N
-        jLabel7.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel7.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel7.setFont(new java.awt.Font("Gadugi", 1, 14)); // NOI18N
+        jLabel7.setForeground(new java.awt.Color(255, 255, 255));
         jLabel7.setText("CONTRASEÑA TEMPORAL:");
+        Docente.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 120, 200, -1));
 
-        btnBuscarDocente.setFont(new java.awt.Font("Agency FB", 1, 14)); // NOI18N
-        btnBuscarDocente.setForeground(new java.awt.Color(0, 0, 0));
+        btnBuscarDocente.setBackground(new java.awt.Color(71, 100, 104));
+        btnBuscarDocente.setFont(new java.awt.Font("Gadugi", 1, 14)); // NOI18N
+        btnBuscarDocente.setForeground(new java.awt.Color(255, 255, 255));
         btnBuscarDocente.setText("BUSCAR");
         btnBuscarDocente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnBuscarDocenteActionPerformed(evt);
             }
         });
+        Docente.add(btnBuscarDocente, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 320, -1, -1));
 
-        jLabel8.setFont(new java.awt.Font("Agency FB", 1, 14)); // NOI18N
-        jLabel8.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel8.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel8.setFont(new java.awt.Font("Gadugi", 1, 14)); // NOI18N
+        jLabel8.setForeground(new java.awt.Color(255, 255, 255));
         jLabel8.setText("NOMBRE :");
+        Docente.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 170, 100, -1));
 
-        btnBorrarDocente.setFont(new java.awt.Font("Agency FB", 1, 14)); // NOI18N
-        btnBorrarDocente.setForeground(new java.awt.Color(0, 0, 0));
+        btnBorrarDocente.setBackground(new java.awt.Color(71, 100, 104));
+        btnBorrarDocente.setFont(new java.awt.Font("Gadugi", 1, 14)); // NOI18N
+        btnBorrarDocente.setForeground(new java.awt.Color(255, 255, 255));
         btnBorrarDocente.setText("BORRAR");
         btnBorrarDocente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnBorrarDocenteActionPerformed(evt);
             }
         });
+        Docente.add(btnBorrarDocente, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 320, -1, -1));
 
-        jLabel9.setFont(new java.awt.Font("Agency FB", 1, 14)); // NOI18N
-        jLabel9.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel9.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel9.setFont(new java.awt.Font("Gadugi", 1, 14)); // NOI18N
+        jLabel9.setForeground(new java.awt.Color(255, 255, 255));
         jLabel9.setText("IDENTIFICACION");
+        Docente.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 220, 130, -1));
 
-        btnActualizarDocente.setFont(new java.awt.Font("Agency FB", 1, 14)); // NOI18N
-        btnActualizarDocente.setForeground(new java.awt.Color(0, 0, 0));
+        btnActualizarDocente.setBackground(new java.awt.Color(71, 100, 104));
+        btnActualizarDocente.setFont(new java.awt.Font("Gadugi", 1, 14)); // NOI18N
+        btnActualizarDocente.setForeground(new java.awt.Color(255, 255, 255));
         btnActualizarDocente.setText("ACTUALIZAR");
         btnActualizarDocente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnActualizarDocenteActionPerformed(evt);
             }
         });
+        Docente.add(btnActualizarDocente, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 320, -1, -1));
 
-        jLabel10.setFont(new java.awt.Font("Agency FB", 1, 14)); // NOI18N
-        jLabel10.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel10.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel10.setFont(new java.awt.Font("Gadugi", 1, 14)); // NOI18N
+        jLabel10.setForeground(new java.awt.Color(255, 255, 255));
         jLabel10.setText("Fecha De Nacimiento");
+        Docente.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 280, -1, -1));
 
-        txtUsuarioDocente.setFont(new java.awt.Font("Agency FB", 0, 14)); // NOI18N
+        txtUsuarioDocente.setBackground(new java.awt.Color(71, 100, 104));
+        txtUsuarioDocente.setFont(new java.awt.Font("Gadugi", 1, 14)); // NOI18N
+        txtUsuarioDocente.setForeground(new java.awt.Color(255, 255, 255));
+        Docente.add(txtUsuarioDocente, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 70, 123, -1));
 
-        txtContraDocente.setFont(new java.awt.Font("Agency FB", 0, 14)); // NOI18N
+        txtContraDocente.setBackground(new java.awt.Color(71, 100, 104));
+        txtContraDocente.setFont(new java.awt.Font("Gadugi", 1, 14)); // NOI18N
+        txtContraDocente.setForeground(new java.awt.Color(255, 255, 255));
+        Docente.add(txtContraDocente, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 120, 123, -1));
 
-        txtNombreDocente.setFont(new java.awt.Font("Agency FB", 0, 14)); // NOI18N
+        txtNombreDocente.setBackground(new java.awt.Color(71, 100, 104));
+        txtNombreDocente.setFont(new java.awt.Font("Gadugi", 1, 14)); // NOI18N
+        txtNombreDocente.setForeground(new java.awt.Color(255, 255, 255));
+        Docente.add(txtNombreDocente, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 170, 123, -1));
 
         tblDocente.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -150,101 +189,18 @@ public class GestionDocente extends javax.swing.JInternalFrame {
         });
         jScrollPane2.setViewportView(tblDocente);
 
-        javax.swing.GroupLayout DocenteLayout = new javax.swing.GroupLayout(Docente);
-        Docente.setLayout(DocenteLayout);
-        DocenteLayout.setHorizontalGroup(
-            DocenteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(DocenteLayout.createSequentialGroup()
-                .addGroup(DocenteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(DocenteLayout.createSequentialGroup()
-                        .addGap(66, 66, 66)
-                        .addGroup(DocenteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(dateDocente, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(DocenteLayout.createSequentialGroup()
-                                .addGroup(DocenteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(DocenteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, 152, Short.MAX_VALUE)
-                                        .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(29, 29, 29)
-                                .addGroup(DocenteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(txtUsuarioDocente)
-                                    .addComponent(txtContraDocente, javax.swing.GroupLayout.DEFAULT_SIZE, 123, Short.MAX_VALUE)
-                                    .addComponent(txtNombreDocente)
-                                    .addComponent(txtIdentificacionDocente)))))
-                    .addGroup(DocenteLayout.createSequentialGroup()
-                        .addGap(56, 56, 56)
-                        .addGroup(DocenteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel10)
-                            .addGroup(DocenteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(btnInsertarDocente)
-                                .addComponent(btnBuscarDocente)))
-                        .addGap(25, 25, 25)
-                        .addGroup(DocenteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnActualizarDocente)
-                            .addGroup(DocenteLayout.createSequentialGroup()
-                                .addGap(15, 15, 15)
-                                .addComponent(btnBorrarDocente)))))
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(35, Short.MAX_VALUE))
-        );
-        DocenteLayout.setVerticalGroup(
-            DocenteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(DocenteLayout.createSequentialGroup()
-                .addGroup(DocenteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(DocenteLayout.createSequentialGroup()
-                        .addGap(52, 52, 52)
-                        .addGroup(DocenteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel6)
-                            .addComponent(txtUsuarioDocente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(24, 24, 24)
-                        .addGroup(DocenteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel7)
-                            .addComponent(txtContraDocente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(27, 27, 27)
-                        .addGroup(DocenteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel8)
-                            .addComponent(txtNombreDocente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(25, 25, 25)
-                        .addGroup(DocenteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel9)
-                            .addComponent(txtIdentificacionDocente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(41, 41, 41)
-                        .addGroup(DocenteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel10)
-                            .addComponent(dateDocente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(49, 49, 49)
-                        .addGroup(DocenteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btnInsertarDocente)
-                            .addComponent(btnBorrarDocente))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(DocenteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btnActualizarDocente)
-                            .addComponent(btnBuscarDocente)))
-                    .addGroup(DocenteLayout.createSequentialGroup()
-                        .addGap(29, 29, 29)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(71, Short.MAX_VALUE))
-        );
+        Docente.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 360, 650, 170));
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(16, 16, 16)
-                .addComponent(Docente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(109, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(9, Short.MAX_VALUE)
-                .addComponent(Docente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-        );
+        jLabel1.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setText("REGISTRO DE DOCENTE");
+        Docente.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 10, -1, -1));
+
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/profesor.png"))); // NOI18N
+        Docente.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 40, 290, 240));
+
+        getContentPane().add(Docente, new org.netbeans.lib.awtextra.AbsoluteConstraints(-4, -5, 1010, 580));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -258,8 +214,9 @@ public class GestionDocente extends javax.swing.JInternalFrame {
         SimpleDateFormat sdf = new SimpleDateFormat("EEEE");
         Date fecha = dateDocente.getDate();
         System.out.println(sdf.format(dateDocente.getDate()));
+        Contrasena contrasenaOfi =new Contrasena(contrasena);
         LocalDate fechaNacimiento = fecha.toInstant().atZone(java.time.ZoneId.systemDefault()).toLocalDate();
-        Docente docente = new Docente(nombre, id, fechaNacimiento, nombreUser, contrasena,"Docente");
+        Docente docente = new Docente(nombre, id, fechaNacimiento, nombreUser, contrasenaOfi,"Docente");
         control.agregarDocente(docente);
         actualizarTablaDocente();
     }//GEN-LAST:event_btnInsertarDocenteActionPerformed
@@ -274,7 +231,7 @@ public class GestionDocente extends javax.swing.JInternalFrame {
                     docente.getNombre(),
                     docente.getId(),
                     docente.getNommbreUsuario(),
-                    docente.getContrasena()
+                    docente.getContrasena().getIdenContrasena()
                 };
                 modeloTabla.addRow(rowData);
             }
@@ -291,7 +248,7 @@ public class GestionDocente extends javax.swing.JInternalFrame {
             Date fecha = java.sql.Date.valueOf(persona.getFechaNacimiento());
             dateDocente.setDate(fecha);
             txtNombreDocente.setText(persona.getNombre());
-            txtContraDocente.setText(persona.getContrasena());
+            txtContraDocente.setText(persona.getContrasena().getIdenContrasena());
             txtUsuarioDocente.setText(persona.getNommbreUsuario());
         } catch (NullPointerException e) {
             JOptionPane.showMessageDialog(null, "No se encuentra el Docente");
@@ -313,8 +270,9 @@ public class GestionDocente extends javax.swing.JInternalFrame {
         String nombre = txtNombreDocente.getText();
         String id = txtIdentificacionDocente.getText();
         Date fecha = dateDocente.getDate();
+        Contrasena contrasenaOfi =new Contrasena(contrasena);
         LocalDate fechaNacimiento = fecha.toInstant().atZone(java.time.ZoneId.systemDefault()).toLocalDate();
-        Docente docente = new Docente(nombre, id, fechaNacimiento, nombreUser, contrasena,"Docente");
+        Docente docente = new Docente(nombre, id, fechaNacimiento, nombreUser, contrasenaOfi,"Docente");
         control.ActualizarDocente(docente);
         actualizarTablaDocente();
     }//GEN-LAST:event_btnActualizarDocenteActionPerformed
@@ -327,7 +285,9 @@ public class GestionDocente extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnBuscarDocente;
     private javax.swing.JButton btnInsertarDocente;
     private com.toedter.calendar.JDateChooser dateDocente;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
