@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JInternalFrame.java to edit this template
- */
 package vistas.InternalFramesGestionAdministraTivo;
 
 import com.toedter.calendar.JTextFieldDateEditor;
@@ -9,6 +5,7 @@ import controladores.administrativo.ControladorAdminLab;
 import controladores.administrativo.ControladorDocente;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.util.Calendar;
 import java.util.Date;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -23,13 +20,14 @@ import modelado.Persona;
 public class GestionDocente extends javax.swing.JInternalFrame {
 
     ControladorDocente control;
+
     public GestionDocente() {
         initComponents();
-           this.control = new ControladorDocente();
-           actualizarTablaDocente();
-             JTextFieldDateEditor editor3 = (JTextFieldDateEditor) dateDocente.getDateEditor();
+        this.control = new ControladorDocente();
+        actualizarTablaDocente();
+        JTextFieldDateEditor editor3 = (JTextFieldDateEditor) dateDocente.getDateEditor();
         editor3.setEditable(false);
-        
+        cambiarCalendario();
     }
 
     /**
@@ -70,6 +68,16 @@ public class GestionDocente extends javax.swing.JInternalFrame {
         txtIdentificacionDocente.setBackground(new java.awt.Color(71, 100, 104));
         txtIdentificacionDocente.setFont(new java.awt.Font("Gadugi", 1, 14)); // NOI18N
         txtIdentificacionDocente.setForeground(new java.awt.Color(255, 255, 255));
+        txtIdentificacionDocente.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtIdentificacionDocenteFocusLost(evt);
+            }
+        });
+        txtIdentificacionDocente.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtIdentificacionDocenteKeyTyped(evt);
+            }
+        });
         Docente.add(txtIdentificacionDocente, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 220, 123, -1));
 
         jLabel6.setBackground(new java.awt.Color(255, 255, 255));
@@ -149,34 +157,59 @@ public class GestionDocente extends javax.swing.JInternalFrame {
         txtUsuarioDocente.setBackground(new java.awt.Color(71, 100, 104));
         txtUsuarioDocente.setFont(new java.awt.Font("Gadugi", 1, 14)); // NOI18N
         txtUsuarioDocente.setForeground(new java.awt.Color(255, 255, 255));
+        txtUsuarioDocente.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtUsuarioDocenteFocusLost(evt);
+            }
+        });
+        txtUsuarioDocente.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtUsuarioDocenteKeyTyped(evt);
+            }
+        });
         Docente.add(txtUsuarioDocente, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 70, 123, -1));
 
         txtContraDocente.setBackground(new java.awt.Color(71, 100, 104));
         txtContraDocente.setFont(new java.awt.Font("Gadugi", 1, 14)); // NOI18N
         txtContraDocente.setForeground(new java.awt.Color(255, 255, 255));
+        txtContraDocente.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtContraDocenteFocusLost(evt);
+            }
+        });
         Docente.add(txtContraDocente, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 120, 123, -1));
 
         txtNombreDocente.setBackground(new java.awt.Color(71, 100, 104));
         txtNombreDocente.setFont(new java.awt.Font("Gadugi", 1, 14)); // NOI18N
         txtNombreDocente.setForeground(new java.awt.Color(255, 255, 255));
+        txtNombreDocente.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtNombreDocenteFocusLost(evt);
+            }
+        });
+        txtNombreDocente.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtNombreDocenteKeyTyped(evt);
+            }
+        });
         Docente.add(txtNombreDocente, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 170, 123, -1));
 
         tblDocente.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "Nombre", "identificacion", "Nombre de Usuario", "Contraseña"
+                "Nombre", "identificacion", "Nombre de Usuario", "Contraseña", "Edad"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -204,8 +237,44 @@ public class GestionDocente extends javax.swing.JInternalFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+        private void cambiarCalendario() {
+        Calendar cal1 = Calendar.getInstance();
+        Calendar cal2 = Calendar.getInstance();
+        cal1.set(Calendar.YEAR, 2008); // Configura el año máximo como 2008
+        cal2.set(Calendar.YEAR, 1934); // Configura el año mínimo como 1934
+        dateDocente.setMinSelectableDate(cal2.getTime());
+        dateDocente.setMaxSelectableDate(cal1.getTime());
+        dateDocente.setDate(cal1.getTime());
+        JTextFieldDateEditor editor4 = (JTextFieldDateEditor) dateDocente.getDateEditor();
+        editor4.setEditable(false);
+    }
 
+    private boolean camposVacios() {
+        if (txtIdentificacionDocente.getText().isEmpty()
+                || txtNombreDocente.getText().isEmpty()
+                || txtContraDocente.getText().isEmpty()
+                || txtUsuarioDocente.getText().isEmpty()
+                || dateDocente.getDate() == null) {
+
+            JOptionPane.showMessageDialog(this, "Todos los campos son obligatorios", "Campos Vacíos", JOptionPane.WARNING_MESSAGE);
+            return true;
+        }
+        return false;
+    }
+    
+    private void limpiar() {
+    txtIdentificacionDocente.setText("");
+    txtNombreDocente.setText("");
+    txtContraDocente.setText("");
+    txtUsuarioDocente.setText("");
+    LocalDate fechaActual = LocalDate.now();
+    dateDocente.setDate(java.sql.Date.valueOf(fechaActual));
+}
+    
     private void btnInsertarDocenteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsertarDocenteActionPerformed
+        if (camposVacios()) {
+            return;
+        }
         String nombreUser = txtUsuarioDocente.getText();
         String contrasena = String.valueOf(txtContraDocente.getPassword());
         String nombre = txtNombreDocente.getText();
@@ -214,24 +283,27 @@ public class GestionDocente extends javax.swing.JInternalFrame {
         SimpleDateFormat sdf = new SimpleDateFormat("EEEE");
         Date fecha = dateDocente.getDate();
         System.out.println(sdf.format(dateDocente.getDate()));
-        Contrasena contrasenaOfi =new Contrasena(contrasena);
+        Contrasena contrasenaOfi = new Contrasena(contrasena);
         LocalDate fechaNacimiento = fecha.toInstant().atZone(java.time.ZoneId.systemDefault()).toLocalDate();
-        Docente docente = new Docente(nombre, id, fechaNacimiento, nombreUser, contrasenaOfi,"Docente");
+        Docente docente = new Docente(nombre, id, fechaNacimiento, nombreUser, contrasenaOfi, "Docente");
         control.agregarDocente(docente);
         actualizarTablaDocente();
+        limpiar();
     }//GEN-LAST:event_btnInsertarDocenteActionPerformed
-      private void actualizarTablaDocente() {
+    private void actualizarTablaDocente() {
         DefaultTableModel modeloTabla = (DefaultTableModel) tblDocente.getModel();
         modeloTabla.setRowCount(0);
         Docente docente;
         for (int i = 0; i < control.getListaPersonas().size(); i++) {
             if (control.getListaPersonas().get(i) instanceof Docente) {
                 docente = (Docente) control.getListaPersonas().get(i);
+                String edad=control.calcularEdad(docente);
                 String[] rowData = {
                     docente.getNombre(),
                     docente.getId(),
                     docente.getNommbreUsuario(),
-                    docente.getContrasena().getIdenContrasena()
+                    docente.getContrasena().getIdenContrasena(),
+                    edad
                 };
                 modeloTabla.addRow(rowData);
             }
@@ -242,40 +314,90 @@ public class GestionDocente extends javax.swing.JInternalFrame {
     }
     private void btnBuscarDocenteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarDocenteActionPerformed
 
-        try {
-            String id = txtIdentificacionDocente.getText();
-            Persona persona = control.buscarPersonal(id);
-            Date fecha = java.sql.Date.valueOf(persona.getFechaNacimiento());
-            dateDocente.setDate(fecha);
-            txtNombreDocente.setText(persona.getNombre());
-            txtContraDocente.setText(persona.getContrasena().getIdenContrasena());
-            txtUsuarioDocente.setText(persona.getNommbreUsuario());
-        } catch (NullPointerException e) {
-            JOptionPane.showMessageDialog(null, "No se encuentra el Docente");
+        if (txtIdentificacionDocente.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "LLene el campo del id para poder buscar el usuario");
         }
+        String id = txtIdentificacionDocente.getText();
+        Persona persona = control.buscarPersonal(id);
+        if(persona!=null){
+        Date fecha = java.sql.Date.valueOf(persona.getFechaNacimiento());
+        dateDocente.setDate(fecha);
+        txtNombreDocente.setText(persona.getNombre());
+        txtContraDocente.setText(persona.getContrasena().getIdenContrasena());
+        txtUsuarioDocente.setText(persona.getNommbreUsuario());
+        }
+        // colocar Exception de usuario no encontrado
+        
     }//GEN-LAST:event_btnBuscarDocenteActionPerformed
 
     private void btnBorrarDocenteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBorrarDocenteActionPerformed
-        if (txtIdentificacionDocente.equals("")) {
+        if (txtIdentificacionDocente.getText().isEmpty()) {
             JOptionPane.showMessageDialog(null, "LLene el campo del id para poder borrar el usuario");
         }
         String id = txtIdentificacionDocente.getText();
         control.eliminarDocente(id);
         actualizarTablaDocente();
+        limpiar();
     }//GEN-LAST:event_btnBorrarDocenteActionPerformed
 
     private void btnActualizarDocenteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarDocenteActionPerformed
+         if (camposVacios()) {
+            return;
+        }
         String nombreUser = txtUsuarioDocente.getText();
         String contrasena = String.valueOf(txtContraDocente.getPassword());
         String nombre = txtNombreDocente.getText();
         String id = txtIdentificacionDocente.getText();
         Date fecha = dateDocente.getDate();
-        Contrasena contrasenaOfi =new Contrasena(contrasena);
+        Contrasena contrasenaOfi = new Contrasena(contrasena);
         LocalDate fechaNacimiento = fecha.toInstant().atZone(java.time.ZoneId.systemDefault()).toLocalDate();
-        Docente docente = new Docente(nombre, id, fechaNacimiento, nombreUser, contrasenaOfi,"Docente");
+        Docente docente = new Docente(nombre, id, fechaNacimiento, nombreUser, contrasenaOfi, "Docente");
         control.ActualizarDocente(docente);
         actualizarTablaDocente();
+        limpiar();
     }//GEN-LAST:event_btnActualizarDocenteActionPerformed
+
+    private void txtUsuarioDocenteFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtUsuarioDocenteFocusLost
+        if (txtUsuarioDocente.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Todos los campos son obligatorios", "Campos Vacíos", JOptionPane.WARNING_MESSAGE);
+        }
+    }//GEN-LAST:event_txtUsuarioDocenteFocusLost
+
+    private void txtNombreDocenteFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtNombreDocenteFocusLost
+        if (txtNombreDocente.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Todos los campos son obligatorios", "Campos Vacíos", JOptionPane.WARNING_MESSAGE);
+        }
+    }//GEN-LAST:event_txtNombreDocenteFocusLost
+
+    private void txtContraDocenteFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtContraDocenteFocusLost
+        if (txtContraDocente.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Todos los campos son obligatorios", "Campos Vacíos", JOptionPane.WARNING_MESSAGE);
+        }
+    }//GEN-LAST:event_txtContraDocenteFocusLost
+
+    private void txtIdentificacionDocenteFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtIdentificacionDocenteFocusLost
+        if (txtIdentificacionDocente.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Todos los campos son obligatorios", "Campos Vacíos", JOptionPane.WARNING_MESSAGE);
+        }
+    }//GEN-LAST:event_txtIdentificacionDocenteFocusLost
+
+    private void txtUsuarioDocenteKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtUsuarioDocenteKeyTyped
+        char letras = evt.getKeyChar();
+        if ((letras < 'a' || letras > 'z') && (letras < 'A' || letras > 'Z'))
+            evt.consume();
+    }//GEN-LAST:event_txtUsuarioDocenteKeyTyped
+
+    private void txtNombreDocenteKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreDocenteKeyTyped
+        char letras = evt.getKeyChar();
+        if ((letras < 'a' || letras > 'z') && (letras < 'A' || letras > 'Z'))
+            evt.consume();
+    }//GEN-LAST:event_txtNombreDocenteKeyTyped
+
+    private void txtIdentificacionDocenteKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtIdentificacionDocenteKeyTyped
+        char num = evt.getKeyChar();
+        if (num < '0' || num > '9')
+            evt.consume();
+    }//GEN-LAST:event_txtIdentificacionDocenteKeyTyped
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

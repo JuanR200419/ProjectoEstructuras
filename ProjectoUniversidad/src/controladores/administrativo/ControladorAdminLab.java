@@ -7,6 +7,7 @@ package controladores.administrativo;
 import excepciones.UsuarioExistenteException;
 import excepciones.UsuarioNoEncontradoException;
 import java.time.LocalDate;
+import java.time.Period;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import modelado.AdminGeneral;
@@ -57,6 +58,13 @@ public class ControladorAdminLab {
         }
     }
 
+      public String calcularEdad(AdminLaboratorio estu){
+     Persona aux = buscarPersonal(estu.getId());
+     LocalDate fechaNacimiento = aux.getFechaNacimiento();
+     LocalDate fechaActual = LocalDate.now();
+     return String.valueOf(Period.between(fechaNacimiento, fechaActual).getYears());
+    }  
+    
     public void eliminarAdmin(String id) throws UsuarioNoEncontradoException {
         Persona aux = buscarPersonal(id);
         if (aux != null && aux instanceof AdminLaboratorio) {
@@ -78,4 +86,5 @@ public class ControladorAdminLab {
             throw new UsuarioNoEncontradoException();
         }
     }
+    
 }

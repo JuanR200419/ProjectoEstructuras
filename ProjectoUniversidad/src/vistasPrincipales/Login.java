@@ -2,16 +2,20 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package vistas;
+package vistasPrincipales;
 
 import controladores.administrativo.ControladorIniciarSesion;
 import excepciones.UsuarioNoEncontradoException;
+import excepciones.excepcionContrasenaIgualAnterior;
 import javax.swing.JOptionPane;
 import modelado.AdminLaboratorio;
 import modelado.Administrativo;
 import modelado.Docente;
 import modelado.Estudiante;
 import modelado.Persona;
+import vistas.AdminLab.AdminLabInicio;
+import vistas.Docente.DocenteInicial;
+import vistas.Estudiante.InicioEstudiante;
 
 /**
  *
@@ -46,7 +50,6 @@ public class Login extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
-        setPreferredSize(new java.awt.Dimension(640, 640));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -127,15 +130,13 @@ public class Login extends javax.swing.JFrame {
         JTextFieldDateEditor editor4 = (JTextFieldDateEditor) dateEstudiante.getDateEditor();
         editor4.setEditable(false);
     
-    */
-    
-    
+     */
+
     private void btnEntrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEntrarActionPerformed
         String usuario = txtUsuario.getText();
         String contra = String.valueOf(txtContrasena.getPassword());
         try {
             Persona persona = control.login(usuario, contra);
-            System.out.println(persona.getRol());
             switch (persona.getRol()) {
                 case "adminGeneral" -> {
                     RegistroAdministrativo administra = new RegistroAdministrativo();
@@ -144,16 +145,100 @@ public class Login extends javax.swing.JFrame {
                     this.dispose();
                 }
                 case "administrativo" -> {
-                    GestionAdministrativo ven = new GestionAdministrativo();
-                    ven.setVisible(true);
-                    ven.setLocationRelativeTo(this);
-                    this.dispose();
+                    try {
+                        
+                        
+                        if (control.solicitudCambioContrasena(persona)) {
+                            String contraNew = JOptionPane.showInputDialog(null, "Por Favor Cambie la contraseña");
+                            if (contraNew.isEmpty()) {
+                                return;
+                            } else {
+                                try {
+                                      control.cambioContrasena(persona, contraNew);
+                                } catch (excepcionContrasenaIgualAnterior e) {
+                                    JOptionPane.showMessageDialog(null, e.getMessage());
+                                    return;
+                                }
+                              
+                            }
+                        }
+                        GestionAdministrativo ven = new GestionAdministrativo();
+                        ven.setVisible(true);
+                        ven.setLocationRelativeTo(this);
+                        this.dispose();
+                    } catch (NullPointerException e) {
+                    }
+
                 }
                 case "Estudiante" -> {
+                    try {
+                        if (control.solicitudCambioContrasena(persona)) {
+                            String contraNew = JOptionPane.showInputDialog(null, "Por Favor Cambie la contraseña");
+                            if (contraNew.isEmpty()) {
+                                return;
+                            } else {
+                                  try {
+                                      control.cambioContrasena(persona, contraNew);
+                                } catch (excepcionContrasenaIgualAnterior e) {
+                                    JOptionPane.showMessageDialog(null, e.getMessage());
+                                    return;
+                                }
+                            }
+                        }
+                        Estudiante estudiante = (Estudiante) persona;
+                        InicioEstudiante ven = new InicioEstudiante(estudiante);
+                        ven.setVisible(true);
+                        this.dispose();
+                    } catch (NullPointerException e) {
+                    }
+
                 }
                 case "Docente" -> {
+                    try {
+                        if (control.solicitudCambioContrasena(persona)) {
+                            String contraNew = JOptionPane.showInputDialog(null, "Por Favor Cambie la contraseña");
+                            if (contraNew.isEmpty()) {
+                                return;
+                            } else {
+                                 try {
+                                      control.cambioContrasena(persona, contraNew);
+                                } catch (excepcionContrasenaIgualAnterior e) {
+                                    JOptionPane.showMessageDialog(null, e.getMessage());
+                                    return;
+                                }
+                            }
+                        }
+                        Docente docente = (Docente) persona;
+                        DocenteInicial ven = new DocenteInicial(docente);
+                        ven.setVisible(true);
+                        this.dispose();
+                    } catch (NullPointerException e) {
+                    }
+
                 }
                 case "AdminLab" -> {
+                    try {
+                        if (control.solicitudCambioContrasena(persona)) {
+                            String contraNew = JOptionPane.showInputDialog(null, "Por Favor Cambie la contraseña");
+                            if (contraNew.isEmpty()) {
+                                return;
+                            } else {
+                                 try {
+                                      control.cambioContrasena(persona, contraNew);
+                                } catch (excepcionContrasenaIgualAnterior e) {
+                                    JOptionPane.showMessageDialog(null, e.getMessage());
+                                    return;
+                                }
+                            }
+                        }
+                        AdminLaboratorio admin = (AdminLaboratorio) persona;
+                        AdminLabInicio ven = new AdminLabInicio(admin);
+                        ven.setVisible(true);
+                        this.dispose();
+                    } catch (NullPointerException e) {
+                    }
+                    
+                    
                 }
                 default -> {
                 }
@@ -171,7 +256,7 @@ public class Login extends javax.swing.JFrame {
     }//GEN-LAST:event_loginPhotoMouseClicked
 
     private void botonExitMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonExitMouseClicked
-         System.exit(0);
+        System.exit(0);
     }//GEN-LAST:event_botonExitMouseClicked
 
     /**

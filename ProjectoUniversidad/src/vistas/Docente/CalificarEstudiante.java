@@ -2,7 +2,23 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package vistas.Laboratorio;
+package vistas.Docente;
+
+import controladores.Docente.controladorCalificarNotas;
+import controladores.administrativo.ControladorCurso;
+import excepciones.NoseEncuentraDetalleException;
+import excepciones.YacalificadoException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import java.util.regex.Pattern;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
+import modelado.Curso;
+import modelado.Detalle;
+import modelado.Docente;
+import modelado.Estudiante;
+import modelado.Nota;
 
 /**
  *
@@ -10,11 +26,16 @@ package vistas.Laboratorio;
  */
 public class CalificarEstudiante extends javax.swing.JFrame {
 
-    /**
-     * Creates new form CalificarEstudiante
-     */
-    public CalificarEstudiante() {
+    Docente docente;
+    ControladorCurso control;
+    controladorCalificarNotas controladorCalificacion;
+
+    public CalificarEstudiante(Docente docente) {
         initComponents();
+        this.docente = docente;
+        txtProfesor.setText(docente.toString());
+        this.control = new ControladorCurso();
+        llenarCombo();
     }
 
     /**
@@ -26,57 +47,406 @@ public class CalificarEstudiante extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel1 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        jPanel2 = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        cbCursos = new javax.swing.JComboBox<>();
+        cbEstudiante = new javax.swing.JComboBox<>();
+        jLabel4 = new javax.swing.JLabel();
+        txtProfesor = new javax.swing.JLabel();
+        btnBuscar = new javax.swing.JButton();
+        jLabel5 = new javax.swing.JLabel();
+        cbNotas = new javax.swing.JComboBox<>();
+        jLabel6 = new javax.swing.JLabel();
+        txtCalificacion = new javax.swing.JFormattedTextField();
+        btnCalificar1 = new javax.swing.JButton();
+        btnEliminar = new javax.swing.JButton();
+        btnEditar = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel1.setFont(new java.awt.Font("Agency FB", 1, 24)); // NOI18N
+        jLabel1.setText("CALIFICAR ESTUDIANTES ");
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 10, -1, -1));
+
+        jPanel2.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel2.setFont(new java.awt.Font("Agency FB", 1, 18)); // NOI18N
+        jLabel2.setText("CURSOS: ");
+        jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 90, -1, -1));
+
+        jLabel3.setFont(new java.awt.Font("Agency FB", 1, 18)); // NOI18N
+        jLabel3.setText("ESTUDIANTES:");
+        jPanel2.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 140, -1, -1));
+
+        cbCursos.setBackground(new java.awt.Color(71, 100, 104));
+        cbCursos.setFont(new java.awt.Font("Gadugi", 1, 14)); // NOI18N
+        cbCursos.setForeground(new java.awt.Color(255, 255, 255));
+        cbCursos.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cbCursosItemStateChanged(evt);
+            }
+        });
+        jPanel2.add(cbCursos, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 90, 320, -1));
+
+        cbEstudiante.setBackground(new java.awt.Color(71, 100, 104));
+        cbEstudiante.setFont(new java.awt.Font("Gadugi", 1, 14)); // NOI18N
+        cbEstudiante.setForeground(new java.awt.Color(255, 255, 255));
+        cbEstudiante.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cbEstudianteItemStateChanged(evt);
+            }
+        });
+        jPanel2.add(cbEstudiante, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 130, 320, -1));
+
+        jLabel4.setFont(new java.awt.Font("Agency FB", 1, 18)); // NOI18N
+        jLabel4.setText("PROFESOR:");
+        jPanel2.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 40, -1, -1));
+
+        txtProfesor.setFont(new java.awt.Font("Agency FB", 1, 18)); // NOI18N
+        jPanel2.add(txtProfesor, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 40, 300, 20));
+
+        btnBuscar.setFont(new java.awt.Font("Agency FB", 1, 18)); // NOI18N
+        btnBuscar.setText("Buscar");
+        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarActionPerformed(evt);
+            }
+        });
+        jPanel2.add(btnBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 270, -1, -1));
+
+        jLabel5.setFont(new java.awt.Font("Agency FB", 1, 18)); // NOI18N
+        jLabel5.setText("CALIFICACION");
+        jPanel2.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 230, -1, -1));
+
+        cbNotas.setFont(new java.awt.Font("Agency FB", 1, 18)); // NOI18N
+        cbNotas.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cbNotasItemStateChanged(evt);
+            }
+        });
+        jPanel2.add(cbNotas, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 180, 320, 30));
+
+        jLabel6.setFont(new java.awt.Font("Agency FB", 1, 18)); // NOI18N
+        jLabel6.setText("NOTAS");
+        jPanel2.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 180, -1, -1));
+
+        txtCalificacion.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtCalificacionFocusLost(evt);
+            }
+        });
+        jPanel2.add(txtCalificacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 230, 110, 30));
+
+        btnCalificar1.setFont(new java.awt.Font("Agency FB", 1, 18)); // NOI18N
+        btnCalificar1.setText("Calificar");
+        btnCalificar1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCalificar1ActionPerformed(evt);
+            }
+        });
+        jPanel2.add(btnCalificar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 270, -1, -1));
+
+        btnEliminar.setFont(new java.awt.Font("Agency FB", 1, 18)); // NOI18N
+        btnEliminar.setText("Borrar");
+        btnEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarActionPerformed(evt);
+            }
+        });
+        jPanel2.add(btnEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 270, -1, -1));
+
+        btnEditar.setFont(new java.awt.Font("Agency FB", 1, 18)); // NOI18N
+        btnEditar.setText("Editar");
+        btnEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditarActionPerformed(evt);
+            }
+        });
+        jPanel2.add(btnEditar, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 270, -1, -1));
+
+        jButton1.setFont(new java.awt.Font("Agency FB", 1, 14)); // NOI18N
+        jButton1.setText("ACTUALIZAR TABLA");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        jPanel2.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 230, -1, -1));
+
+        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 50, 470, 310));
+
+        jButton2.setFont(new java.awt.Font("Agency FB", 1, 18)); // NOI18N
+        jButton2.setText("ATRAS");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 70, 20));
+
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Nombre", "Nota 1", "Nota 2", "Nota 3"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane1.setViewportView(jTable1);
+        if (jTable1.getColumnModel().getColumnCount() > 0) {
+            jTable1.getColumnModel().getColumn(0).setResizable(false);
+            jTable1.getColumnModel().getColumn(1).setResizable(false);
+            jTable1.getColumnModel().getColumn(2).setResizable(false);
+            jTable1.getColumnModel().getColumn(3).setResizable(false);
+        }
+
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 50, 400, 220));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 380, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
+   private void llenarCombo() {
+        cbCursos.removeAllItems();
+        String perioso = control.validarPeriodoAnio();
+        for (int i = 0; i < control.getListaCursos().size(); i++) {
+            if (control.getListaCursos().get(i).getDocente().getId().equals(docente.getId())
+                    && control.getListaCursos().get(i).getPeriodo().equals(perioso)) {
+                cbCursos.addItem(control.getListaCursos().get(i));
             }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(CalificarEstudiante.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(CalificarEstudiante.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(CalificarEstudiante.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(CalificarEstudiante.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new CalificarEstudiante().setVisible(true);
-            }
-        });
     }
 
+    private void llenarComboEstudiante(Curso curso) {
+        cbEstudiante.removeAllItems();
+        for (int i = 0; i < curso.getListaEstudiantes().size(); i++) {
+            cbEstudiante.addItem(curso.getListaEstudiantes().get(i));
+        }
+    }
+
+    private void llenarComboNotas(Curso curso) {
+        cbNotas.removeAllItems();
+        for (int i = 0; i < curso.getListaNotas().size(); i++) {
+            cbNotas.addItem(curso.getListaNotas().get(i));
+        }
+    }
+
+
+    private void cbCursosItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbCursosItemStateChanged
+        Curso curso = (Curso) cbCursos.getSelectedItem();
+        llenarComboEstudiante(curso);
+        llenarComboNotas(curso);
+        
+    }//GEN-LAST:event_cbCursosItemStateChanged
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        DocenteInicial doc = new DocenteInicial(docente);
+        doc.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
+        try {
+            Estudiante estudi = (Estudiante) cbEstudiante.getSelectedItem();
+        Detalle deta = controladorCalificacion.buscarDetalle(estudi);
+        if (deta != null) {
+            txtCalificacion.setText(String.valueOf(deta.getValor()));
+        } else {
+            JOptionPane.showMessageDialog(null, "No se encontro calificacion de esta nota");
+            return;
+        }
+ 
+        } catch (NullPointerException e) {
+              JOptionPane.showMessageDialog(null, "Las notas no estan definidas");
+              return;
+        }
+       
+    }//GEN-LAST:event_btnBuscarActionPerformed
+
+    private boolean validarCampo() {
+        String textoNota = txtCalificacion.getText();
+        String regex = "^([0-4](\\.\\d{1,2})?|5(\\.0{1,2})?)$"; // Expresión regular para números del 0 al 5 con hasta dos decimales
+        boolean esValido = Pattern.matches(regex, textoNota);
+        if (!esValido) {
+            JOptionPane.showMessageDialog(this, "Solo se pueden colocar números del 0 al 5 con hasta dos decimales", "Campo Inválido", JOptionPane.WARNING_MESSAGE);
+            return true;
+        }
+        return false;
+    }
+
+
+    private void txtCalificacionFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtCalificacionFocusLost
+        validarCampo();
+    }//GEN-LAST:event_txtCalificacionFocusLost
+
+    private void cbNotasItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbNotasItemStateChanged
+        Nota nota = (Nota) cbNotas.getSelectedItem();
+        this.controladorCalificacion = new controladorCalificarNotas(nota);
+    }//GEN-LAST:event_cbNotasItemStateChanged
+
+    private void actualizarTabla(Curso curso, Estudiante estudianteD) {
+        try {
+            DefaultTableModel modelo = new DefaultTableModel(new String[]{"Nombre", "Nota1", "Nota2", "Nota3",},
+                    curso.getListaNotas().size());
+            jTable1.setModel(modelo);
+            TableModel modeloDatos = jTable1.getModel();
+
+            modeloDatos.setValueAt(estudianteD.getNombre(), 0, 0);
+            for (int i = 0; i < curso.getListaNotas().size(); i++) {
+                for (int j = 0; j < curso.getListaNotas().get(i).getListaDetalles().size(); j++) {
+                    if (curso.getListaNotas().get(i).getListaDetalles().get(j).getEstudinate().getId().equals(estudianteD.getId())) {
+                        Detalle detalle1 = curso.getListaNotas().get(i).getListaDetalles().get(j);
+                        if (detalle1.isCalificado()) {
+                            modeloDatos.setValueAt(String.valueOf(detalle1.getValor()), 0, i + 1);
+                        } else {
+                            modeloDatos.setValueAt("No calificado", 0, i + 1);
+                        }
+                    }
+                }
+            }
+        } catch (ArrayIndexOutOfBoundsException e) {
+            JOptionPane.showMessageDialog(null, "Las notas no estan definidas");
+            return;
+        }
+
+    }
+
+
+    private void cbEstudianteItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbEstudianteItemStateChanged
+        Curso curso = (Curso) cbCursos.getSelectedItem();
+        Estudiante estudianteD = (Estudiante) cbEstudiante.getSelectedItem();
+        //actualizarTabla(curso, estudianteD);
+    }//GEN-LAST:event_cbEstudianteItemStateChanged
+
+    private void btnCalificar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCalificar1ActionPerformed
+
+        if (txtCalificacion.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Llena el campo calificacion");
+            return;
+        } else if (validarCampo()) {
+            return;
+        }
+
+        Estudiante estudiante = (Estudiante) cbEstudiante.getSelectedItem();
+        Double califacion = Double.valueOf(txtCalificacion.getText());
+        Detalle detalle = new Detalle(estudiante, califacion);
+        try {
+            try {
+                controladorCalificacion.calificar(detalle);
+                JOptionPane.showMessageDialog(null, "Se guardo la Calificacion");
+                Curso curso = (Curso) cbCursos.getSelectedItem();
+                Estudiante estudianteD = (Estudiante) cbEstudiante.getSelectedItem();
+                actualizarTabla(curso, estudianteD);
+            } catch (NullPointerException e) {
+                JOptionPane.showMessageDialog(null, "Las notas no estan definidas");
+            }
+        } catch (YacalificadoException ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage());
+        }
+    }//GEN-LAST:event_btnCalificar1ActionPerformed
+
+    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
+        Estudiante estudi = (Estudiante) cbEstudiante.getSelectedItem();
+        try {
+            try {
+                controladorCalificacion.eliminarDetalle(estudi);
+                JOptionPane.showMessageDialog(null, "Se elimino la Calificacion");
+                Curso curso = (Curso) cbCursos.getSelectedItem();
+                Estudiante estudianteD = (Estudiante) cbEstudiante.getSelectedItem();
+                actualizarTabla(curso, estudianteD);
+            } catch (NullPointerException e) {
+                JOptionPane.showMessageDialog(null, "Las notas no estan definidas");
+            }
+        } catch (NoseEncuentraDetalleException ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage());
+        }
+    }//GEN-LAST:event_btnEliminarActionPerformed
+
+    private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
+        Estudiante estudiante = (Estudiante) cbEstudiante.getSelectedItem();
+        Double califacion = Double.valueOf(txtCalificacion.getText());
+        Detalle detalle = new Detalle(estudiante, califacion);
+        try {
+            try {
+                controladorCalificacion.editarDetalle(detalle);
+                JOptionPane.showMessageDialog(null, "Se edito la Calificacion");
+                Curso curso = (Curso) cbCursos.getSelectedItem();
+                Estudiante estudianteD = (Estudiante) cbEstudiante.getSelectedItem();
+                actualizarTabla(curso, estudianteD);
+            } catch (NullPointerException e) {
+                JOptionPane.showMessageDialog(null, "Las notas no estan definidas");
+            }
+        } catch (NoseEncuentraDetalleException ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage());
+        }
+
+    }//GEN-LAST:event_btnEditarActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+     Curso curso = (Curso) cbCursos.getSelectedItem();
+        Estudiante estudianteD = (Estudiante) cbEstudiante.getSelectedItem();
+        actualizarTabla(curso, estudianteD);
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnBuscar;
+    private javax.swing.JButton btnCalificar1;
+    private javax.swing.JButton btnEditar;
+    private javax.swing.JButton btnEliminar;
+    private javax.swing.JComboBox<Curso> cbCursos;
+    private javax.swing.JComboBox<Estudiante> cbEstudiante;
+    private javax.swing.JComboBox<Nota> cbNotas;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable jTable1;
+    private javax.swing.JFormattedTextField txtCalificacion;
+    private javax.swing.JLabel txtProfesor;
     // End of variables declaration//GEN-END:variables
 }

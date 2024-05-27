@@ -6,12 +6,18 @@ package vistas.InternalFramesGestionAdministraTivo;
 
 import controladores.administrativo.ControladorAdminLab;
 import controladores.administrativo.ControladorCurso;
+import excepciones.NoSeEncuentraCursoException;
+import excepciones.cursoYaExisteException;
+import excepciones.yaEstaCreadoCursoException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import modelado.Curso;
 import modelado.Docente;
 import modelado.Enums.Dias;
 import modelado.Enums.Materia;
+import modelado.Enums.Programa;
 import modelado.Persona;
 import util.IList;
 
@@ -27,6 +33,7 @@ public class GestionCursos extends javax.swing.JInternalFrame {
         initComponents();
         this.control = new ControladorCurso();
         llenarCombo();
+        llenarComboPrograma();
         actualizarTablaAdmin();
     }
 
@@ -50,14 +57,16 @@ public class GestionCursos extends javax.swing.JInternalFrame {
         txtCodigoCurso = new javax.swing.JTextField();
         jScrollPane4 = new javax.swing.JScrollPane();
         tbCursos = new javax.swing.JTable();
-        jLabel27 = new javax.swing.JLabel();
         jLabel28 = new javax.swing.JLabel();
         cbJornada = new javax.swing.JComboBox<>();
         jLabel29 = new javax.swing.JLabel();
         jLabel30 = new javax.swing.JLabel();
         cbMaterias = new javax.swing.JComboBox();
-        cbPeriodo = new javax.swing.JComboBox<>();
         jLabel1 = new javax.swing.JLabel();
+        btnDehacer = new javax.swing.JButton();
+        cbProgramas = new javax.swing.JComboBox();
+        jLabel16 = new javax.swing.JLabel();
+        btnRehacer = new javax.swing.JButton();
 
         setForeground(new java.awt.Color(255, 255, 255));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -75,7 +84,7 @@ public class GestionCursos extends javax.swing.JInternalFrame {
         cbDocente.setBackground(new java.awt.Color(71, 100, 104));
         cbDocente.setFont(new java.awt.Font("Gadugi", 1, 14)); // NOI18N
         cbDocente.setForeground(new java.awt.Color(255, 255, 255));
-        Cursos.add(cbDocente, new org.netbeans.lib.awtextra.AbsoluteConstraints(279, 93, 270, -1));
+        Cursos.add(cbDocente, new org.netbeans.lib.awtextra.AbsoluteConstraints(279, 93, 510, -1));
 
         btnBorrarCurso.setBackground(new java.awt.Color(71, 100, 104));
         btnBorrarCurso.setFont(new java.awt.Font("Gadugi", 1, 14)); // NOI18N
@@ -85,7 +94,7 @@ public class GestionCursos extends javax.swing.JInternalFrame {
                 btnBorrarCursoActionPerformed(evt);
             }
         });
-        Cursos.add(btnBorrarCurso, new org.netbeans.lib.awtextra.AbsoluteConstraints(222, 307, -1, -1));
+        Cursos.add(btnBorrarCurso, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 290, 110, -1));
 
         btnInsertarCurso.setBackground(new java.awt.Color(71, 100, 104));
         btnInsertarCurso.setFont(new java.awt.Font("Gadugi", 1, 14)); // NOI18N
@@ -95,7 +104,7 @@ public class GestionCursos extends javax.swing.JInternalFrame {
                 btnInsertarCursoActionPerformed(evt);
             }
         });
-        Cursos.add(btnInsertarCurso, new org.netbeans.lib.awtextra.AbsoluteConstraints(113, 307, -1, -1));
+        Cursos.add(btnInsertarCurso, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 290, -1, -1));
 
         btnBuscarCurso.setBackground(new java.awt.Color(71, 100, 104));
         btnBuscarCurso.setFont(new java.awt.Font("Gadugi", 1, 14)); // NOI18N
@@ -105,7 +114,7 @@ public class GestionCursos extends javax.swing.JInternalFrame {
                 btnBuscarCursoActionPerformed(evt);
             }
         });
-        Cursos.add(btnBuscarCurso, new org.netbeans.lib.awtextra.AbsoluteConstraints(113, 358, -1, -1));
+        Cursos.add(btnBuscarCurso, new org.netbeans.lib.awtextra.AbsoluteConstraints(97, 340, 100, -1));
 
         btnActualizarCurso.setBackground(new java.awt.Color(71, 100, 104));
         btnActualizarCurso.setFont(new java.awt.Font("Gadugi", 1, 14)); // NOI18N
@@ -115,7 +124,7 @@ public class GestionCursos extends javax.swing.JInternalFrame {
                 btnActualizarCursoActionPerformed(evt);
             }
         });
-        Cursos.add(btnActualizarCurso, new org.netbeans.lib.awtextra.AbsoluteConstraints(222, 358, -1, -1));
+        Cursos.add(btnActualizarCurso, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 340, -1, -1));
 
         jLabel17.setBackground(new java.awt.Color(255, 255, 255));
         jLabel17.setFont(new java.awt.Font("Gadugi", 1, 14)); // NOI18N
@@ -126,24 +135,34 @@ public class GestionCursos extends javax.swing.JInternalFrame {
         txtCodigoCurso.setBackground(new java.awt.Color(71, 100, 104));
         txtCodigoCurso.setFont(new java.awt.Font("Gadugi", 1, 14)); // NOI18N
         txtCodigoCurso.setForeground(new java.awt.Color(255, 255, 255));
+        txtCodigoCurso.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtCodigoCursoFocusLost(evt);
+            }
+        });
+        txtCodigoCurso.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtCodigoCursoKeyTyped(evt);
+            }
+        });
         Cursos.add(txtCodigoCurso, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 130, 270, -1));
 
         tbCursos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "Materias", "Docente", "Periodo", "Jornada"
+                "Materias", "Docente", "Periodo", "Jornada", "Programa"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -158,23 +177,17 @@ public class GestionCursos extends javax.swing.JInternalFrame {
 
         Cursos.add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 430, 710, 126));
 
-        jLabel27.setBackground(new java.awt.Color(255, 255, 255));
-        jLabel27.setFont(new java.awt.Font("Gadugi", 1, 14)); // NOI18N
-        jLabel27.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel27.setText("PERIODO DEL AÑO:");
-        Cursos.add(jLabel27, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 170, 150, -1));
-
         jLabel28.setBackground(new java.awt.Color(255, 255, 255));
         jLabel28.setFont(new java.awt.Font("Gadugi", 1, 14)); // NOI18N
         jLabel28.setForeground(new java.awt.Color(255, 255, 255));
         jLabel28.setText("JORNADA :");
-        Cursos.add(jLabel28, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 210, 108, -1));
+        Cursos.add(jLabel28, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 180, 108, -1));
 
         cbJornada.setBackground(new java.awt.Color(71, 100, 104));
         cbJornada.setFont(new java.awt.Font("Gadugi", 1, 14)); // NOI18N
         cbJornada.setForeground(new java.awt.Color(255, 255, 255));
         cbJornada.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Dia", "Noche" }));
-        Cursos.add(cbJornada, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 210, -1, -1));
+        Cursos.add(cbJornada, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 180, -1, -1));
 
         jLabel29.setBackground(new java.awt.Color(255, 255, 255));
         jLabel29.setFont(new java.awt.Font("Gadugi", 1, 24)); // NOI18N
@@ -193,14 +206,40 @@ public class GestionCursos extends javax.swing.JInternalFrame {
         cbMaterias.setForeground(new java.awt.Color(255, 255, 255));
         Cursos.add(cbMaterias, new org.netbeans.lib.awtextra.AbsoluteConstraints(279, 59, 270, -1));
 
-        cbPeriodo.setBackground(new java.awt.Color(71, 100, 104));
-        cbPeriodo.setFont(new java.awt.Font("Gadugi", 1, 14)); // NOI18N
-        cbPeriodo.setForeground(new java.awt.Color(255, 255, 255));
-        cbPeriodo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "2024-1", "2024-2" }));
-        Cursos.add(cbPeriodo, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 170, -1, -1));
-
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Curso.png"))); // NOI18N
-        Cursos.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 90, 160, 160));
+        Cursos.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 150, 160, 160));
+
+        btnDehacer.setBackground(new java.awt.Color(71, 100, 104));
+        btnDehacer.setFont(new java.awt.Font("Gadugi", 1, 14)); // NOI18N
+        btnDehacer.setForeground(new java.awt.Color(0, 0, 0));
+        btnDehacer.setText("DESHACER");
+        btnDehacer.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDehacerActionPerformed(evt);
+            }
+        });
+        Cursos.add(btnDehacer, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 390, -1, -1));
+
+        cbProgramas.setBackground(new java.awt.Color(71, 100, 104));
+        cbProgramas.setFont(new java.awt.Font("Gadugi", 1, 14)); // NOI18N
+        cbProgramas.setForeground(new java.awt.Color(255, 255, 255));
+        Cursos.add(cbProgramas, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 230, 270, -1));
+
+        jLabel16.setFont(new java.awt.Font("Gadugi", 1, 14)); // NOI18N
+        jLabel16.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel16.setText("PROGRAMA:");
+        Cursos.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 230, 110, -1));
+
+        btnRehacer.setBackground(new java.awt.Color(71, 100, 104));
+        btnRehacer.setFont(new java.awt.Font("Gadugi", 1, 14)); // NOI18N
+        btnRehacer.setForeground(new java.awt.Color(0, 0, 0));
+        btnRehacer.setText("REHACER");
+        btnRehacer.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRehacerActionPerformed(evt);
+            }
+        });
+        Cursos.add(btnRehacer, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 390, -1, -1));
 
         getContentPane().add(Cursos, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1000, 570));
 
@@ -209,13 +248,23 @@ public class GestionCursos extends javax.swing.JInternalFrame {
 
     private void btnBorrarCursoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBorrarCursoActionPerformed
         String id = txtCodigoCurso.getText();
+
         try {
             control.eliminarCurso(id);
             actualizarTablaAdmin();
-        } catch (NullPointerException e) {
-            JOptionPane.showMessageDialog(null, "No se encuentra el Curso");
+        } catch (cursoYaExisteException ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage());
         }
+
+
     }//GEN-LAST:event_btnBorrarCursoActionPerformed
+
+    private void llenarComboPrograma() {
+        cbProgramas.removeAllItems();
+        for (Programa value : Programa.values()) {
+            cbProgramas.addItem(value);
+        }
+    }
 
     private void llenarCombo() {
         cbDocente.removeAllItems();
@@ -233,21 +282,37 @@ public class GestionCursos extends javax.swing.JInternalFrame {
 
     }
 
-    private void btnInsertarCursoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsertarCursoActionPerformed
+    private boolean camposVacios() {
+        if (txtCodigoCurso.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Todos los campos son obligatorios", "Campos Vacíos", JOptionPane.WARNING_MESSAGE);
+            return true;
+        }
+        return false;
+    }
 
+
+    private void btnInsertarCursoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsertarCursoActionPerformed
+        if (camposVacios()) {
+            return;
+        }
         Docente docente = (Docente) cbDocente.getSelectedItem();
         String codigoCurso = txtCodigoCurso.getText();
-        String periodo = cbPeriodo.getSelectedItem().toString();
+        String periodo = control.validarPeriodoAnio();
         System.out.println(periodo);
         String jornada = cbJornada.getSelectedItem().toString();
         Materia materia = (Materia) cbMaterias.getSelectedItem();
-        Curso curso = new Curso(materia, docente, periodo, codigoCurso, jornada);
+        Programa programa = (Programa) cbProgramas.getSelectedItem();
+        Curso curso = new Curso(programa, materia, docente, periodo, codigoCurso, jornada);
         try {
             control.agregarCurso(curso);
             actualizarTablaAdmin();
 
         } catch (NullPointerException e) {
             JOptionPane.showMessageDialog(null, "No hay docentes Registrados");
+            return;
+        } catch (cursoYaExisteException | yaEstaCreadoCursoException ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage());
+            return;
         }
 
 
@@ -255,45 +320,103 @@ public class GestionCursos extends javax.swing.JInternalFrame {
     private void actualizarTablaAdmin() {
         DefaultTableModel modeloTabla = (DefaultTableModel) tbCursos.getModel();
         modeloTabla.setRowCount(0);
+        String periodoActual = control.validarPeriodoAnio();
         Curso curso;
         for (int i = 0; i < control.getListaCursos().size(); i++) {
-            curso = control.getListaCursos().get(i);
-            String[] rowData = {
-                curso.getMateria().toString(),
-                curso.getDocente().getNombre(),
-                curso.getPeriodo(),
-                curso.getJornada(),};
-            modeloTabla.addRow(rowData);
+            if (control.getListaCursos().get(i).getPeriodo().equals(periodoActual)) {
+                curso = control.getListaCursos().get(i);
+                String[] rowData = {
+                    curso.getMateria().toString(),
+                    curso.getDocente().getNombre(),
+                    curso.getPeriodo(),
+                    curso.getJornada(),
+                    curso.getPrograma().toString()
+                };
+                modeloTabla.addRow(rowData);
+            }
         }
         tbCursos.setModel(modeloTabla);
         tbCursos.revalidate();
     }
     private void btnBuscarCursoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarCursoActionPerformed
         try {
+            if (camposVacios()) {
+                return;
+            }
             String id = txtCodigoCurso.getText();
             Curso curso = control.buscarCurso(id);
             cbDocente.setSelectedItem(curso.getDocente());
-            cbPeriodo.setSelectedItem(curso.getPeriodo());
             cbJornada.setSelectedItem(curso.getJornada());
             cbMaterias.setSelectedItem(curso.getMateria());
-
+            cbProgramas.setSelectedItem(curso.getPrograma());
         } catch (NullPointerException e) {
             JOptionPane.showMessageDialog(null, "No se encuentra el Curso");
         }
     }//GEN-LAST:event_btnBuscarCursoActionPerformed
 
     private void btnActualizarCursoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarCursoActionPerformed
-
+        if (camposVacios()) {
+            return;
+        }
         Docente docente = (Docente) cbDocente.getSelectedItem();
         String codigoCurso = txtCodigoCurso.getText();
-        String periodo = cbPeriodo.getSelectedItem().toString();
-        System.out.println(periodo);
+        String periodo = control.validarPeriodoAnio();
         String jornada = cbJornada.getSelectedItem().toString();
         Materia materia = (Materia) cbMaterias.getSelectedItem();
-        Curso curso = new Curso(materia, docente, periodo, codigoCurso, jornada);
-        control.ActualizarCurso(curso);
-        actualizarTablaAdmin();
+        Programa programa = (Programa) cbProgramas.getSelectedItem();
+        Curso curso = new Curso(programa, materia, docente, periodo, codigoCurso, jornada);
+        try {
+            control.ActualizarCurso(curso);
+            actualizarTablaAdmin();
+        } catch (NoSeEncuentraCursoException ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage());
+        }
+
     }//GEN-LAST:event_btnActualizarCursoActionPerformed
+
+    private void txtCodigoCursoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtCodigoCursoFocusLost
+        if (txtCodigoCurso.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Este campo es Obligatorio", "Campos Vacíos", JOptionPane.WARNING_MESSAGE);
+        }
+    }//GEN-LAST:event_txtCodigoCursoFocusLost
+
+    private void txtCodigoCursoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCodigoCursoKeyTyped
+        char num = evt.getKeyChar();
+        if (num < '0' || num > '9')
+            evt.consume();
+    }//GEN-LAST:event_txtCodigoCursoKeyTyped
+
+    private void btnDehacerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDehacerActionPerformed
+        try {
+            try {
+                control.dehacer();
+                 actualizarTablaAdmin();
+            } catch (NullPointerException e) {
+                JOptionPane.showMessageDialog(null, "No hay acciones para hacer");
+            }
+
+        } catch (cursoYaExisteException | yaEstaCreadoCursoException ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage());
+        }
+
+       
+    }//GEN-LAST:event_btnDehacerActionPerformed
+
+    private void btnRehacerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRehacerActionPerformed
+        try {
+             try {
+                control.rehacer();
+                actualizarTablaAdmin();
+            } catch (NullPointerException e) {
+                 JOptionPane.showMessageDialog(null, "No hay acciones para hacer");
+            }
+        } catch (cursoYaExisteException | yaEstaCreadoCursoException ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage());
+        }
+
+       
+    
+    }//GEN-LAST:event_btnRehacerActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -301,15 +424,17 @@ public class GestionCursos extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnActualizarCurso;
     private javax.swing.JButton btnBorrarCurso;
     private javax.swing.JButton btnBuscarCurso;
+    private javax.swing.JButton btnDehacer;
     private javax.swing.JButton btnInsertarCurso;
+    private javax.swing.JButton btnRehacer;
     private javax.swing.JComboBox<Docente> cbDocente;
     private javax.swing.JComboBox<String> cbJornada;
     private javax.swing.JComboBox cbMaterias;
-    private javax.swing.JComboBox<String> cbPeriodo;
+    private javax.swing.JComboBox cbProgramas;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel22;
-    private javax.swing.JLabel jLabel27;
     private javax.swing.JLabel jLabel28;
     private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel30;

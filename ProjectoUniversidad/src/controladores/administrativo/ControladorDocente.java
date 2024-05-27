@@ -4,7 +4,10 @@
  */
 package controladores.administrativo;
 
+import java.time.LocalDate;
+import java.time.Period;
 import modelado.Docente;
+import modelado.Estudiante;
 import modelado.Persona;
 import util.IList;
 
@@ -27,6 +30,14 @@ public class ControladorDocente {
         return null;
     }
     
+      public String calcularEdad(Docente estu){
+     Persona aux = buscarPersonal(estu.getId());
+     LocalDate fechaNacimiento = aux.getFechaNacimiento();
+     LocalDate fechaActual = LocalDate.now();
+     return String.valueOf(Period.between(fechaNacimiento, fechaActual).getYears());
+    }      
+        
+        
         
                 public IList<Persona> getListaPersonas() {
             return listaPersonas;

@@ -17,17 +17,18 @@ import util.Lista;
  */
 public class Estudiante extends Persona implements Serializable {
 
-    private IList<Curso> cursosMatriculados;
-    private IList<Curso> cursosAnteriores;
     private IList<Double> listaNotas;
     private Programa programa;
-
+    private IList<Notificacion>listaNotificaciones;
     public Estudiante( Programa programa, String nombre, String id, LocalDate fechaNacimiento, String nommbreUsuario, Contrasena contrasena, String rol) {
         super(nombre, id, fechaNacimiento, nommbreUsuario, contrasena, rol);
-        this.cursosMatriculados = new Lista<>();
-        this.cursosAnteriores = new Lista<>();
         this.listaNotas = new Lista<>();
+        this.listaNotificaciones = new Lista<>();
         this.programa = programa;
+    }
+
+    public IList<Notificacion> getListaNotificaciones() {
+        return listaNotificaciones;
     }
 
     @Override
@@ -43,21 +44,6 @@ public class Estudiante extends Persona implements Serializable {
         this.programa = programa;
     }
 
-    public IList<Curso> getCursosMatriculados() {
-        return cursosMatriculados;
-    }
-
-    public void setCursosMatriculados(IList<Curso> cursosMatriculados) {
-        this.cursosMatriculados = cursosMatriculados;
-    }
-
-    public IList<Curso> getCursosAnteriores() {
-        return cursosAnteriores;
-    }
-
-    public void setCursosAnteriores(IList<Curso> cursosAnteriores) {
-        this.cursosAnteriores = cursosAnteriores;
-    }
 
     public IList<Double> getListaNotas() {
         return listaNotas;

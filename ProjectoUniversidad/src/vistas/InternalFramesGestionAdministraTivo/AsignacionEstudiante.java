@@ -6,6 +6,12 @@ package vistas.InternalFramesGestionAdministraTivo;
 
 import controladores.administrativo.ControladorAsginarEstudiante;
 import controladores.administrativo.ControladorCurso;
+import excepciones.EstudianteNoExisteException;
+import excepciones.SecruzaHorarioException;
+import excepciones.YaEstaRegistradoExeption;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import modelado.Curso;
 import modelado.Enums.Materia;
@@ -142,7 +148,7 @@ public class AsignacionEstudiante extends javax.swing.JInternalFrame {
         cbHorario.setBackground(new java.awt.Color(71, 100, 104));
         cbHorario.setFont(new java.awt.Font("Gadugi", 1, 14)); // NOI18N
         cbHorario.setForeground(new java.awt.Color(255, 255, 255));
-        jPanel1.add(cbHorario, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 270, 350, -1));
+        jPanel1.add(cbHorario, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 270, 470, -1));
 
         tblEstudiante.setFont(new java.awt.Font("Gadugi", 1, 14)); // NOI18N
         tblEstudiante.setForeground(new java.awt.Color(0, 0, 0));
@@ -190,17 +196,23 @@ public class AsignacionEstudiante extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
-     Estudiante estudi =(Estudiante)   cbEstudiante.getSelectedItem();
-        this.control.asignarEstudiante(estudi);
-        Curso curso = (Curso) cbCursos.getSelectedItem();
-        actualizarTablaEstudiante(curso);
+        Estudiante estudi = (Estudiante) cbEstudiante.getSelectedItem();
+        try {
+            this.control.asignarEstudiante(estudi);
+            JOptionPane.showMessageDialog(null, "Se registro el estudiante");
+            Curso curso = (Curso) cbCursos.getSelectedItem();
+            actualizarTablaEstudiante(curso);
+        } catch (YaEstaRegistradoExeption | SecruzaHorarioException ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage());
+        }
+
 
     }//GEN-LAST:event_btnAgregarActionPerformed
     private void llenarCombo() {
-        cbCursos.removeAll();
-        for (int i = 0; i < controlCurso.getListaCursos().size(); i++) {
-            cbCursos.addItem(controlCurso.getListaCursos().get(i));
-        }
+            cbCursos.removeAll();
+            for (int i = 0; i < controlCurso.getListaCursos().size(); i++) {
+                cbCursos.addItem(controlCurso.getListaCursos().get(i));
+            }
         cbEstudiante.removeAllItems();
         IList<Persona> lista = controlCurso.getListaPersonas();
         for (int i = 0; i < lista.size(); i++) {
@@ -223,8 +235,8 @@ public class AsignacionEstudiante extends javax.swing.JInternalFrame {
             }
         }
     }
-    
-           private void actualizarTablaEstudiante(Curso curso) {
+
+    private void actualizarTablaEstudiante(Curso curso) {
         DefaultTableModel modeloTabla = (DefaultTableModel) tblEstudiante.getModel();
         modeloTabla.setRowCount(0);
         Estudiante estudiante;
@@ -245,14 +257,18 @@ public class AsignacionEstudiante extends javax.swing.JInternalFrame {
         tblEstudiante.setModel(modeloTabla);
         tblEstudiante.revalidate();
     }
-    
-    
-    
+
+
     private void btnExpulsionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExpulsionActionPerformed
-     Estudiante estudi =(Estudiante)   cbEstudiante.getSelectedItem();
-        this.control.quitarCursoEstudiante(estudi.getId());
-           Curso curso = (Curso) cbCursos.getSelectedItem();
-        actualizarTablaEstudiante(curso);
+        Estudiante estudi = (Estudiante) cbEstudiante.getSelectedItem();
+        try {
+            this.control.quitarCursoEstudiante(estudi.getId());
+            Curso curso = (Curso) cbCursos.getSelectedItem();
+            actualizarTablaEstudiante(curso);
+        } catch (EstudianteNoExisteException ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage());
+        }
+
     }//GEN-LAST:event_btnExpulsionActionPerformed
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed

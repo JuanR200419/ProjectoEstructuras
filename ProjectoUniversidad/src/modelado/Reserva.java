@@ -6,6 +6,7 @@ package modelado;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.time.LocalTime;
 
 /**
  *
@@ -14,19 +15,29 @@ import java.time.LocalDate;
 public class Reserva implements Serializable {
     Estudiante estudiante;
     LocalDate fecha;
-    LocalDate horaInicio;
-    LocalDate horaFinal;
-
-    public Reserva(Estudiante estudiante, LocalDate fecha, LocalDate horaInicio, LocalDate horaFinal) {
+    LocalTime horaInicio;
+    LocalTime horaFinal;
+    public Reserva(Estudiante estudiante, LocalDate fecha, LocalTime horaInicio,LocalTime horaFinal) {
         this.estudiante = estudiante;
         this.fecha = fecha;
         this.horaInicio = horaInicio;
         this.horaFinal = horaFinal;
     }
 
+    public LocalTime getHoraFinal() {
+        return horaFinal;
+    }
+
+    public void setHoraFinal(LocalTime horaFinal) {
+        this.horaFinal = horaFinal;
+    }
+
     public Estudiante getEstudiante() {
         return estudiante;
     }
+
+
+
 
     public void setEstudiante(Estudiante estudiante) {
         this.estudiante = estudiante;
@@ -40,20 +51,13 @@ public class Reserva implements Serializable {
         this.fecha = fecha;
     }
 
-    public LocalDate getHoraInicio() {
+    public LocalTime getHoraInicio() {
         return horaInicio;
     }
 
-    public void setHoraInicio(LocalDate horaInicio) {
+    public void setHoraInicio(LocalTime horaInicio) {
         this.horaInicio = horaInicio;
     }
 
-    public LocalDate getHoraFinal() {
-        return horaFinal;
-    }
-
-    public void setHoraFinal(LocalDate horaFinal) {
-        this.horaFinal = horaFinal;
-    }
     
 }

@@ -1,9 +1,12 @@
-/*
+    /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package modelado;
 
+import excepciones.EstudianteNoExisteException;
+import excepciones.SecruzaHorarioException;
+import excepciones.YaEstaRegistradoExeption;
 import excepciones.horaNoValidaException;
 import excepciones.unicoDiaException;
 import modelado.Enums.Materia;
@@ -11,9 +14,11 @@ import modelado.Enums.Dias;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.AbstractList;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
+import modelado.Enums.Programa;
 import util.Lista;
 
 /**
@@ -29,8 +34,9 @@ public class Curso implements Serializable {
     Materia materia;
     String codigoDeCurso;
     String jornada;
-
-    public Curso(Materia materia, Docente docente, String periodo, String codigoDeCurso, String jornada) {
+    Lista<Nota>listaNotas;
+    private Programa programa;
+    public Curso(Programa programa,Materia materia, Docente docente, String periodo, String codigoDeCurso, String jornada) {
         this.docente = docente;
         this.listaEstudiantes = new Lista<>();
         this.periodo = periodo;
@@ -38,12 +44,29 @@ public class Curso implements Serializable {
         this.materia = materia;
         this.codigoDeCurso = codigoDeCurso;
         this.jornada = jornada;
+        this.listaNotas = new Lista<>();
+        this.programa = programa;
+    }
 
+    public Lista<Nota> getListaNotas() {
+        return listaNotas;
+    }
+
+    public Programa getPrograma() {
+        return programa;
+    }
+
+    public void setPrograma(Programa programa) {
+        this.programa = programa;
+    }
+
+    public void setListaNotas(Lista<Nota> listaNotas) {
+        this.listaNotas = listaNotas;
     }
 
     @Override
     public String toString() {
-        return this.materia.toString() + "-Docente: " + this.docente.getNombre() + "-Codigo: " + this.codigoDeCurso;
+        return this.materia.toString() + "-Docente: " + this.docente.getNombre() + " Programa: "+this.programa.toString() + " -Codigo: " + this.codigoDeCurso;
     }
 // validaciones Para el dia 
 
@@ -61,10 +84,6 @@ public class Curso implements Serializable {
         }
     }
 
- 
-     
-    
-    
     public void eliminarHorario(Dias dia) {
         Horario res = validarDiaUnic(dia);
         if (res != null) {
@@ -82,6 +101,7 @@ public class Curso implements Serializable {
         }
     }
 
+   
     public Horario validarDiaUnic(Dias dia) {
         for (int i = 0; i < this.horariosEstablecidos.size(); i++) {
             if (horariosEstablecidos.get(i).getDia().equals(dia)) {
@@ -114,27 +134,26 @@ public class Curso implements Serializable {
         }
         return null;
     }
+// METODOS DE ASIGNACION DE ESTUDIANTE
 
-    public void asignarEstudiante(Estudiante estudiante) {
+    public void asignarEstudiante(Estudiante estudiante) throws YaEstaRegistradoExeption{
         Estudiante estudi = buscarEstudiante(estudiante.getId());
-        if (estudi == null) {
-            listaEstudiantes.add(estudiante);
-            JOptionPane.showMessageDialog(null, "Se registro el estudiante");
-        } else {
-            System.out.println("exception de ya esta registrado este estudiante");
-        }
-    }
+            if (estudi == null) {
+                listaEstudiantes.add(estudiante);
 
-    public void quitarCursoEstudiante(String codigo) {
+            } else {
+                throw new YaEstaRegistradoExeption();
+            }
+        } 
+
+    public void quitarCursoEstudiante(String codigo) throws EstudianteNoExisteException {
         Estudiante estudi = buscarEstudiante(codigo);
         if (estudi == null) {
-            System.out.println("exception de estudiante no esta en este curso o no existe");
+            throw new EstudianteNoExisteException();
         }
-        if (estudi != null) {
-            for (int i = 0; i < listaEstudiantes.size(); i++) {
-                if (listaEstudiantes.get(i).getId().equals(codigo)) {
-                    listaEstudiantes.remove(estudi);
-                }
+        for (int i = 0; i < listaEstudiantes.size(); i++) {
+            if (listaEstudiantes.get(i).getId().equals(codigo)) {
+                listaEstudiantes.remove(estudi);
             }
         }
     }

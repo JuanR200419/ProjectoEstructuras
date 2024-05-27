@@ -4,17 +4,22 @@
  */
 package vistas.Docente;
 
+import javax.swing.JOptionPane;
+import modelado.Docente;
+
+import vistasPrincipales.Login;
+
 /**
  *
  * @author Juan Manuel
  */
 public class DocenteInicial extends javax.swing.JFrame {
 
-    /**
-     * Creates new form DocenteInicial
-     */
-    public DocenteInicial() {
+   Docente docente;
+    public DocenteInicial(Docente docente) {
         initComponents();
+        this.setLocationRelativeTo(this);
+        this.docente=docente;
     }
 
     /**
@@ -31,6 +36,7 @@ public class DocenteInicial extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
+        jMenu1 = new javax.swing.JMenu();
         definirNotas = new javax.swing.JMenu();
         Calificaciones = new javax.swing.JMenu();
         Horarios = new javax.swing.JMenu();
@@ -41,7 +47,9 @@ public class DocenteInicial extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(0, 39, 44));
         jPanel1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
+        jLabel2.setBackground(new java.awt.Color(255, 255, 255));
         jLabel2.setFont(new java.awt.Font("Gadugi", 1, 24)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("DOCENTE ");
 
         jPanel2.setBackground(new java.awt.Color(71, 100, 104));
@@ -89,6 +97,14 @@ public class DocenteInicial extends javax.swing.JFrame {
                 .addContainerGap(45, Short.MAX_VALUE))
         );
 
+        jMenu1.setText("Atras");
+        jMenu1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMenu1MouseClicked(evt);
+            }
+        });
+        jMenuBar1.add(jMenu1);
+
         definirNotas.setText("Definir Notas");
         definirNotas.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -101,6 +117,9 @@ public class DocenteInicial extends javax.swing.JFrame {
         Calificaciones.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 CalificacionesMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                CalificacionesMouseEntered(evt);
             }
         });
         jMenuBar1.add(Calificaciones);
@@ -138,55 +157,51 @@ public class DocenteInicial extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void definirNotasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_definirNotasMouseClicked
-        // TODO add your handling code here:
+        DefinirNotas ven = new DefinirNotas(docente);
+        ven.setVisible(true);
+        ven.setLocationRelativeTo(this);
+        this.dispose();
     }//GEN-LAST:event_definirNotasMouseClicked
 
     private void CalificacionesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_CalificacionesMouseClicked
-        // TODO add your handling code here:
+        try {   
+        CalificarEstudiante ven = new CalificarEstudiante(docente);
+        ven.setVisible(true);
+        ven.setLocationRelativeTo(this);
+        this.dispose();
+        }catch (ArrayIndexOutOfBoundsException e) {
+            JOptionPane.showMessageDialog(null, "Las notas no estan definidas");
+        }
     }//GEN-LAST:event_CalificacionesMouseClicked
 
     private void HorariosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_HorariosMouseClicked
-        // TODO add your handling code here:
+        Horario ven = new Horario(docente);
+        ven.setVisible(true);
+        ven.setLocationRelativeTo(this);
+        this.dispose();
     }//GEN-LAST:event_HorariosMouseClicked
 
     private void HistorialMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_HistorialMouseClicked
-        // TODO add your handling code here:
+        Historial ven = new Historial(docente);
+        ven.setVisible(true);
+        ven.setLocationRelativeTo(this);
+        this.dispose();
     }//GEN-LAST:event_HistorialMouseClicked
+
+    private void jMenu1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu1MouseClicked
+       Login log = new Login();
+       log.setVisible(true);
+       this.dispose();
+    }//GEN-LAST:event_jMenu1MouseClicked
+
+    private void CalificacionesMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_CalificacionesMouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_CalificacionesMouseEntered
 
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(DocenteInicial.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(DocenteInicial.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(DocenteInicial.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(DocenteInicial.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new DocenteInicial().setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu Calificaciones;
@@ -195,6 +210,7 @@ public class DocenteInicial extends javax.swing.JFrame {
     private javax.swing.JMenu definirNotas;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;

@@ -12,6 +12,8 @@ import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import modelado.Curso;
 import modelado.Laboratorio;
+import modelado.Mantenimiento;
+import modelado.Notificacion;
 import modelado.Persona;
 import modelado.Reserva;
 import util.IList;
@@ -27,13 +29,30 @@ public class Serializador {
     IList<Curso> cursos;
     IList<Persona> personas;
     IList<Reserva> reservas;
+     IList<Mantenimiento>mantenimientos;
+     IList<Notificacion>notificaciones;
     Laboratorio[][] laboratorios;
-
+    int numPuesto;
     private Serializador() {
         this.cursos = leerCursos();
         this.personas = leerPersonal();
         this.reservas = leerReservas();
         this.laboratorios = leerLaboratorios();
+        this.numPuesto = leerNumPuesto();
+        this.mantenimientos= leerMantenimiento();
+        this.notificaciones = leerNotificacion();
+    }
+
+    public IList<Notificacion> getNotificaciones() {
+        return notificaciones;
+    }
+
+    public IList<Mantenimiento> getMantenimientos() {
+        return mantenimientos;
+    }
+
+    public int getNumPuesto() {
+        return numPuesto;
     }
 
     public static Serializador getSeri() {
@@ -75,7 +94,28 @@ public class Serializador {
             return new Lista<>();
         }
     }
+    
+        public void escribirNotificacion() {
+        try {
+            FileOutputStream archivo = new FileOutputStream("Notificacion.dat");
+            ObjectOutputStream escritor = new ObjectOutputStream(archivo);
+            escritor.writeObject(notificaciones);
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
 
+    public IList<Notificacion> leerNotificacion() {
+        try {
+            FileInputStream archivo = new FileInputStream("Notificacion.dat");
+            ObjectInputStream lector = new ObjectInputStream(archivo);
+            return (IList<Notificacion>) lector.readObject();
+        } catch (IOException | ClassNotFoundException ex) {
+            return new Lista<>();
+        }
+    }
+    
+    
     public void escribirPersonal() {
         try {
             FileOutputStream archivo = new FileOutputStream("Personas.dat");
@@ -135,5 +175,47 @@ public class Serializador {
             return new Laboratorio[3][5]; // O el tamaño predeterminado que desees
         }
     }
+    
+          public void escribirNumPuesto(int numPuesto) {
+        try {
+            FileOutputStream archivo = new FileOutputStream("numPuesto.dat");
+            ObjectOutputStream escritor = new ObjectOutputStream(archivo);
+            escritor.writeObject(numPuesto);
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
 
+    public int leerNumPuesto() {
+        try {
+            FileInputStream archivo = new FileInputStream("numPuesto.dat");
+            ObjectInputStream lector = new ObjectInputStream(archivo);
+            return (int) lector.readObject();
+        } catch (IOException | ClassNotFoundException ex) {
+            return 0;
+        }
+    }
+    
+      public void escribirMantenimiento() {
+        try {
+            FileOutputStream archivo = new FileOutputStream("mantenimiento.dat");
+            ObjectOutputStream escritor = new ObjectOutputStream(archivo);
+            escritor.writeObject(mantenimientos);
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    public IList<Mantenimiento> leerMantenimiento() {
+        try {
+            FileInputStream archivo = new FileInputStream("mantenimiento.dat");
+            ObjectInputStream lector = new ObjectInputStream(archivo);
+            return (Lista<Mantenimiento>) lector.readObject();
+        } catch (IOException | ClassNotFoundException ex) {
+            return new Lista<>();
+        }
+    }
+    
+    
+    
 }

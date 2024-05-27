@@ -1,13 +1,10 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JInternalFrame.java to edit this template
- */
 package vistas.InternalFramesGestionAdministraTivo;
 
 import com.toedter.calendar.JTextFieldDateEditor;
 import controladores.administrativo.ControladorAdminLab;
 import controladores.administrativo.ControladorEstudiante;
 import java.time.LocalDate;
+import java.util.Calendar;
 import java.util.Date;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -31,6 +28,7 @@ public class GestionEstudiante extends javax.swing.JInternalFrame {
         JTextFieldDateEditor editor4 = (JTextFieldDateEditor) dateEstudiante.getDateEditor();
         editor4.setEditable(false);
         llenarCombo();
+        cambiarCalendario();
     }
 
     /**
@@ -73,6 +71,16 @@ public class GestionEstudiante extends javax.swing.JInternalFrame {
         txtIdentificacionEstudiante.setBackground(new java.awt.Color(71, 100, 104));
         txtIdentificacionEstudiante.setFont(new java.awt.Font("Gadugi", 1, 14)); // NOI18N
         txtIdentificacionEstudiante.setForeground(new java.awt.Color(255, 255, 255));
+        txtIdentificacionEstudiante.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtIdentificacionEstudianteFocusLost(evt);
+            }
+        });
+        txtIdentificacionEstudiante.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtIdentificacionEstudianteKeyTyped(evt);
+            }
+        });
         Estudiante.add(txtIdentificacionEstudiante, new org.netbeans.lib.awtextra.AbsoluteConstraints(236, 203, 199, -1));
 
         jLabel11.setFont(new java.awt.Font("Gadugi", 1, 14)); // NOI18N
@@ -143,34 +151,64 @@ public class GestionEstudiante extends javax.swing.JInternalFrame {
         txtUsuarioEstudiante.setBackground(new java.awt.Color(71, 100, 104));
         txtUsuarioEstudiante.setFont(new java.awt.Font("Gadugi", 1, 14)); // NOI18N
         txtUsuarioEstudiante.setForeground(new java.awt.Color(255, 255, 255));
+        txtUsuarioEstudiante.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtUsuarioEstudianteFocusLost(evt);
+            }
+        });
+        txtUsuarioEstudiante.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtUsuarioEstudianteKeyTyped(evt);
+            }
+        });
         Estudiante.add(txtUsuarioEstudiante, new org.netbeans.lib.awtextra.AbsoluteConstraints(236, 61, 199, -1));
 
         txtContraEstudiante.setBackground(new java.awt.Color(71, 100, 104));
         txtContraEstudiante.setFont(new java.awt.Font("Gadugi", 1, 14)); // NOI18N
         txtContraEstudiante.setForeground(new java.awt.Color(255, 255, 255));
+        txtContraEstudiante.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtContraEstudianteFocusLost(evt);
+            }
+        });
+        txtContraEstudiante.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtContraEstudianteKeyTyped(evt);
+            }
+        });
         Estudiante.add(txtContraEstudiante, new org.netbeans.lib.awtextra.AbsoluteConstraints(236, 107, 199, -1));
 
         txtNombreEstudiante.setBackground(new java.awt.Color(71, 100, 104));
         txtNombreEstudiante.setFont(new java.awt.Font("Gadugi", 1, 14)); // NOI18N
         txtNombreEstudiante.setForeground(new java.awt.Color(255, 255, 255));
+        txtNombreEstudiante.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtNombreEstudianteFocusLost(evt);
+            }
+        });
+        txtNombreEstudiante.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtNombreEstudianteKeyTyped(evt);
+            }
+        });
         Estudiante.add(txtNombreEstudiante, new org.netbeans.lib.awtextra.AbsoluteConstraints(236, 156, 199, -1));
 
         tblEstudiante.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
             },
             new String [] {
-                "Nombre", "identificacion", "Nombre de Usuario", "Contraseña", "Programa"
+                "Nombre", "identificacion", "Nombre de Usuario", "Contraseña", "Programa", "Edad"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
+                false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -215,7 +253,45 @@ public class GestionEstudiante extends javax.swing.JInternalFrame {
         }
     }
 
+    private void cambiarCalendario() {
+        Calendar cal1 = Calendar.getInstance();
+        Calendar cal2 = Calendar.getInstance();
+        cal1.set(Calendar.YEAR, 2008); // Configura el año máximo como 2008
+        cal2.set(Calendar.YEAR, 1934); // Configura el año mínimo como 1934
+        dateEstudiante.setMinSelectableDate(cal2.getTime());
+        dateEstudiante.setMaxSelectableDate(cal1.getTime());
+        dateEstudiante.setDate(cal1.getTime());
+        JTextFieldDateEditor editor4 = (JTextFieldDateEditor) dateEstudiante.getDateEditor();
+        editor4.setEditable(false);
+    }
+
+    private boolean camposVacios() {
+        if (txtNombreEstudiante.getText().isEmpty()
+                || txtIdentificacionEstudiante.getText().isEmpty()
+                || txtUsuarioEstudiante.getText().isEmpty()
+                || txtContraEstudiante.getPassword().length == 0
+                || dateEstudiante.getDate() == null) {
+            JOptionPane.showMessageDialog(this, "Todos los campos son obligatorios", "Campos Vacíos", JOptionPane.WARNING_MESSAGE);
+            return true;
+        }
+        return false;
+    }
+    
+    private void limpiar() {
+    txtIdentificacionEstudiante.setText("");
+    txtNombreEstudiante.setText("");
+    txtContraEstudiante.setText("");
+    txtUsuarioEstudiante.setText("");
+    LocalDate fechaActual = LocalDate.now();
+    dateEstudiante.setDate(java.sql.Date.valueOf(fechaActual));
+}
+    
+
     private void btnInsertarEstudianteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsertarEstudianteActionPerformed
+        if (camposVacios()) {
+            return;
+        }
+
         String nombreUser = txtUsuarioEstudiante.getText();
         String contrasena = String.valueOf(txtContraEstudiante.getPassword());
         String nombre = txtNombreEstudiante.getText();
@@ -223,24 +299,28 @@ public class GestionEstudiante extends javax.swing.JInternalFrame {
         Date fecha = dateEstudiante.getDate();
         LocalDate fechaNacimiento = fecha.toInstant().atZone(java.time.ZoneId.systemDefault()).toLocalDate();
         Programa programa = (Programa) cbProgramas.getSelectedItem();
-         Contrasena contrasenaOfi = new Contrasena(contrasena);
+        Contrasena contrasenaOfi = new Contrasena(contrasena);
         Estudiante estudi = new Estudiante(programa, nombre, id, fechaNacimiento, nombreUser, contrasenaOfi, "Estudiante");
         control.agregarEstudiante(estudi);
         actualizarTablaEstudiante();
+        limpiar();
     }//GEN-LAST:event_btnInsertarEstudianteActionPerformed
     private void actualizarTablaEstudiante() {
         DefaultTableModel modeloTabla = (DefaultTableModel) tblEstudiante.getModel();
         modeloTabla.setRowCount(0);
         Estudiante estudiante;
+        
         for (int i = 0; i < control.getListaPersonas().size(); i++) {
             if (control.getListaPersonas().get(i) instanceof Estudiante) {
                 estudiante = (Estudiante) control.getListaPersonas().get(i);
+               String edad= control.calcularEdad(estudiante);
                 String[] rowData = {
                     estudiante.getNombre(),
                     estudiante.getId(),
                     estudiante.getNommbreUsuario(),
                     estudiante.getContrasena().getIdenContrasena(),
-                    estudiante.getPrograma().toString()
+                    estudiante.getPrograma().toString(),
+                    edad
                 };
                 modeloTabla.addRow(rowData);
             }
@@ -250,32 +330,36 @@ public class GestionEstudiante extends javax.swing.JInternalFrame {
         tblEstudiante.revalidate();
     }
     private void btnBuscarEstudianteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarEstudianteActionPerformed
-        try {
-            String id = txtIdentificacionEstudiante.getText();
-            Persona persona = control.buscarPersonal(id);
-            if (persona instanceof Estudiante) {
-                Date fecha = java.sql.Date.valueOf(persona.getFechaNacimiento());
-                dateEstudiante.setDate(fecha);
-                txtNombreEstudiante.setText(persona.getNombre());
-                txtContraEstudiante.setText(persona.getContrasena().getIdenContrasena());
-                txtUsuarioEstudiante.setText(persona.getNommbreUsuario());
-                cbProgramas.setSelectedItem(((Estudiante) persona).getPrograma());
-            }
-        } catch (NullPointerException e) {
-            JOptionPane.showMessageDialog(null, "No se encuentra el Estudiante");
+        if (txtIdentificacionEstudiante.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "LLene el campo del id para poder buscar el usuario");
         }
+        String id = txtIdentificacionEstudiante.getText();
+        Persona persona = control.buscarPersonal(id);
+        if (persona instanceof Estudiante) {
+            Date fecha = java.sql.Date.valueOf(persona.getFechaNacimiento());
+            dateEstudiante.setDate(fecha);
+            txtNombreEstudiante.setText(persona.getNombre());
+            txtContraEstudiante.setText(persona.getContrasena().getIdenContrasena());
+            txtUsuarioEstudiante.setText(persona.getNommbreUsuario());
+            cbProgramas.setSelectedItem(((Estudiante) persona).getPrograma());
+        }
+
     }//GEN-LAST:event_btnBuscarEstudianteActionPerformed
 
     private void btnBorrarEstudianteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBorrarEstudianteActionPerformed
-        if (txtIdentificacionEstudiante.equals("")) {
+        if (txtIdentificacionEstudiante.getText().isEmpty()) {
             JOptionPane.showMessageDialog(null, "LLene el campo del id para poder borrar el usuario");
         }
         String id = txtIdentificacionEstudiante.getText();
         control.eliminarEstudiante(id);
         actualizarTablaEstudiante();
+        limpiar();
     }//GEN-LAST:event_btnBorrarEstudianteActionPerformed
 
     private void btnActualizarEstudianteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarEstudianteActionPerformed
+        if (camposVacios()) {
+            return;
+        }
         String nombreUser = txtUsuarioEstudiante.getText();
         String contrasena = String.valueOf(txtContraEstudiante.getPassword());
         String nombre = txtNombreEstudiante.getText();
@@ -287,7 +371,54 @@ public class GestionEstudiante extends javax.swing.JInternalFrame {
         Estudiante estudi = new Estudiante(program, nombre, id, fechaNacimiento, nombreUser, contrasenaOfi, "Estudiante");
         control.ActualizarEstudiante(estudi);
         actualizarTablaEstudiante();
+        limpiar();
     }//GEN-LAST:event_btnActualizarEstudianteActionPerformed
+
+    private void txtUsuarioEstudianteFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtUsuarioEstudianteFocusLost
+        if (txtUsuarioEstudiante.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Todos los campos son obligatorios", "Campos Vacíos", JOptionPane.WARNING_MESSAGE);
+        }
+    }//GEN-LAST:event_txtUsuarioEstudianteFocusLost
+
+    private void txtUsuarioEstudianteKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtUsuarioEstudianteKeyTyped
+         char letras = evt.getKeyChar();
+        if ((letras < 'a' || letras > 'z') && (letras < 'A' || letras > 'Z'))
+            evt.consume();
+    }//GEN-LAST:event_txtUsuarioEstudianteKeyTyped
+
+    private void txtContraEstudianteFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtContraEstudianteFocusLost
+        if (txtContraEstudiante.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Todos los campos son obligatorios", "Campos Vacíos", JOptionPane.WARNING_MESSAGE);
+        }
+    }//GEN-LAST:event_txtContraEstudianteFocusLost
+
+    private void txtNombreEstudianteFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtNombreEstudianteFocusLost
+        if (txtNombreEstudiante.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Todos los campos son obligatorios", "Campos Vacíos", JOptionPane.WARNING_MESSAGE);
+        }
+    }//GEN-LAST:event_txtNombreEstudianteFocusLost
+
+    private void txtIdentificacionEstudianteFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtIdentificacionEstudianteFocusLost
+        if (txtIdentificacionEstudiante.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Todos los campos son obligatorios", "Campos Vacíos", JOptionPane.WARNING_MESSAGE);
+        }
+    }//GEN-LAST:event_txtIdentificacionEstudianteFocusLost
+
+    private void txtContraEstudianteKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtContraEstudianteKeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtContraEstudianteKeyTyped
+
+    private void txtNombreEstudianteKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreEstudianteKeyTyped
+        char letras = evt.getKeyChar();
+        if ((letras < 'a' || letras > 'z') && (letras < 'A' || letras > 'Z'))
+            evt.consume();
+    }//GEN-LAST:event_txtNombreEstudianteKeyTyped
+
+    private void txtIdentificacionEstudianteKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtIdentificacionEstudianteKeyTyped
+        char num = evt.getKeyChar();
+        if (num < '0' || num > '9')
+            evt.consume();
+    }//GEN-LAST:event_txtIdentificacionEstudianteKeyTyped
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

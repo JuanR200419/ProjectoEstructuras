@@ -2,10 +2,13 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package vistas;
+package vistasPrincipales;
 
+import com.toedter.calendar.JDateChooser;
+import com.toedter.calendar.JTextFieldDateEditor;
 import controladores.administrativo.ControladorRegistroAdministrativo;
 import java.time.LocalDate;
+import java.util.Calendar;
 import java.util.Date;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -21,10 +24,11 @@ import modelado.Persona;
 public class RegistroAdministrativo extends javax.swing.JFrame {
 
     ControladorRegistroAdministrativo control;
-    
+
     public RegistroAdministrativo() {
         initComponents();
-        this.control= new ControladorRegistroAdministrativo();
+        cambiarCalendario();
+        this.control = new ControladorRegistroAdministrativo();
         actualizarTablaAdmin();
     }
 
@@ -73,11 +77,29 @@ public class RegistroAdministrativo extends javax.swing.JFrame {
         txtUsuarioAdmin.setBackground(new java.awt.Color(71, 100, 104));
         txtUsuarioAdmin.setFont(new java.awt.Font("Gadugi", 0, 14)); // NOI18N
         txtUsuarioAdmin.setForeground(new java.awt.Color(255, 255, 255));
+        txtUsuarioAdmin.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtUsuarioAdminFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtUsuarioAdminFocusLost(evt);
+            }
+        });
+        txtUsuarioAdmin.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtUsuarioAdminKeyTyped(evt);
+            }
+        });
         Panel.add(txtUsuarioAdmin, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 140, 110, -1));
 
         txtContraAdmin.setBackground(new java.awt.Color(71, 100, 104));
         txtContraAdmin.setFont(new java.awt.Font("Gadugi", 0, 14)); // NOI18N
         txtContraAdmin.setForeground(new java.awt.Color(255, 255, 255));
+        txtContraAdmin.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtContraAdminFocusLost(evt);
+            }
+        });
         Panel.add(txtContraAdmin, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 180, 110, -1));
 
         jLabel2.setFont(new java.awt.Font("Gadugi", 1, 14)); // NOI18N
@@ -93,14 +115,34 @@ public class RegistroAdministrativo extends javax.swing.JFrame {
         txtNombreAdmin.setBackground(new java.awt.Color(71, 100, 104));
         txtNombreAdmin.setFont(new java.awt.Font("Gadugi", 0, 14)); // NOI18N
         txtNombreAdmin.setForeground(new java.awt.Color(255, 255, 255));
+        txtNombreAdmin.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtNombreAdminFocusLost(evt);
+            }
+        });
+        txtNombreAdmin.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtNombreAdminKeyTyped(evt);
+            }
+        });
         Panel.add(txtNombreAdmin, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 220, 110, -1));
 
         txtIdentificacionAdmin.setBackground(new java.awt.Color(71, 100, 104));
         txtIdentificacionAdmin.setFont(new java.awt.Font("Gadugi", 0, 14)); // NOI18N
         txtIdentificacionAdmin.setForeground(new java.awt.Color(255, 255, 255));
+        txtIdentificacionAdmin.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtIdentificacionAdminFocusLost(evt);
+            }
+        });
         txtIdentificacionAdmin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtIdentificacionAdminActionPerformed(evt);
+            }
+        });
+        txtIdentificacionAdmin.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtIdentificacionAdminKeyTyped(evt);
             }
         });
         Panel.add(txtIdentificacionAdmin, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 270, 110, -1));
@@ -183,23 +225,23 @@ public class RegistroAdministrativo extends javax.swing.JFrame {
 
         tblAdmin.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         tblAdmin.setFont(new java.awt.Font("Gadugi", 1, 14)); // NOI18N
-        tblAdmin.setForeground(new java.awt.Color(255, 255, 255));
+        tblAdmin.setForeground(new java.awt.Color(0, 0, 0));
         tblAdmin.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "Nombre", "Identificacion", "Nombre de Usuario ", "Contraseña"
+                "Nombre", "Identificacion", "Nombre de Usuario ", "Contraseña", "Edad"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -217,6 +259,7 @@ public class RegistroAdministrativo extends javax.swing.JFrame {
             tblAdmin.getColumnModel().getColumn(1).setResizable(false);
             tblAdmin.getColumnModel().getColumn(2).setResizable(false);
             tblAdmin.getColumnModel().getColumn(3).setResizable(false);
+            tblAdmin.getColumnModel().getColumn(4).setResizable(false);
         }
 
         Panel.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 440, 588, 100));
@@ -226,29 +269,61 @@ public class RegistroAdministrativo extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnInsertarAdminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsertarAdminActionPerformed
+    private void cambiarCalendario() {
+        Calendar cal1 = Calendar.getInstance();
+        Calendar cal2 = Calendar.getInstance();
+        cal1.set(Calendar.YEAR, 2008); // Configura el año máximo como 2008
+        cal2.set(Calendar.YEAR, 1934); // Configura el año mínimo como 1934
+        dateAdmin.setMinSelectableDate(cal2.getTime());
+        dateAdmin.setMaxSelectableDate(cal1.getTime());
+        dateAdmin.setDate(cal1.getTime());
+        JTextFieldDateEditor editor4 = (JTextFieldDateEditor) dateAdmin.getDateEditor();
+        editor4.setEditable(false);
+    }
 
+
+    private void btnInsertarAdminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsertarAdminActionPerformed
+        if (camposVacios()) {
+            return;
+        }
         String nombre = txtNombreAdmin.getText();
         String id = txtIdentificacionAdmin.getText();
         Date fecha = dateAdmin.getDate();
         LocalDate fechaNacimiento = fecha.toInstant().atZone(java.time.ZoneId.systemDefault()).toLocalDate();
         String nombreUsuario = txtUsuarioAdmin.getText();
         String contrasena = String.valueOf(txtContraAdmin.getPassword());
-        Contrasena contrasenaOfi =new Contrasena(contrasena);
-        Administrativo admin = new Administrativo(nombre, id, fechaNacimiento, nombreUsuario, contrasenaOfi,"administrativo");
+        Contrasena contrasenaOfi = new Contrasena(contrasena);
+        Administrativo admin = new Administrativo(nombre, id, fechaNacimiento, nombreUsuario, contrasenaOfi, "administrativo");
         control.agregarAdmin(admin);
         actualizarTablaAdmin();
-  
+        limpiar();
     }//GEN-LAST:event_btnInsertarAdminActionPerformed
 
+    private boolean camposVacios() {
+        if (txtNombreAdmin.getText().isEmpty() || txtIdentificacionAdmin.getText().isEmpty() || txtUsuarioAdmin.getText().isEmpty() || txtContraAdmin.getPassword().length == 0 || dateAdmin.getDate() == null) {
+            JOptionPane.showMessageDialog(this, "Todos los campos son obligatorios", "Campos Vacíos", JOptionPane.WARNING_MESSAGE);
+            return true;
+        }
+        return false;
+
+    }
+
+    private void limpiar() {
+        txtIdentificacionAdmin.setText("");
+        txtNombreAdmin.setText("");
+        txtContraAdmin.setText("");
+        txtUsuarioAdmin.setText("");
+        LocalDate fechaActual = LocalDate.now();
+        dateAdmin.setDate(java.sql.Date.valueOf(fechaActual));
+    }
     private void btnBorrarAdminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBorrarAdminActionPerformed
-        if (txtIdentificacionAdmin.equals("")) {
+        if (txtIdentificacionAdmin.getText().isEmpty()) {
             JOptionPane.showMessageDialog(null, "LLene el campo del id para poder borrar el usuario");
         }
         String id = txtIdentificacionAdmin.getText();
         control.eliminarAdmin(id);
         actualizarTablaAdmin();
-   
+        limpiar();
     }//GEN-LAST:event_btnBorrarAdminActionPerformed
     private void actualizarTablaAdmin() {
         DefaultTableModel modeloTabla = (DefaultTableModel) tblAdmin.getModel();
@@ -257,11 +332,13 @@ public class RegistroAdministrativo extends javax.swing.JFrame {
         for (int i = 0; i < control.getListaPersonas().size(); i++) {
             if (control.getListaPersonas().get(i).getRol().equals("administrativo")) {
                 admin = (Administrativo) control.getListaPersonas().get(i);
+                String edad = control.calcularEdad(admin);
                 String[] rowData = {
                     admin.getNombre(),
                     admin.getId(),
                     admin.getNommbreUsuario(),
-                    admin.getContrasena().getIdenContrasena()
+                    admin.getContrasena().getIdenContrasena(),
+                    edad
                 };
                 modeloTabla.addRow(rowData);
             }
@@ -271,7 +348,7 @@ public class RegistroAdministrativo extends javax.swing.JFrame {
         tblAdmin.revalidate();
     }
     private void btnBuscarAdminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarAdminActionPerformed
-        if (txtIdentificacionAdmin.equals("")) {
+        if (txtIdentificacionAdmin.getText().isEmpty()) {
             JOptionPane.showMessageDialog(null, "LLene el campo del id para poder buscar el Administrador de Laboratorio");
         }
 
@@ -290,16 +367,20 @@ public class RegistroAdministrativo extends javax.swing.JFrame {
     }//GEN-LAST:event_btnBuscarAdminActionPerformed
 
     private void btnActualizarAdminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarAdminActionPerformed
+        if (camposVacios()) {
+            return;
+        }
         String nombre = txtNombreAdmin.getText();
         String id = txtIdentificacionAdmin.getText();
         Date fecha = dateAdmin.getDate();
         LocalDate fechaNacimiento = fecha.toInstant().atZone(java.time.ZoneId.systemDefault()).toLocalDate();
         String nombreUsuario = txtUsuarioAdmin.getText();
         String contrasena = String.valueOf(txtContraAdmin.getPassword());
-        Contrasena contrasenaOfi =new Contrasena(contrasena);
-        Administrativo admin = new Administrativo(nombre, id, fechaNacimiento, nombreUsuario, contrasenaOfi,"administrativo");
+        Contrasena contrasenaOfi = new Contrasena(contrasena);
+        Administrativo admin = new Administrativo(nombre, id, fechaNacimiento, nombreUsuario, contrasenaOfi, "administrativo");
         control.ActualizarAdmin(admin);
         actualizarTablaAdmin();
+        limpiar();
     }//GEN-LAST:event_btnActualizarAdminActionPerformed
 
     private void txtIdentificacionAdminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIdentificacionAdminActionPerformed
@@ -307,11 +388,57 @@ public class RegistroAdministrativo extends javax.swing.JFrame {
     }//GEN-LAST:event_txtIdentificacionAdminActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-       Login log = new Login();
-       log.setVisible(true);
-       log.setLocationRelativeTo(this);
-       this.dispose();
+        Login log = new Login();
+        log.setVisible(true);
+        log.setLocationRelativeTo(this);
+        this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void txtIdentificacionAdminKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtIdentificacionAdminKeyTyped
+        char num = evt.getKeyChar();
+        if (num < '0' || num > '9')
+            evt.consume();
+    }//GEN-LAST:event_txtIdentificacionAdminKeyTyped
+
+    private void txtUsuarioAdminKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtUsuarioAdminKeyTyped
+        char letras = evt.getKeyChar();
+        if ((letras < 'a' || letras > 'z') && (letras < 'A' || letras > 'Z'))
+            evt.consume();
+    }//GEN-LAST:event_txtUsuarioAdminKeyTyped
+
+    private void txtNombreAdminKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreAdminKeyTyped
+        char letras = evt.getKeyChar();
+        if ((letras < 'a' || letras > 'z') && (letras < 'A' || letras > 'Z'))
+            evt.consume();
+    }//GEN-LAST:event_txtNombreAdminKeyTyped
+
+    private void txtUsuarioAdminFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtUsuarioAdminFocusGained
+
+    }//GEN-LAST:event_txtUsuarioAdminFocusGained
+
+    private void txtUsuarioAdminFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtUsuarioAdminFocusLost
+        if (txtUsuarioAdmin.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Todos los campos son obligatorios", "Campos Vacíos", JOptionPane.WARNING_MESSAGE);
+        }
+    }//GEN-LAST:event_txtUsuarioAdminFocusLost
+
+    private void txtContraAdminFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtContraAdminFocusLost
+        if (txtContraAdmin.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Todos los campos son obligatorios", "Campos Vacíos", JOptionPane.WARNING_MESSAGE);
+        }
+    }//GEN-LAST:event_txtContraAdminFocusLost
+
+    private void txtNombreAdminFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtNombreAdminFocusLost
+        if (txtNombreAdmin.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Todos los campos son obligatorios", "Campos Vacíos", JOptionPane.WARNING_MESSAGE);
+        }
+    }//GEN-LAST:event_txtNombreAdminFocusLost
+
+    private void txtIdentificacionAdminFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtIdentificacionAdminFocusLost
+        if (txtIdentificacionAdmin.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Todos los campos son obligatorios", "Campos Vacíos", JOptionPane.WARNING_MESSAGE);
+        }
+    }//GEN-LAST:event_txtIdentificacionAdminFocusLost
 
     /**
      * @param args the command line arguments

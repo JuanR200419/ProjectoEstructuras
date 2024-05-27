@@ -4,6 +4,8 @@
  */
 package controladores.administrativo;
 
+import java.time.LocalDate;
+import java.time.Period;
 import javax.swing.JOptionPane;
 import modelado.Curso;
 import modelado.Estudiante;
@@ -28,7 +30,15 @@ public class ControladorEstudiante {
         }
         return null;
     }
-         
+        
+    public String calcularEdad(Estudiante estu){
+     Persona aux = buscarPersonal(estu.getId());
+     LocalDate fechaNacimiento = aux.getFechaNacimiento();
+     LocalDate fechaActual = LocalDate.now();
+     return String.valueOf(Period.between(fechaNacimiento, fechaActual).getYears());
+    }  
+      
+      
            public void agregarEstudiante(Estudiante estu) {
         Persona aux = buscarPersonal(estu.getId());
         if (aux == null) {

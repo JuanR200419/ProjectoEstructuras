@@ -7,6 +7,7 @@ package vistas.InternalFramesGestionAdministraTivo;
 import controladores.administrativo.ControladorCurso;
 import controladores.administrativo.ControladorHorarios;
 import excepciones.horaNoValidaException;
+import excepciones.noSepuedeCambiarHorarioCursoException;
 import excepciones.unicoDiaException;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -117,7 +118,7 @@ public class GestionarHorarios extends javax.swing.JInternalFrame {
                 cbCursosActionPerformed(evt);
             }
         });
-        jPanel1.add(cbCursos, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 80, 290, -1));
+        jPanel1.add(cbCursos, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 80, 580, -1));
 
         cbDias.setBackground(new java.awt.Color(71, 100, 104));
         cbDias.setFont(new java.awt.Font("Gadugi", 1, 14)); // NOI18N
@@ -204,7 +205,7 @@ public class GestionarHorarios extends javax.swing.JInternalFrame {
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 10, -1, -1));
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/calendario.png"))); // NOI18N
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 100, 150, 110));
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 150, 150, 110));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -281,9 +282,14 @@ public class GestionarHorarios extends javax.swing.JInternalFrame {
         LocalTime salida = LocalTime.of(horaSalida, minutoSalida);
         Horario horario = new Horario(dia, entrada, salida);
         try {
-            controlHorarios.guardarHorario(horario);
+            try {
+                controlHorarios.guardarHorario(horario);
+            } catch (NullPointerException e) {
+                JOptionPane.showMessageDialog(null, "No hay Cursos Disponibles");
+                return;
+            }
         } catch (horaNoValidaException | unicoDiaException ex) {
-           JOptionPane.showMessageDialog(null, ex.getMessage());
+            JOptionPane.showMessageDialog(null, ex.getMessage());
         }
         actualizarTablaAdmin(this.curso);
 
@@ -302,9 +308,14 @@ public class GestionarHorarios extends javax.swing.JInternalFrame {
 
     private void btnBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBorrarActionPerformed
 
-        Dias dia = (Dias) cbDias.getSelectedItem();
-        controlHorarios.eliminarHorario(dia);
-        actualizarTablaAdmin(curso);
+        try {
+            Dias dia = (Dias) cbDias.getSelectedItem();
+            controlHorarios.eliminarHorario(dia);
+            actualizarTablaAdmin(curso);
+        } catch (NullPointerException e) {
+            JOptionPane.showMessageDialog(null, "No hay Cursos Disponibles");
+            return;
+        }
 
 
     }//GEN-LAST:event_btnBorrarActionPerformed
@@ -321,7 +332,16 @@ public class GestionarHorarios extends javax.swing.JInternalFrame {
         int minutoSalida = Integer.parseInt(cbMinutoFinal.getSelectedItem().toString());
         LocalTime salida = LocalTime.of(horaSalida, minutoSalida);
         Horario horario = new Horario(dia, entrada, salida);
-        controlHorarios.actualizarHorario(horario);
+        try {
+            try {
+                controlHorarios.actualizarHorario(horario);
+            } catch (NullPointerException e) {
+                JOptionPane.showMessageDialog(null, "No hay Cursos Disponibles");
+            return;
+            }
+        } catch (noSepuedeCambiarHorarioCursoException ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage());
+        }
         actualizarTablaAdmin(curso);
 
 

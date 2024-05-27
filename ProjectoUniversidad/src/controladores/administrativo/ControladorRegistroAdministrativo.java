@@ -4,6 +4,8 @@
  */
 package controladores.administrativo;
 
+import java.time.LocalDate;
+import java.time.Period;
 import modelado.AdminLaboratorio;
 import modelado.Administrativo;
 import modelado.Persona;
@@ -19,7 +21,16 @@ public class ControladorRegistroAdministrativo {
         this.listaPersonas = Serializador.Serializador.getSeri().getPersonas();
     
     }
-
+    
+        public String calcularEdad(Administrativo estu){
+     Persona aux = buscarPersonal(estu.getId());
+     LocalDate fechaNacimiento = aux.getFechaNacimiento();
+     LocalDate fechaActual = LocalDate.now();
+     return String.valueOf(Period.between(fechaNacimiento, fechaActual).getYears());
+    }
+    
+    
+    
     public IList<Persona> getListaPersonas() {
         return listaPersonas;
     }
@@ -60,6 +71,7 @@ public class ControladorRegistroAdministrativo {
             aux.setNombre(admin.getNombre());
             aux.setNommbreUsuario(admin.getNommbreUsuario());
             aux.setFechaNacimiento(admin.getFechaNacimiento());
+            aux.setContrasena(admin.getContrasena());
             Serializador.Serializador.getSeri().escribirPersonal();
         } else {
             System.out.println("No se  actualizo este admin");

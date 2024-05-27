@@ -4,12 +4,21 @@
  */
 package vistas.Laboratorio;
 
+import controladores.AdminLab.controladorMantenimiento;
 import controladores.Laboratorio.controlLaboratorioInicial;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.time.LocalDate;
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
+import modelado.AdminLaboratorio;
+import modelado.Estudiante;
 import modelado.Laboratorio;
+import modelado.Mantenimiento;
+import modelado.Persona;
+import vistas.AdminLab.AdminLabInicio;
+import vistas.Estudiante.InicioEstudiante;
 
 /**
  *
@@ -19,14 +28,39 @@ public class LobbyLaboratorio extends javax.swing.JFrame implements ActionListen
 
     JButton[][] botones;
     controlLaboratorioInicial control;
+    Estudiante estudiante;
+    AdminLaboratorio adminLab;
+    Persona persona;
+    controladorMantenimiento controlMan;
 
-    public LobbyLaboratorio() {
+    public LobbyLaboratorio(Persona persona) {
         initComponents();
         this.setLocationRelativeTo(this);
         botones = new JButton[3][5];
         this.control = new controlLaboratorioInicial();
+        this.controlMan = new controladorMantenimiento();
+        this.persona = persona;
+        controlMan.validarEstadoTodosLaboratorios();
+        controlMan.eliminarTodosLosMantenimientos();
+        controlMan.borrarReservasMantenimiento();
+        control.cambiarEstado();
+        control.eliminarReservasTerminadas();
         cargarBotones();
         validarPosiciones();
+    }
+
+    private void AtrasValidado(Persona persona) {
+        if (persona instanceof AdminLaboratorio) {
+            this.adminLab = (AdminLaboratorio) persona;
+            AdminLabInicio admin = new AdminLabInicio(adminLab);
+            admin.setVisible(true);
+            this.dispose();
+        } else {
+            this.estudiante = (Estudiante) persona;
+            InicioEstudiante estudi = new InicioEstudiante(estudiante);
+            estudi.setVisible(true);
+            this.dispose();
+        }
     }
 
     private void cargarBotones() {
@@ -63,7 +97,7 @@ public class LobbyLaboratorio extends javax.swing.JFrame implements ActionListen
                         botones[i][j].addActionListener(this);
                         // Agregar el botón al panel principal
                         PanelPrincipal.add(botones[i][j]);
-                      texto--;
+                        texto--;
 
                     }
                 }
@@ -75,13 +109,13 @@ public class LobbyLaboratorio extends javax.swing.JFrame implements ActionListen
     public void validarPosiciones() {
         for (int i = 0; i < botones.length; i++) {
             for (int j = 0; j < botones[i].length; j++) {
-                Laboratorio lab = control.obtenerLocal(i, j);
+                Laboratorio lab = control.obtenerLaboratorio(i, j);
                 if (lab.getEstado().equals(Laboratorio.DISPONIBLE)) {
                     botones[i][j].setBackground(Color.WHITE);
                     botones[i][j].setText(String.valueOf(botones[i][j].getText()));
 
-                } else if (lab.getEstado().equals(Laboratorio.OCUPADO)) {
-                    botones[i][j].setBackground(Color.BLUE);
+                } else if (lab.getEstado().equals(Laboratorio.MANTENIMIENTO)) {
+                    botones[i][j].setBackground(Color.DARK_GRAY);
                     botones[i][j].setText(String.valueOf(botones[i][j].getText()));
                 }
             }
@@ -93,7 +127,20 @@ public class LobbyLaboratorio extends javax.swing.JFrame implements ActionListen
         for (int i = 0; i < botones.length; i++) {
             for (int j = 0; j < botones[i].length; j++) {
                 if (ae.getSource().equals(botones[i][j])) {
-                    System.out.println("obotnn");
+                    Laboratorio lab = control.obtenerLaboratorio(i, j);
+                    if (lab.getEstado().equals(Laboratorio.DISPONIBLE)) {
+                        System.out.println(lab.getNumeroLab());
+                        controlMan.validarEstadoTodosLaboratorios();
+                        PuestosLaboratorio pon = new PuestosLaboratorio(lab, persona);
+                        pon.setVisible(true);
+                        pon.setLocationRelativeTo(this);
+                        this.dispose();
+                    } else if (lab.getEstado().equals(Laboratorio.MANTENIMIENTO)) {
+                        Mantenimiento man = controlMan.buscarMantenimiento(lab, LocalDate.now());
+                        JOptionPane.showMessageDialog(null, "El laboratorio esta en mantenimiento "
+                                + man.getDescripcion()
+                        );
+                    }
                 }
             }
         }
@@ -108,6 +155,7 @@ public class LobbyLaboratorio extends javax.swing.JFrame implements ActionListen
         jLabel1 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -136,6 +184,14 @@ public class LobbyLaboratorio extends javax.swing.JFrame implements ActionListen
 
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/lab1.png"))); // NOI18N
 
+        jButton1.setBackground(new java.awt.Color(0, 51, 51));
+        jButton1.setText("ATRAS");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout PrimerPanelLayout = new javax.swing.GroupLayout(PrimerPanel);
         PrimerPanel.setLayout(PrimerPanelLayout);
         PrimerPanelLayout.setHorizontalGroup(
@@ -147,7 +203,8 @@ public class LobbyLaboratorio extends javax.swing.JFrame implements ActionListen
                 .addComponent(PanelPrincipal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(162, 162, 162))
             .addGroup(PrimerPanelLayout.createSequentialGroup()
-                .addGap(235, 235, 235)
+                .addComponent(jButton1)
+                .addGap(160, 160, 160)
                 .addComponent(jLabel1)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(PrimerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -159,8 +216,13 @@ public class LobbyLaboratorio extends javax.swing.JFrame implements ActionListen
         PrimerPanelLayout.setVerticalGroup(
             PrimerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PrimerPanelLayout.createSequentialGroup()
-                .addGap(17, 17, 17)
-                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(PrimerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(PrimerPanelLayout.createSequentialGroup()
+                        .addGap(17, 17, 17)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(PrimerPanelLayout.createSequentialGroup()
+                        .addComponent(jButton1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addGroup(PrimerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(PrimerPanelLayout.createSequentialGroup()
                         .addGap(18, 18, 18)
@@ -190,47 +252,18 @@ public class LobbyLaboratorio extends javax.swing.JFrame implements ActionListen
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        AtrasValidado(persona);
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(LobbyLaboratorio.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(LobbyLaboratorio.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(LobbyLaboratorio.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(LobbyLaboratorio.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new LobbyLaboratorio().setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel PanelPrincipal;
     private javax.swing.JPanel PrimerPanel;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
