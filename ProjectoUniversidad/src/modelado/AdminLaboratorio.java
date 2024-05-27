@@ -4,16 +4,24 @@
  */
 package modelado;
 
+import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.ArrayList;
 
 /**
  *
  * @author Juan Manuel
  */
-public class AdminLaboratorio extends Personal {
 
-    public AdminLaboratorio(String nombre, String id, LocalDate fechaNacimiento, String nommbreUsuario, String contrasena) {
-        super(nombre, id, fechaNacimiento, nommbreUsuario, contrasena);
+public class AdminLaboratorio extends Persona  implements Serializable{
+
+    public AdminLaboratorio(String nombre, String id, LocalDate fechaNacimiento, String nommbreUsuario, Contrasena contrasena, String rol) {
+        super(nombre, id, fechaNacimiento, nommbreUsuario, contrasena, rol);
     }
+
     
+
+   
+
+   
 }

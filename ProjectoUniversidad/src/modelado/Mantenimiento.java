@@ -4,22 +4,37 @@
  */
 package modelado;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 
 /**
  *
  * @author Juan Manuel
  */
-public class Mantenimiento {
-     public static final String DISPONIBLE = "Disponible ";
-    public static final String OCUPADO = "Ocupado";
+public class Mantenimiento implements Serializable {
+     public static final String DISPONIBLE = "En mantenimiento ";
+    public static final String OCUPADO = "Fuera de mantenimiento";
     private String estado;
-    LocalDate fechaMantenimiento;
-
-    public Mantenimiento() {
+    Laboratorio laboratorio;
+    LocalDate fechaMantenimientoInicial;
+    LocalDate fechaMantenimientoFinal;
+    String descripcion;
+    public Mantenimiento(Laboratorio laboratorio, LocalDate fechaMantenimientoInicial, LocalDate fechaMantenimientoFinal,String descripcion) {
+        this.laboratorio = laboratorio;
+        this.fechaMantenimientoInicial = fechaMantenimientoInicial;
+        this.fechaMantenimientoFinal = fechaMantenimientoFinal;
         this.estado = DISPONIBLE;
-        this.fechaMantenimiento = null;
+        this.descripcion = descripcion;
     }
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+    
 
     public String getEstado() {
         return estado;
@@ -29,13 +44,30 @@ public class Mantenimiento {
         this.estado = estado;
     }
 
-    public LocalDate getFechaMantenimiento() {
-        return fechaMantenimiento;
+    public Laboratorio getLaboratorio() {
+        return laboratorio;
     }
 
-    public void setFechaMantenimiento(LocalDate fechaMantenimiento) {
-        this.fechaMantenimiento = fechaMantenimiento;
+    public void setLaboratorio(Laboratorio laboratorio) {
+        this.laboratorio = laboratorio;
     }
+
+    public LocalDate getFechaMantenimientoInicial() {
+        return fechaMantenimientoInicial;
+    }
+
+    public void setFechaMantenimientoInicial(LocalDate fechaMantenimientoInicial) {
+        this.fechaMantenimientoInicial = fechaMantenimientoInicial;
+    }
+
+    public LocalDate getFechaMantenimientoFinal() {
+        return fechaMantenimientoFinal;
+    }
+
+    public void setFechaMantenimientoFinal(LocalDate fechaMantenimientoFinal) {
+        this.fechaMantenimientoFinal = fechaMantenimientoFinal;
+    }
+
     
     
 }

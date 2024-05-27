@@ -4,18 +4,25 @@
  */
 package modelado;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Juan Manuel
  */
-public class Usuario {
+public class Usuario  implements Serializable{
     private String nommbreUsuario;
-    private String contrasena;
+    private Contrasena contrasena;
+    String rol;
 
-    public Usuario(String nommbreUsuario, String contrasena) {
+    public Usuario(String nommbreUsuario, Contrasena contrasena, String rol) {
         this.nommbreUsuario = nommbreUsuario;
         this.contrasena = contrasena;
+        this.rol = rol;
     }
+
+
+  
 
     public String getNommbreUsuario() {
         return nommbreUsuario;
@@ -25,12 +32,22 @@ public class Usuario {
         this.nommbreUsuario = nommbreUsuario;
     }
 
-    public String getContrasena() {
+    public Contrasena getContrasena() {
         return contrasena;
     }
 
-    public void setContrasena(String contrasena) {
+    public void setContrasena(Contrasena contrasena) {
         this.contrasena = contrasena;
+    }
+
+
+
+    public String getRol() {
+        return rol;
+    }
+
+    public void setRol(String rol) {
+        this.rol = rol;
     }
     
     

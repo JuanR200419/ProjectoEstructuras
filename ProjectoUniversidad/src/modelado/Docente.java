@@ -1,9 +1,10 @@
-/*
+    /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package modelado;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import util.IList;
@@ -13,25 +14,25 @@ import util.Lista;
  *
  * @author Juan Manuel
  */
-public class Docente extends Personal {
-    ArrayList <Curso>listaCursos ;
+public class Docente extends Persona implements Serializable {
 
-    public Docente(String nombre, String id, LocalDate fechaNacimiento, String nommbreUsuario, String contrasena) {
-        super(nombre, id, fechaNacimiento, nommbreUsuario, contrasena);
-        this.listaCursos = new ArrayList();
+    IList<Curso> listaCursos;
+
+    public Docente(String nombre, String id, LocalDate fechaNacimiento, String nommbreUsuario, Contrasena contrasena, String rol) {
+        super(nombre, id, fechaNacimiento, nommbreUsuario, contrasena, rol);
+        this.listaCursos = new Lista<>();
     }
-
-    public ArrayList getListaCursos() {
+    
+   
+    
+    
+    public IList<Curso> getListaCursos() {
         return listaCursos;
     }
 
-    public void setListaCursos(ArrayList listaCursos) {
-        this.listaCursos = listaCursos;
+    @Override
+    public String toString() {
+        return "Nombre: " + this.getNombre() + " Codigo: " + this.getId();
     }
-   
-      @Override
-    public String toString(){
-        return this.getNombre() +" "+this.getId();
-    }
-    
+
 }

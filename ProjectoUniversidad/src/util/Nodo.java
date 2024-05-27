@@ -4,18 +4,20 @@
  */
 package util;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Juan Manuel
  */
-public class Nodo {
+public class Nodo<T> implements Serializable {
 
-    String dato;
-    Nodo nodoSig;
+    T dato;
+    Nodo<T> nodoSig;
 
-    public Nodo(String dato) {
+    public Nodo(T dato) {
         this.dato = dato;
-        this.nodoSig =null;
+        this.nodoSig = null;
     }
 
 }
