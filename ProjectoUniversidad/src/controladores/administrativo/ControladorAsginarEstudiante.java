@@ -7,6 +7,7 @@ package controladores.administrativo;
 import excepciones.EstudianteNoExisteException;
 import excepciones.SecruzaHorarioException;
 import excepciones.YaEstaRegistradoExeption;
+import excepciones.noTieneHorarioException;
 import modelado.Curso;
 import modelado.Estudiante;
 import modelado.Horario;
@@ -30,14 +31,18 @@ public class ControladorAsginarEstudiante {
         return curso.buscarEstudiante(codigo);
     }
 
-    public void asignarEstudiante(Estudiante estudiante) throws YaEstaRegistradoExeption, SecruzaHorarioException {
+    public void asignarEstudiante(Estudiante estudiante) throws YaEstaRegistradoExeption, SecruzaHorarioException,noTieneHorarioException {
         boolean validacion = validarEstudianteTodosCursos(estudiante.getId(), curso);
-        if (validacion) {
-            curso.asignarEstudiante(estudiante);
-            Serializador.Serializador.getSeri().escribirCurso();
+        if (!curso.getHorariosEstablecidos().isEmpty()) {
+            if (validacion) {
+                curso.asignarEstudiante(estudiante);
+                Serializador.Serializador.getSeri().escribirCurso();
 
-        } else {
-            throw new SecruzaHorarioException();
+            } else {
+                throw new SecruzaHorarioException();
+            }
+        }else{
+                throw new noTieneHorarioException();
         }
     }
 

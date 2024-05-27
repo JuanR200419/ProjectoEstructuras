@@ -9,6 +9,7 @@ import controladores.administrativo.ControladorCurso;
 import excepciones.EstudianteNoExisteException;
 import excepciones.SecruzaHorarioException;
 import excepciones.YaEstaRegistradoExeption;
+import excepciones.noTieneHorarioException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -202,7 +203,7 @@ public class AsignacionEstudiante extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(null, "Se registro el estudiante");
             Curso curso = (Curso) cbCursos.getSelectedItem();
             actualizarTablaEstudiante(curso);
-        } catch (YaEstaRegistradoExeption | SecruzaHorarioException ex) {
+        } catch (YaEstaRegistradoExeption | SecruzaHorarioException |noTieneHorarioException ex) {
             JOptionPane.showMessageDialog(null, ex.getMessage());
         }
 
